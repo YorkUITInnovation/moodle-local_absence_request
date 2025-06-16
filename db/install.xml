@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/absence_request/db" VERSION="2025061200" COMMENT="Absence Request plugin tables">
+  <TABLES>
+    <TABLE NAME="local_absence_request" COMMENT="Absence requests">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="faculty" TYPE="char" LENGTH="64" NOTNULL="false"/>
+        <FIELD NAME="circumstance" TYPE="char" LENGTH="32" NOTNULL="true"/>
+        <FIELD NAME="starttime" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="endtime" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="acadyear" TYPE="int" LENGTH="5" NOTNULL="true"/>
+        <FIELD NAME="termperiod" TYPE="char" LENGTH="1" NOTNULL="true"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_idx" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_absence_req_course" COMMENT="Courses for absence requests">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="absence_request_id" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="absence_request_fk" TYPE="foreign" FIELDS="absence_request_id" REFTABLE="local_absence_request" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="absence_request_id_idx" UNIQUE="false" FIELDS="absence_request_id"/>
+        <INDEX NAME="courseid_idx" UNIQUE="false" FIELDS="courseid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_absence_req_teacher" COMMENT="Teachers for absence request courses">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="absence_req_course_id" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="absence_req_course_fk" TYPE="foreign" FIELDS="absence_req_course_id" REFTABLE="local_absence_req_course" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="absence_req_course_id_idx" UNIQUE="false" FIELDS="absence_req_course_id"/>
+        <INDEX NAME="teacher_userid_idx" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>

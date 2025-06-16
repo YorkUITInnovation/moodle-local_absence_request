@@ -1,0 +1,29 @@
+<form method="get" action="">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="faculty">{{#str}}faculty, local_absence_request{{/str}}:</label>
+                <select name="faculty" id="faculty" class="form-control">
+                    {{#faculties}}
+                        <option value="{{acronym}}" {{#is_selected}}selected{{/is_selected}}>{{name}}</option>
+                    {{/faculties}}
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="starttime">{{#str}}from_date, local_absence_request{{/str}}:</label>
+                <input type="date" name="starttime" id="starttime" value="{{starttime}}" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="endtime">{{#str}}to_date, local_absence_request{{/str}}:</label>
+                <input type="date" name="endtime" id="endtime" value="{{endtime}}" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-3 align-self-center">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
