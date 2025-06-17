@@ -116,6 +116,7 @@ Access absence requests in two ways:
 1. **Via Email Link**:
    - Click the "View Absence Requests Report" link in any notification email
    - This takes you directly to the report filtered for your courses
+   - Wihtin a course, click on the More menu option and select "View Absence Report"
 
 2. **Via Moodle Navigation**:
    - Log in to Moodle
