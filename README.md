@@ -46,7 +46,7 @@ After installation, you can configure the plugin settings:
 1. Teachers will receive notifications when a student in their course submits an absence request
 2. They can view all absence requests for their courses through the "View Absence Requests Report" link found in the email they received
 ### For Faculty Administrators
-1. Faculty administrators can view all absence requests for their faculty through the "Faculty Absence Report" link
+1. Faculty administrators can view all absence requests for their faculty through the "Faculty Absence Report" link found on the home page. Note: the link may be in the more menu.
 2. They can filter requests by various criteria such as date range, faculty, and course
 
 ## Privacy
