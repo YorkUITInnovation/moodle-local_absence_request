@@ -209,5 +209,41 @@ class helper
 
         return $eligiblity;
     }
+
+    /**
+     * Generates the SQL parameters for the absence request report.
+     * @return \stdClass
+     */
+    public static function get_report_sql() {
+        $params = new \stdClass();
+        $params->fields = 'art.id,
+           ar.faculty,
+           ar.circumstance,
+           ar.starttime,
+           ar.endtime,
+           ar.acadyear,
+           ar.termperiod,
+           ar.timecreated,
+           us.firstname As student_firstname,
+           us.lastname As student_lastname,
+           us.idnumber As sisid,
+           us.email As student_email,
+           c.fullname,
+           c.shortname,
+           c.idnumber As course_id_number,
+           ut.firstname As teacher_firstname,
+           ut.lastname As teacher_lastname,
+           ut.email As teacher_email,
+           ut.idnumber As employee_id';
+
+        $params->from = ' {local_absence_req_teacher} art Inner Join
+           {local_absence_req_course} arc On arc.id = art.absence_req_course_id Inner Join
+           {course} c On c.id = arc.courseid Inner Join
+           {user} ut On ut.id = art.userid Inner Join
+           {local_absence_request} ar On ar.id = arc.absence_request_id Inner Join
+           {user} us On us.id = ar.userid';
+
+        return $params;
+    }
 }
 

@@ -4,11 +4,25 @@ require_once(__DIR__ . '/../../config.php');
 global $OUTPUT, $PAGE, $USER;
 $context = context_system::instance();
 require_login(1, false);
+
+if (!has_capability('local/absence_request:view_faculty_report', $context)) {
+    redirect(new moodle_url('/my/'), get_string('nopermission', 'local_absence_request'));
+}
+
 $PAGE->set_url(new moodle_url('/local/absence_request/view.php'));
 $selectedfaculty = optional_param('faculty', 'ALL', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHA);
+
+// If starttime is empty, set starttime to sunday of the current week
+if (empty($starttime)) {
+    $starttime = strtotime('last sunday');
+    $starttime = date('Y-m-d', $starttime);
+    // Now set endtime to the next saturday
+    $endtime = strtotime('next saturday');
+    $endtime = date('Y-m-d', $endtime);
+}
 
 // Get all faculties from user_info_data (fieldid=2, not LW).
 $faculties = [
@@ -30,6 +44,7 @@ foreach ($faculties as &$faculty) {
     $faculty['is_selected'] = ($faculty['acronym'] === $selectedfaculty);
 }
 $template_data = [
+    'showfaculties' => true,
     'faculties' => $faculties,
     'starttime' => $starttime,
     'endtime' => $endtime,
@@ -52,33 +67,10 @@ if (!$table->is_downloading()) {
     echo $OUTPUT->render_from_template('local_absence_request/faculty_filter_form', $template_data);
 }
 
-
-$fields = 'art.id,
-           ar.faculty,
-           ar.circumstance,
-           ar.starttime,
-           ar.endtime,
-           ar.acadyear,
-           ar.termperiod,
-           ar.timecreated,
-           us.firstname As student_firstname,
-           us.lastname As student_lastname,
-           us.idnumber As sisid,
-           us.email As student_email,
-           c.fullname,
-           c.shortname,
-           c.idnumber As course_id_number,
-           ut.firstname As teacher_firstname,
-           ut.lastname As teacher_lastname,
-           ut.email As teacher_email,
-           ut.idnumber As employee_id';
-
-$from = ' {local_absence_req_teacher} art Inner Join
-           {local_absence_req_course} arc On arc.id = art.absence_req_course_id Inner Join
-           {course} c On c.id = arc.courseid Inner Join
-           {user} ut On ut.id = art.userid Inner Join
-           {local_absence_request} ar On ar.id = arc.absence_request_id Inner Join
-           {user} us On us.id = ar.userid';
+// Get default SQL fields and from statement
+$sqlparams = \local_absence_request\helper::get_report_sql();
+$fields = $sqlparams->fields;
+$from = $sqlparams->from;
 
 $where = '';
 
@@ -94,10 +86,10 @@ if ($selectedfaculty !== 'ALL') {
 if (!empty($starttime)) {
     $where .= ($where ? ' AND ' : '') . " ar.starttime  BETWEEN ? AND ?";
     if (empty($endtime)) {
-        $endtime = strtotime($starttime . ' 23:59:59');
+        $endtime = $starttime . ' 23:59:59';
     }
-    $params[] = $starttime;
-    $params[] = $endtime;
+    $params[] = strtotime($starttime);
+    $params[] = strtotime($endtime);
 }
 
 $table->set_sql($fields, $from, $where, $params);

@@ -1,15 +1,17 @@
-<form method="get" action="">
+<form method="post" action="">
     <div class="row">
-        <div class="col-md-3">
-            <div class="form-group">
-                <label for="faculty">{{#str}}faculty, local_absence_request{{/str}}:</label>
-                <select name="faculty" id="faculty" class="form-control">
-                    {{#faculties}}
-                        <option value="{{acronym}}" {{#is_selected}}selected{{/is_selected}}>{{name}}</option>
-                    {{/faculties}}
-                </select>
+        {{#showfaculties}}
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="faculty">{{#str}}faculty, local_absence_request{{/str}}:</label>
+                    <select name="faculty" id="faculty" class="form-control">
+                        {{#faculties}}
+                            <option value="{{acronym}}" {{#is_selected}}selected{{/is_selected}}>{{name}}</option>
+                        {{/faculties}}
+                    </select>
+                </div>
             </div>
-        </div>
+        {{/showfaculties}}
         <div class="col-md-3">
             <div class="form-group">
                 <label for="starttime">{{#str}}from_date, local_absence_request{{/str}}:</label>

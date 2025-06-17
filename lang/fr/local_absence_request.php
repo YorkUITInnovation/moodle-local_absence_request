@@ -16,6 +16,7 @@ $string['error_term_period'] = "La demande d'absence doit être dans la période
 $string['faculty'] = "Faculté";
 $string['from_date'] = "Date de début";
 $string['max_requests_reached'] = "Vous avez atteint le nombre maximum de demandes d'absence pour cette session.";
+$string['nopermission'] = "Vous n'avez pas la permission de voir cette page.";
 $string['not_eligible'] = "Vous n'êtes pas éligible pour soumettre une demande d'absence.";
 $string['not_enrolled_in_courses'] = "Vous n'êtes inscrit à aucun cours pour cette session. Vous ne pouvez soumettre des demandes d'absence que pour les cours auxquels vous êtes inscrit.";
 $string['notify_instructor_body'] = "Un étudiant a soumis une demande d'absence. Voir le rapport : {$a}";
