@@ -74,3 +74,5 @@ $string['privacy:metadata:local_absence_req_teacher:timecreated'] = 'The time th
 $string['privacy:path:absencerequests'] = 'Absence requests';
 $string['privacy:path:teacherrequests'] = 'Teacher notifications';
 
+$string['teacher_firstname'] = 'Teacher First Name';
+$string['teacher_lastname'] = 'Teacher Last Name';

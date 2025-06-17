@@ -19,6 +19,8 @@ class absence_requests_table extends \table_sql {
             'starttime',
             'endtime',
             'course_id_number',
+            'teacher_firstname',
+            'teacher_lastname',
             'timecreated']
         );
         $this->define_headers([
@@ -29,6 +31,8 @@ class absence_requests_table extends \table_sql {
             get_string('absence_start', 'local_absence_request'),
             get_string('absence_end', 'local_absence_request'),
             get_string('course', 'local_absence_request'),
+            get_string('teacher_firstname', 'local_absence_request'),
+            get_string('teacher_lastname', 'local_absence_request'),
             get_string('timecreated', 'moodle'),
         ]);
     }

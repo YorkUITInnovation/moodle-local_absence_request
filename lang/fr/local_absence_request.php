@@ -70,3 +70,7 @@ $string['privacy:metadata:local_absence_req_teacher:timecreated'] = 'L\'heure à
 
 $string['privacy:path:absencerequests'] = 'Demandes d\'absence';
 $string['privacy:path:teacherrequests'] = 'Notifications aux enseignants';
+
+$string['teacher_firstname'] = 'Prénom de l’enseignant';
+$string['teacher_lastname'] = 'Nom de famille de l’enseignant';
+
