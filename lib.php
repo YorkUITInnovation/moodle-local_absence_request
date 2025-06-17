@@ -48,6 +48,18 @@ function local_absence_request_extend_navigation_course(
 )
 {
     global $USER;
+
+    // Get the users role in this course. If editingteacher, add a link to the teacher_view.php page.
+    if (has_capability('local/absence_request:view_teacher_report', $context)) {
+        $parentnode->add(
+            get_string('view_faculty_report', 'local_absence_request'),
+            new moodle_url('/local/absence_request/teacher_view.php', ['courseid' => $course->id]),
+            navigation_node::TYPE_CUSTOM,
+            null,
+            'local_absence_request_view_faculty_report'
+        );
+    }
+
     $eligibility = helper::is_eligible($USER->id);
     // Add the absence request link to the course navigation.
     if (!$eligibility->eligible) {

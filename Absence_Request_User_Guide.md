@@ -60,8 +60,6 @@ Configure the plugin settings to align with your institution's absence policies:
 1. Navigate to Site administration > Plugins > Local plugins > Absence Request
 2. Configure the following settings:
    - **Requests per term**: Set the maximum number of absence requests students can submit per term (default: 2)
-   - **Teacher message**: Customize the default notification message sent to teachers when a student submits an absence request
-   - **Student message**: Customize the confirmation message sent to students after submitting a request
 
 ### Managing User Permissions
 
@@ -72,7 +70,6 @@ The plugin relies on Moodle's role and capability system to control access:
    - Ensure appropriate capabilities are assigned:
      - `local/absence_request:view_teacher_report`: For teachers to view absence reports for their courses
      - `local/absence_request:view_faculty_report`: For faculty administrators to view faculty-wide reports
-     - `local/absence_request:submit_request`: For students to submit absence requests
 
 To create a new Faculty Administrator role:
 1. Navigate to Site administration > Users > Permissions > Define roles

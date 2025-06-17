@@ -44,6 +44,8 @@ $string['student_message'] = 'Message étudiant';
 $string['student_message_desc'] = 'Message par défaut à envoyer aux étudiants lorsqu\'une demande d\'absence est soumise.';
 
 // Notifications
+$string['absence_request:view_faculty_report'] = 'Voir le rapport d\'absence par faculté';
+$string['absence_request:view_teacher_report'] = 'Voir le rapport d\'absence';
 $string['messageprovider:absence_notification'] = 'Notifications de demande d\'absence';
 $string['student_message_subject'] = 'Demande d\'absence soumise';
 $string['teacher_message_subject'] = 'Notification de demande d\'absence';
