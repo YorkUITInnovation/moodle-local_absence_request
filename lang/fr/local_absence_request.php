@@ -33,6 +33,7 @@ $string['submit_request'] = "Soumettre une demande d'absence";
 $string['to_date'] = "Date de fin";
 $string['type_of_circumstance'] = "Type de circonstance";
 $string['unforeseen'] = "Incidents imprévus ou inévitables hors du contrôle de l'étudiant";
+$string['view_faculty_report'] = 'Rapport d\'absence par faculté';
 
 // Paramètres de la page de configuration
 $string['requests_per_term'] = 'Nombre de demandes par session';
@@ -48,3 +49,22 @@ $string['student_message_subject'] = 'Demande d\'absence soumise';
 $string['teacher_message_subject'] = 'Notification de demande d\'absence';
 $string['student_message'] = 'Votre demande d\'absence a été soumise avec succès.';
 $string['teacher_message'] = 'Un étudiant a soumis une demande d\'absence. Veuillez consulter la demande dans le <a href="{$a->url}">rapport des absences</a>.';
+
+// Chaînes de l'API de confidentialité
+$string['privacy:metadata:local_absence_request'] = 'Informations sur les demandes d\'absence des étudiants';
+$string['privacy:metadata:local_absence_request:userid'] = 'L\'identifiant de l\'utilisateur qui a soumis la demande d\'absence';
+$string['privacy:metadata:local_absence_request:faculty'] = 'La faculté associée à la demande d\'absence';
+$string['privacy:metadata:local_absence_request:circumstance'] = 'La circonstance de la demande d\'absence';
+$string['privacy:metadata:local_absence_request:starttime'] = 'L\'heure de début de l\'absence';
+$string['privacy:metadata:local_absence_request:endtime'] = 'L\'heure de fin de l\'absence';
+$string['privacy:metadata:local_absence_request:acadyear'] = 'L\'année académique de la demande d\'absence';
+$string['privacy:metadata:local_absence_request:termperiod'] = 'La période de session de la demande d\'absence';
+$string['privacy:metadata:local_absence_request:timecreated'] = 'L\'heure à laquelle la demande d\'absence a été créée';
+
+$string['privacy:metadata:local_absence_req_teacher'] = 'Informations sur les enseignants associés aux demandes d\'absence';
+$string['privacy:metadata:local_absence_req_teacher:userid'] = 'L\'identifiant de l\'enseignant associé à la demande d\'absence';
+$string['privacy:metadata:local_absence_req_teacher:absence_req_course_id'] = 'L\'identifiant du cours de la demande d\'absence';
+$string['privacy:metadata:local_absence_req_teacher:timecreated'] = 'L\'heure à laquelle l\'association de l\'enseignant a été créée';
+
+$string['privacy:path:absencerequests'] = 'Demandes d\'absence';
+$string['privacy:path:teacherrequests'] = 'Notifications aux enseignants';

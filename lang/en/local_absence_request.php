@@ -36,6 +36,7 @@ $string['submit_request'] = 'Submit Absence Request';
 $string['to_date'] = 'To Date';
 $string['type_of_circumstance'] = 'Type of Circumstance';
 $string['unforeseen'] = 'Unforeseen or unavoidable incidents beyond the student’s control';
+$string['view_faculty_report'] = 'Faculty Absence Report';
 
 // Settings page strings
 $string['requests_per_term'] = 'Number of requests per term';
@@ -70,3 +71,4 @@ $string['privacy:metadata:local_absence_req_teacher:timecreated'] = 'The time th
 
 $string['privacy:path:absencerequests'] = 'Absence requests';
 $string['privacy:path:teacherrequests'] = 'Teacher notifications';
+
