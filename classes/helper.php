@@ -168,6 +168,7 @@ class helper
      */
     public static function is_eligible($userid) {
         global $DB;
+        $eligible = false;
         $eligiblity = new \stdClass();
         // Check eligibility: undergraduate (fieldid=1, data contains 'undergraduate'), not Osgoode (fieldid=2, data='LW').
         $undergrad = $DB->record_exists('user_info_data', [
