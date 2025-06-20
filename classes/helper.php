@@ -110,7 +110,7 @@ class helper
      */
     public static function get_current_period()
     {
-        return self::PERIOD_FALL;
+        // Get month from the current time.
         $month = date('n', time());
         switch ($month) {
             case 1:
