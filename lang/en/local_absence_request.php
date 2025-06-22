@@ -45,6 +45,16 @@ $string['teacher_message'] = 'Teacher message';
 $string['teacher_message_desc'] = 'Default message to be sent to teachers when an absence request is submitted.';
 $string['student_message'] = 'Student message';
 $string['student_message_desc'] = 'Default message to be sent to students when an absence request is submitted.';
+$string['use_period'] = 'Use Period';
+$string['use_period_desc'] = 'This setting is only to be used while testing the plugin. '
+    . 'It allows you to select the period during which absence requests can be submitted. '
+    . 'Note: Year is always available as Winter, never fall. So if testing for Year courses, '
+    . 'make sure you select a date between January and April.';
+$string['use_period_no'] = 'No';
+$string['use_period_F'] = 'Fall';
+$string['use_period_W'] = 'Winter';
+$string['use_period_S'] = 'Summer';
+$string['use_period_Y'] = 'Year';
 
 // Notifications
 $string['absence_request:view_faculty_report'] = 'View Faculty Absence Report';

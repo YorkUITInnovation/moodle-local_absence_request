@@ -110,6 +110,22 @@ class helper
      */
     public static function get_current_period()
     {
+        // For testing purposes we can use a configured period.
+        $use_period = get_config('local_absence_request', 'use_period');
+        if ($use_period != 'no') {
+            // If use_period is set, return the configured period.
+            switch ($use_period) {
+                case 'F':
+                    return self::PERIOD_FALL;
+                case 'W':
+                    return self::PERIOD_WINTER;
+                case 'S':
+                    return self::PERIOD_SUMMER;
+                case 'Y':
+                    return self::PERIOD_WINTER;
+            }
+        }
+
         // Get month from the current time.
         $month = date('n', time());
         switch ($month) {

@@ -29,5 +29,19 @@ if ($hassiteconfig) {
         PARAM_INT
     ));
 
+    $settings->add(new admin_setting_configselect(
+        'local_absence_request/use_period',
+        get_string('use_period', 'local_absence_request'),
+        get_string('use_period_desc', 'local_absence_request'),
+        'no',
+        [
+            'no' => get_string('use_period_no', 'local_absence_request'),
+            'F' => get_string('use_period_F', 'local_absence_request'),
+            'W' => get_string('use_period_W', 'local_absence_request'),
+            'S' => get_string('use_period_S', 'local_absence_request'),
+            'Y' => get_string('use_period_Y', 'local_absence_request'),
+        ]
+    ));
+
     $ADMIN->add('localplugins', $settings);
 }

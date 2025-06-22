@@ -42,6 +42,16 @@ $string['teacher_message'] = 'Message enseignant';
 $string['teacher_message_desc'] = 'Message par défaut à envoyer aux enseignants lorsqu\'une demande d\'absence est soumise.';
 $string['student_message'] = 'Message étudiant';
 $string['student_message_desc'] = 'Message par défaut à envoyer aux étudiants lorsqu\'une demande d\'absence est soumise.';
+$string['use_period'] = 'Période d\'utilisation';
+$string['use_period_desc'] = 'Ce paramètre est uniquement à utiliser lors des tests du plugin. '
+    . 'Il permet de sélectionner la période pendant laquelle les demandes d\'absence peuvent être soumises. '
+    . 'Note : L\'année est toujours disponible comme Hiver, jamais Automne. Donc, si vous testez pour des cours annuels, '
+    . 'assurez-vous de sélectionner une date entre janvier et avril.';
+$string['use_period_no'] = 'Non';
+$string['use_period_F'] = 'Automne';
+$string['use_period_W'] = 'Hiver';
+$string['use_period_S'] = 'Été';
+$string['user_period_Y'] = 'Année';
 
 // Notifications
 $string['absence_request:view_faculty_report'] = 'Voir le rapport d\'absence par faculté';
@@ -73,4 +83,3 @@ $string['privacy:path:teacherrequests'] = 'Notifications aux enseignants';
 
 $string['teacher_firstname'] = 'Prénom de l’enseignant';
 $string['teacher_lastname'] = 'Nom de famille de l’enseignant';
-
