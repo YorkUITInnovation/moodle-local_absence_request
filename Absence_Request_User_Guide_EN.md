@@ -1,30 +1,36 @@
 # Absence Request Plugin User Guide
 
-**For Administrators, Teachers, and Faculty Administrators**
+**For Students, Administrators, Teachers, and Faculty Administrators**
 
 *Version 1.0 - June 2025*
 
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [For Administrators](#for-administrators)
+2. [For Students](#for-students)
+   - [Eligibility Requirements](#eligibility-requirements)
+   - [Submitting an Absence Request](#submitting-an-absence-request)
+   - [Understanding Request Limits](#understanding-request-limits)
+   - [After Submission](#after-submission)
+   - [Best Practices for Students](#best-practices-for-students)
+3. [For Administrators](#for-administrators)
    - [Installation](#installation)
    - [Configuration](#configuration)
    - [Managing User Permissions](#managing-user-permissions)
    - [Plugin Maintenance](#plugin-maintenance)
-3. [For Teachers](#for-teachers)
+4. [For Teachers](#for-teachers)
    - [Receiving Absence Notifications](#receiving-absence-notifications)
    - [Viewing Absence Requests](#viewing-absence-requests)
    - [Filtering and Sorting Requests](#filtering-and-sorting-requests)
    - [Best Practices for Teachers](#best-practices-for-teachers)
-4. [For Faculty Administrators](#for-faculty-administrators)
+5. [For Faculty Administrators](#for-faculty-administrators)
    - [Accessing Faculty Reports](#accessing-faculty-reports)
    - [Report Filtering Options](#report-filtering-options)
    - [Data Analysis and Export](#data-analysis-and-export)
    - [Administrative Support Role](#administrative-support-role)
-5. [Common Questions and Troubleshooting](#common-questions-and-troubleshooting)
-6. [Privacy and GDPR Compliance](#privacy-and-gdpr-compliance)
-7. [Appendix: Academic Consideration Policy](#appendix-academic-consideration-policy)
+6. [Common Questions and Troubleshooting](#common-questions-and-troubleshooting)
+7. [Privacy and GDPR Compliance](#privacy-and-gdpr-compliance)
+8. [Appendix: Academic Consideration Policy](#appendix-academic-consideration-policy)
 
 ## Introduction
 
@@ -38,9 +44,105 @@ Key features include:
 - GDPR-compliant data management
 - Multi-language support (English and French)
 
-This guide explains how to use the plugin from the perspective of Administrators, Teachers, and Faculty Administrators.
+This guide explains how to use the plugin from the perspective of Students, Administrators, Teachers, and Faculty Administrators.
 
-## For Administrators
+## For Students
+
+### Eligibility Requirements
+
+To be eligible to submit an absence request:
+
+1. **Enrollment Status**:
+   - You must be currently enrolled in at least one course for the current academic term
+   - The system will automatically check your enrollment status
+
+2. **Request Timing**:
+   - Requests must be submitted during the current academic term
+   - Requests cannot be submitted for past terms or future terms
+   - Both the start and end dates of your absence must fall within the current term
+
+3. **Faculty Affiliation**:
+   - Your faculty affiliation is automatically determined from your student profile
+   - No additional action is required to specify your faculty
+
+### Submitting an Absence Request
+
+To submit an absence request:
+
+1. **Access the Request Form**:
+   - Log in to Moodle
+   - Navigate to Site Home
+   - Click on "Absence Request" in the navigation menu
+   - Alternatively, you can access the form from within any of your courses by clicking on "Absence Request" in the course navigation
+
+2. **Complete the Request Form**:
+   - **Type of Circumstance**: Select the appropriate reason for your absence:
+     - Short-term health conditions (illness, physical injury, scheduled surgery)
+     - Bereavement of an immediate family member
+     - Unforeseen or unavoidable incidents beyond your control
+   - **Absence Start Date and Time**: Select the date and time when your absence begins
+   - **Absence End Date and Time**: Select the date and time when your absence ends
+
+3. **Form Validation**:
+   - The system will automatically validate your request against the following criteria:
+     - The end date cannot be before the start date
+     - The absence duration cannot exceed 7 days
+     - The dates must fall within the current academic term
+     - You cannot submit duplicate requests for the same date range
+
+4. **Submit the Request**:
+   - Review your information for accuracy
+   - Click the "Submit Absence Request" button
+   - You will receive a confirmation message upon successful submission
+
+### Understanding Request Limits
+
+The Absence Request system has specific limitations:
+
+1. **Requests Per Term**:
+   - You can submit a maximum of two (2) absence requests per academic term
+   - The system will prevent submission of additional requests once you reach this limit
+   - This limit is set by institutional policy and cannot be overridden
+
+2. **Duration Limits**:
+   - Each absence request cannot exceed 7 consecutive days
+   - For absences longer than 7 days, please contact your academic advisor for guidance
+
+3. **Academic Year Boundaries**:
+   - Requests cannot span across different academic terms
+   - Both the start and end dates must be within the same term period
+
+### After Submission
+
+Once you've submitted your absence request:
+
+1. **Automatic Notifications**:
+   - You will receive an email confirmation of your submission
+   - All instructors for courses you are enrolled in during the specified absence period will be automatically notified
+
+2. **Course Accommodations**:
+   - Instructors will review your absence notification
+   - Follow up with individual instructors regarding specific missed assignments or assessments
+   - Be prepared to discuss make-up work or alternative arrangements upon your return
+
+3. **Record Keeping**:
+   - Your absence request is stored in the system for the current academic year
+   - You can view your submitted requests by clicking on the "Alerts" icon (bell) in the top right corner of the main navigation bar.
+   - The system maintains a record of all notifications sent to instructors
+
+### Best Practices for Students
+
+To effectively use the Absence Request system:
+
+1. **Submit Promptly**: Submit your request as soon as you know you'll be absent
+2. **Be Accurate**: Ensure your absence dates are accurate and include all affected days
+3. **Follow Up**: Contact instructors directly about specific missed work after they receive the notification
+4. **Documentation**: Keep any supporting documentation (medical notes, etc.) for your records
+5. **Plan Ahead**: Be mindful of the two-request limit per term
+6. **Communication**: Use the absence request system in conjunction with direct communication with your instructors
+7. **Policy Awareness**: Familiarize yourself with the Academic Consideration Policy to understand your rights and responsibilities
+
+## For Moodle Administrators
 
 ### Installation
 
@@ -84,7 +186,7 @@ Regular maintenance ensures the plugin continues to function effectively:
 1. **Database Management**:
    - The plugin stores absence request data in dedicated tables
    - Regular backups are recommended as part of your normal Moodle backup procedures
-   
+
 2. **Updates**:
    - Check for plugin updates periodically
    - Follow standard Moodle update procedures when new versions are available
@@ -120,7 +222,7 @@ Access absence requests in two ways:
 
 2. **Via Moodle Navigation**:
    - Log in to Moodle
-   - Navigate to Site Home or Dashboard
+   - Navigate to Site Home
    - Click on "Absence Request" in the navigation menu
    - Select "View Absence Requests Report"
 
@@ -132,27 +234,12 @@ The absence requests report offers several filtering and sorting options:
    - Set "From Date" and "To Date" to view absences within a specific period
    - Click "Apply Filters" to update the report
 
-2. **Filter by Course**:
-   - Select a specific course from the dropdown menu
-   - The report will show only absences for that course
-
-3. **Sorting**:
+2. **Sorting**:
    - Click on any column header to sort by that field
    - Click again to toggle between ascending and descending order
 
-4. **Searching**:
+3. **Searching**:
    - Use the search box to find specific students or request details
-
-### Best Practices for Teachers
-
-When responding to absence requests:
-
-1. **Review promptly**: Check absence notifications regularly and respond in a timely manner
-2. **Document accommodations**: Record any accommodations or extensions granted
-3. **Be consistent**: Apply consistent standards when considering absence impacts
-4. **Privacy awareness**: Maintain student privacy when discussing absence details
-5. **Policy alignment**: Ensure your response aligns with the Academic Consideration Policy
-6. **Follow up**: Check in with students who have extended absences
 
 ## For Faculty Administrators
 
@@ -177,11 +264,7 @@ The Faculty Report includes comprehensive filtering options:
    - Set specific start and end dates to analyze absences within a timeframe
    - Useful for examining patterns during specific term periods
 
-3. **Course Filter**:
-   - Filter by specific courses within the faculty
-   - Helps identify courses with higher absence rates
-
-4. **Circumstance Type Filter**:
+3. **Circumstance Type Filter**:
    - Filter by the type of absence circumstance
    - Useful for monitoring trends in absence reasons
 
@@ -223,6 +306,25 @@ Faculty Administrators play a key role in supporting both students and faculty:
    - Provide feedback to administrators on potential improvements
 
 ## Common Questions and Troubleshooting
+
+### For Students
+
+**Q: I need to be absent for more than 7 days. What should I do?**
+A: For absences longer than 7 days, you should contact your academic advisor or faculty office directly. They can provide guidance on the appropriate documentation and process for extended absences.
+
+**Q: I've already submitted two absence requests this term, but I need to submit another one. Is this possible?**
+A: The system is limited to two requests per term as per institutional policy. For exceptional circumstances, please contact your faculty office to discuss alternative arrangements.
+
+**Q: Will my instructors automatically grant extensions for missed assignments?**
+A: The absence request system only notifies instructors of your absence. You should follow up directly with each instructor to discuss specific accommodations for missed work.
+
+**Q: I submitted a request with incorrect dates. Can I edit or delete it?**
+A: Once submitted, requests cannot be edited or deleted. If you need to correct information, contact your instructors directly to explain the error.
+
+**Q: Do I need to submit medical documentation with my absence request?**
+A: No, the system does not require or accept documentation uploads. However, you should keep any supporting documentation for your records in case it's requested later.
+
+### For Teachers and Administrators
 
 **Q: A teacher reports not receiving absence notifications. What should I check?**
 A: Verify their Moodle email settings, check that they are correctly assigned as a teacher in the course, and ensure their user account has the correct permissions.

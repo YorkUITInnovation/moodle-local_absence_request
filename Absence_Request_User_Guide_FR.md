@@ -1,30 +1,36 @@
 # Guide d'utilisation du plugin de demande d'absence
 
-**Pour les administrateurs, enseignants et administrateurs de faculté**
+**Pour les étudiants, administrateurs, enseignants et administrateurs de faculté**
 
 *Version 1.0 - Juin 2025*
 
 ## Table des matières
 
 1. [Introduction](#introduction)
-2. [Pour les administrateurs](#pour-les-administrateurs)
+2. [Pour les étudiants](#pour-les-etudiants)
+   - [Conditions d'éligibilité](#conditions-deligibilite)
+   - [Soumettre une demande d'absence](#soumettre-une-demande-dabsence)
+   - [Comprendre les limites des demandes](#comprendre-les-limites-des-demandes)
+   - [Après la soumission](#apres-la-soumission)
+   - [Bonnes pratiques pour les étudiants](#bonnes-pratiques-pour-les-etudiants)
+3. [Pour les administrateurs](#pour-les-administrateurs)
    - [Installation](#installation)
    - [Configuration](#configuration)
    - [Gestion des permissions utilisateur](#gestion-des-permissions-utilisateur)
    - [Maintenance du plugin](#maintenance-du-plugin)
-3. [Pour les enseignants](#pour-les-enseignants)
+4. [Pour les enseignants](#pour-les-enseignants)
    - [Réception des notifications d'absence](#reception-des-notifications-dabsence)
    - [Visualisation des demandes d'absence](#visualisation-des-demandes-dabsence)
    - [Filtrage et tri des demandes](#filtrage-et-tri-des-demandes)
    - [Bonnes pratiques pour les enseignants](#bonnes-pratiques-pour-les-enseignants)
-4. [Pour les administrateurs de faculté](#pour-les-administrateurs-de-faculte)
+5. [Pour les administrateurs de faculté](#pour-les-administrateurs-de-faculte)
    - [Accès aux rapports de faculté](#acces-aux-rapports-de-faculte)
    - [Options de filtrage des rapports](#options-de-filtrage-des-rapports)
    - [Analyse et exportation des données](#analyse-et-exportation-des-donnees)
    - [Rôle de soutien administratif](#role-de-soutien-administratif)
-5. [Questions fréquentes et dépannage](#questions-frequentes-et-depannage)
-6. [Confidentialité et conformité au RGPD](#confidentialite-et-conformite-au-rgpd)
-7. [Annexe : Politique de considération académique](#annexe--politique-de-consideration-academique)
+6. [Questions fréquentes et dépannage](#questions-frequentes-et-depannage)
+7. [Confidentialité et conformité au RGPD](#confidentialite-et-conformite-au-rgpd)
+8. [Annexe : Politique de considération académique](#annexe--politique-de-consideration-academique)
 
 ## Introduction
 
@@ -38,7 +44,103 @@ Les principales fonctionnalités incluent :
 - Gestion des données conforme au RGPD
 - Prise en charge multilingue (anglais et français)
 
-Ce guide explique comment utiliser le plugin du point de vue des administrateurs, enseignants et administrateurs de faculté.
+Ce guide explique comment utiliser le plugin du point de vue des étudiants, administrateurs, enseignants et administrateurs de faculté.
+
+## Pour les étudiants
+
+### Conditions d'éligibilité
+
+Pour être éligible à soumettre une demande d'absence :
+
+1. **Statut d'inscription** :
+   - Vous devez être actuellement inscrit à au moins un cours pour le trimestre académique en cours
+   - Le système vérifiera automatiquement votre statut d'inscription
+
+2. **Moment de la demande** :
+   - Les demandes doivent être soumises pendant le trimestre académique en cours
+   - Les demandes ne peuvent pas être soumises pour des trimestres passés ou futurs
+   - Les dates de début et de fin de votre absence doivent se situer dans le trimestre en cours
+
+3. **Affiliation à la faculté** :
+   - Votre affiliation à la faculté est automatiquement déterminée à partir de votre profil étudiant
+   - Aucune action supplémentaire n'est requise pour spécifier votre faculté
+
+### Soumettre une demande d'absence
+
+Pour soumettre une demande d'absence :
+
+1. **Accéder au formulaire de demande** :
+   - Connectez-vous à Moodle
+   - Accédez à l'accueil du site
+   - Cliquez sur "Demande d'absence" dans le menu de navigation
+   - Alternativement, vous pouvez accéder au formulaire depuis n'importe lequel de vos cours en cliquant sur "Demande d'absence" dans la navigation du cours
+
+2. **Remplir le formulaire de demande** :
+   - **Type de circonstance** : Sélectionnez la raison appropriée pour votre absence :
+     - Problèmes de santé à court terme (maladie, blessure physique, chirurgie programmée)
+     - Deuil d'un membre de la famille immédiate
+     - Incidents imprévus ou inévitables hors de votre contrôle
+   - **Date et heure de début d'absence** : Sélectionnez la date et l'heure auxquelles votre absence commence
+   - **Date et heure de fin d'absence** : Sélectionnez la date et l'heure auxquelles votre absence se termine
+
+3. **Validation du formulaire** :
+   - Le système validera automatiquement votre demande selon les critères suivants :
+     - La date de fin ne peut pas être antérieure à la date de début
+     - La durée de l'absence ne peut pas dépasser 7 jours
+     - Les dates doivent se situer dans le trimestre académique en cours
+     - Vous ne pouvez pas soumettre des demandes en double pour la même période
+
+4. **Soumettre la demande** :
+   - Vérifiez l'exactitude de vos informations
+   - Cliquez sur le bouton "Soumettre la demande d'absence"
+   - Vous recevrez un message de confirmation après la soumission réussie
+
+### Comprendre les limites des demandes
+
+Le système de demande d'absence a des limitations spécifiques :
+
+1. **Demandes par trimestre** :
+   - Vous pouvez soumettre un maximum de deux (2) demandes d'absence par trimestre académique
+   - Le système empêchera la soumission de demandes supplémentaires une fois cette limite atteinte
+   - Cette limite est fixée par la politique institutionnelle et ne peut pas être contournée
+
+2. **Limites de durée** :
+   - Chaque demande d'absence ne peut pas dépasser 7 jours consécutifs
+   - Pour des absences de plus de 7 jours, veuillez contacter votre conseiller académique
+
+3. **Limites de l'année académique** :
+   - Les demandes ne peuvent pas s'étendre sur différents trimestres académiques
+   - Les dates de début et de fin doivent se situer dans la même période de trimestre
+
+### Après la soumission
+
+Une fois que vous avez soumis votre demande d'absence :
+
+1. **Notifications automatiques** :
+   - Vous recevrez une confirmation par email de votre soumission
+   - Tous les enseignants des cours auxquels vous êtes inscrit pendant la période d'absence spécifiée seront automatiquement notifiés
+
+2. **Accommodements de cours** :
+   - Les enseignants examineront votre notification d'absence
+   - Faites un suivi avec les enseignants individuels concernant les devoirs ou évaluations manqués
+   - Soyez prêt à discuter du travail de rattrapage ou des arrangements alternatifs à votre retour
+
+3. **Tenue des registres** :
+   - Votre demande d'absence est stockée dans le système pour l'année académique en cours
+   - Vous pouvez consulter vos demandes soumises en cliquant sur l'icône "Alertes" (cloche) dans le coin supérieur droit de la barre de navigation principale
+   - Le système conserve un enregistrement de toutes les notifications envoyées aux enseignants
+
+### Bonnes pratiques pour les étudiants
+
+Pour utiliser efficacement le système de demande d'absence :
+
+1. **Soumettez rapidement** : Soumettez votre demande dès que vous savez que vous serez absent
+2. **Soyez précis** : Assurez-vous que vos dates d'absence sont exactes et incluent tous les jours concernés
+3. **Faites un suivi** : Contactez directement les enseignants concernant le travail spécifique manqué après qu'ils aient reçu la notification
+4. **Documentation** : Conservez toute documentation justificative (notes médicales, etc.) pour vos dossiers
+5. **Planifiez à l'avance** : Soyez conscient de la limite de deux demandes par trimestre
+6. **Communication** : Utilisez le système de demande d'absence conjointement avec une communication directe avec vos enseignants
+7. **Connaissance de la politique** : Familiarisez-vous avec la politique de considération académique pour comprendre vos droits et responsabilités
 
 ## Pour les administrateurs
 
@@ -223,6 +325,25 @@ Les administrateurs de faculté jouent un rôle clé dans le soutien des étudia
    - Fournissez des retours aux administrateurs sur les améliorations potentielles
 
 ## Questions fréquentes et dépannage
+
+### Pour les étudiants
+
+**Q : J'ai besoin d'être absent pendant plus de 7 jours. Que dois-je faire ?**
+R : Pour des absences de plus de 7 jours, vous devriez contacter votre conseiller académique ou le bureau de votre faculté directement. Ils peuvent vous fournir des conseils sur la documentation appropriée et le processus pour des absences prolongées.
+
+**Q : J'ai déjà soumis deux demandes d'absence ce trimestre, mais j'ai besoin d'en soumettre une autre. Est-ce possible ?**
+R : Le système est limité à deux demandes par trimestre selon la politique institutionnelle. Pour des circonstances exceptionnelles, veuillez contacter le bureau de votre faculté pour discuter d'arrangements alternatifs.
+
+**Q : Mes enseignants accorderont-ils automatiquement des prolongations pour les devoirs manqués ?**
+R : Le système de demande d'absence notifie seulement les enseignants de votre absence. Vous devriez faire un suivi directement avec chaque enseignant pour discuter des accommodements spécifiques pour le travail manqué.
+
+**Q : J'ai soumis une demande avec des dates incorrectes. Puis-je la modifier ou la supprimer ?**
+R : Une fois soumises, les demandes ne peuvent pas être modifiées ou supprimées. Si vous devez corriger des informations, contactez vos enseignants directement pour expliquer l'erreur.
+
+**Q : Dois-je soumettre une documentation médicale avec ma demande d'absence ?**
+R : Non, le système n'exige pas et n'accepte pas le téléchargement de documentation. Cependant, vous devriez conserver toute documentation justificative pour vos dossiers au cas où elle serait demandée ultérieurement.
+
+### Pour les enseignants et administrateurs
 
 **Q : Un enseignant signale ne pas recevoir les notifications d'absence. Que dois-je vérifier ?**
 R : Vérifiez les paramètres de messagerie Moodle de l'enseignant, assurez-vous qu'il est correctement assigné en tant qu'enseignant dans le cours et que son compte utilisateur dispose des permissions correctes.

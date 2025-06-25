@@ -219,6 +219,7 @@ class helper
                 $max_requests_exceeded = true;
             }
         }
+
         // Set eligibility status.
         $eligiblity->eligible = $eligible;
         $eligiblity->osgoode = $osgoode ?? false;

@@ -27,7 +27,7 @@ function local_absence_request_extend_navigation_frontpage(
 
     $eligibility = helper::is_eligible($USER->id);
     // Add the absence request link to the course navigation.
-    if (!$eligibility->eligible) {
+    if ($eligibility->osgoode) {
         // If the user is not eligible, do not add the link.
         return;
     }
@@ -62,7 +62,7 @@ function local_absence_request_extend_navigation_course(
 
     $eligibility = helper::is_eligible($USER->id);
     // Add the absence request link to the course navigation.
-    if (!$eligibility->eligible) {
+    if ($eligibility->osgoode) {
         // If the user is not eligible, do not add the link.
         return;
     }
