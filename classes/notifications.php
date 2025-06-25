@@ -11,21 +11,33 @@ class notifications
     /**
      * Notify a student by email and Moodle notification.
      * @param int $userid The user ID of the student.
+     * @param int $absence_request_id The ID of the absence request.
      * @param string $subject The subject of the message.
      * @param string $message The message body.
      */
-    public static function notify_student($userid)
+    public static function notify_student(int $userid, int $absence_request_id)
     {
         global $DB;
+        // Get the absence  request details
+        $absence_request = $DB->get_record('local_absence_request', ['id' => $absence_request_id]);
+        // Get student from the absence request
+        $student = $DB->get_record('user', ['id' => $userid]);
         $subject = get_string('student_message_subject', 'local_absence_request');
-        $message = get_string('student_message', 'local_absence_request');
-        $user = $DB->get_record('user', ['id' => $userid], '*', MUST_EXIST);
+        $message = get_string('student_message', 'local_absence_request',
+            [
+                'firstname' => $student->firstname,
+                'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
+                'startdate' => userdate($absence_request->starttime),
+                'enddate' => userdate($absence_request->endtime),
+            ]
+        );
+
         // Prepare the message data
         $eventdata = new \core\message\message();
         $eventdata->component = 'local_absence_request';
         $eventdata->name = 'absence_notification';
         $eventdata->userfrom = \core_user::get_noreply_user();
-        $eventdata->userto = $user;
+        $eventdata->userto = $student;
         $eventdata->subject = $subject;
         $eventdata->fullmessage = $message;
         $eventdata->fullmessageformat = FORMAT_HTML;
@@ -39,16 +51,30 @@ class notifications
     /**
      * Notify a teacher by email and Moodle notification.
      * @param int $userid The user ID of the teacher.
+     * @param int $absence_request_id The ID of the absence request.
      * @param string $subject The subject of the message.
      * @param string $message The message body.
      */
-    public static function notify_teacher($userid, $absence_request)
+    public static function notify_teacher(int $userid, int $absence_request_id)
     {
         global $DB;
-        $url = new \moodle_url('/local/absence_request/teacher_view.php', ['id' => $absence_request]);
+        // Get the absence  request details
+        $absence_request = $DB->get_record('local_absence_request', ['id' => $absence_request_id]);
+        // Get student from the absence request
+        $student = $DB->get_record('user', ['id' => $absence_request->userid]);
+
+        $url = new \moodle_url('/local/absence_request/teacher_view.php', ['id' => $absence_request_id]);
         $subject = get_string('teacher_message_subject', 'local_absence_request');
-        $message = get_string('teacher_message', 'local_absence_request', ['url' => $url->out(false)]);
-        $user = $DB->get_record('user', ['id' => $userid], '*', MUST_EXIST);
+        $message = get_string('teacher_message', 'local_absence_request', [
+                'url' => $url->out(false),
+                'studentname' => fullname($student),
+                'idnumber' => $student->idnumber,
+                'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
+                'startdate' => userdate($absence_request->starttime),
+                'enddate' => userdate($absence_request->endtime),
+            ]
+        );
+        $user = $DB->get_record('user', ['id' => $userid]);
         // Prepare the message data
         $eventdata = new \core\message\message();
         $eventdata->component = 'local_absence_request';

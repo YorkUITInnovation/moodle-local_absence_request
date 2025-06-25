@@ -23,12 +23,13 @@ $string['notify_instructor_body'] = 'A student has submitted an absence request.
 $string['notify_instructor_subject'] = 'Student Absence Request Notification';
 $string['pluginname'] = 'Absence Request';
 $string['report_link'] = 'View Absence Requests Report';
-$string['request_submitted'] = 'Your absence request has been submitted.';
+$string['request_submitted'] = 'Your absence request has been submitted. Note: Any accommodations for missed course work need to be arranged with your individual instructors';
 $string['short_term_health'] = 'Short-term health conditions (illness, physical injury, scheduled surgery)';
 $string['sisid'] = 'Student ID';
 $string['student_firstname'] = 'Student First Name';
 $string['student_instructions'] = '<p>Please fill out the form below to submit your absence request. You can only submit up to two requests per term. '
-    . 'Ensure that your request does not exceed 7 days in duration. Note that this request will be submitted for all courses you are enrolled in this term.</p>'
+    . 'Ensure that your request does not exceed 7 days in duration. Note that this request will be submitted for all courses you are enrolled in, in this term.</p>'
+    . '<p>Any accommodations for missed course work need to be arranged with your individual instructors</p>'
     . '<p>For more information about the policy on Academic Consideration for Missed Work, please refer to the '
     . '<a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">Academic Consideration Policy</a>.</p>';
 $string['student_lastname'] = 'Student Last Name';
@@ -62,8 +63,25 @@ $string['absence_request:view_teacher_report'] = 'View Absence Report';
 $string['messageprovider:absence_notification'] = 'Absence Request Notifications';
 $string['student_message_subject'] = 'Absence Request Submitted';
 $string['teacher_message_subject'] = 'Absence Request Notification';
-$string['student_message'] = 'Your absence request has been successfully submitted.';
-$string['teacher_message'] = 'A student has submitted an absence request. Please review the request in the <a href="{$a->url}">absence report.</a>';
+$string['student_message'] = 'Hello {$a->firstname}, '
+    .'<p>Your absence request has been successfully submitted.</p>'
+    . '<p>'
+    . '<b>Circumstance:</b> {$a->circumstance}<br>'
+    . '<b>Start date:</b> {$a->startdate}<br>'
+    . '<b>End date:</b> {$a->enddate}<br>'
+    . '</p>'
+    . '<p>Any accommodations for missed course work need to be arranged with your individual instructors</p>'
+    . '<p>Thank you!</p>';
+$string['teacher_message'] = 'Hello, <p>You have received a self-reported absence under the Policy on Academic '
+    . '<a href="{$a->policylink}">Consideration for Missed Course Work</a>. The details are below.</p>'
+    . '<p>'
+    . '<b>Student:</b> {$a->studentname} ({$a->idnumber})<br>'
+    . '<b>Circumstance:</b> {$a->circumstance}<br>'
+    . '<b>Start date:</b> {$a->startdate}<br>'
+    . '<b>End date:</b> {$a->enddate}<br>'
+    . '</p>'
+    . '<p>You can also review all requests in the <a href="{$a->url}">absence report.</a></p>'
+    . '<p>Thank you!</p>';
 
 // Privacy API strings
 $string['privacy:metadata:local_absence_request'] = 'Information about student absence requests';

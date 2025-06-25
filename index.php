@@ -120,7 +120,8 @@ if ($form->is_cancelled()) {
     $record->termperiod = helper::get_current_period();
     $record->timecreated = time();
     $absence_request_id = $DB->insert_record('local_absence_request', $record);
-    notifications::notify_student($userid);
+    // Notify the student.
+    notifications::notify_student($userid, $absence_request_id);
     foreach ($mycourses as $course) {
         $course_record = new stdClass();
         $course_record->absence_request_id = $absence_request_id;
