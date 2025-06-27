@@ -23,11 +23,15 @@ $string['notify_instructor_body'] = "Un étudiant a soumis une demande d'absence
 $string['notify_instructor_subject'] = "Notification de demande d'absence d'un étudiant";
 $string['pluginname'] = "Demande d'absence";
 $string['report_link'] = "Voir le rapport des demandes d'absence";
-$string['request_submitted'] = "Votre demande d'absence a été soumise.";
+$string['request_submitted'] = "Votre demande d'absence a été soumise. Remarque: Toute adaptation pour le travail de cours manqué doit être organisée avec vos instructeurs individuels";
 $string['short_term_health'] = "Problèmes de santé à court terme (maladie, blessure physique, chirurgie programmée)";
 $string['sisid'] = 'ID étudiant';
 $string['student_firstname'] = 'Prénom de l\'étudiant';
-$string['student_instructions'] = "<p>Veuillez remplir le formulaire ci-dessous pour soumettre votre demande d'absence. Vous ne pouvez soumettre que deux demandes par session. Assurez-vous que votre demande ne dépasse pas 7 jours. Cette demande sera soumise pour tous les cours auxquels vous êtes inscrit cette session.</p><p>Pour plus d'informations sur la politique de considération académique pour le travail de cours manqué, veuillez consulter la <a href='20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf' target='_blank'>politique de considération académique</a>.</p>";
+$string['student_instructions'] = '<p>Veuillez remplir le formulaire ci-dessous pour soumettre votre demande d\'absence. Vous ne pouvez soumettre que deux demandes par session. '
+    . 'Assurez-vous que votre demande ne dépasse pas 7 jours. Cette demande sera soumise pour tous les cours auxquels vous êtes inscrit cette session.</p>'
+    . '<p>Toute adaptation pour le travail de cours manqué doit être organisée avec vos instructeurs individuels</p>'
+    . '<p>Pour plus d\'informations sur la politique de considération académique pour le travail de cours manqué, veuillez consulter la '
+    . '<a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">politique de considération académique</a>.</p>';
 $string['student_lastname'] = 'Nom de famille de l\'étudiant';
 $string['submit_request'] = "Soumettre une demande d'absence";
 $string['to_date'] = "Date de fin";
@@ -51,7 +55,7 @@ $string['use_period_no'] = 'Non';
 $string['use_period_F'] = 'Automne';
 $string['use_period_W'] = 'Hiver';
 $string['use_period_S'] = 'Été';
-$string['user_period_Y'] = 'Année';
+$string['use_period_Y'] = 'Année';
 
 // Notifications
 $string['absence_request:view_faculty_report'] = 'Voir le rapport d\'absence par faculté';
@@ -59,8 +63,25 @@ $string['absence_request:view_teacher_report'] = 'Voir le rapport d\'absence';
 $string['messageprovider:absence_notification'] = 'Notifications de demande d\'absence';
 $string['student_message_subject'] = 'Demande d\'absence soumise';
 $string['teacher_message_subject'] = 'Notification de demande d\'absence';
-$string['student_message'] = 'Votre demande d\'absence a été soumise avec succès.';
-$string['teacher_message'] = 'Un étudiant a soumis une demande d\'absence. Veuillez consulter la demande dans le <a href="{$a->url}">rapport des absences</a>.';
+$string['student_message'] = 'Bonjour {$a->firstname}, '
+    .'<p>Votre demande d\'absence a été soumise avec succès.</p>'
+    . '<p>'
+    . '<b>Circonstance:</b> {$a->circumstance}<br>'
+    . '<b>Date de début:</b> {$a->startdate}<br>'
+    . '<b>Date de fin:</b> {$a->enddate}<br>'
+    . '</p>'
+    . '<p>Toute adaptation pour le travail de cours manqué doit être organisée avec vos instructeurs individuels</p>'
+    . '<p>Merci!</p>';
+$string['teacher_message'] = 'Bonjour, <p>Vous avez reçu une absence auto-déclarée selon la politique de considération '
+    . 'académique pour le <a href="{$a->policylink}">travail de cours manqué</a>. Les détails sont ci-dessous.</p>'
+    . '<p>'
+    . '<b>Étudiant:</b> {$a->studentname} ({$a->idnumber})<br>'
+    . '<b>Circonstance:</b> {$a->circumstance}<br>'
+    . '<b>Date de début:</b> {$a->startdate}<br>'
+    . '<b>Date de fin:</b> {$a->enddate}<br>'
+    . '</p>'
+    . '<p>Vous pouvez également consulter toutes les demandes dans le <a href="{$a->url}">rapport des absences.</a></p>'
+    . '<p>Merci!</p>';
 
 // Chaînes de l'API de confidentialité
 $string['privacy:metadata:local_absence_request'] = 'Informations sur les demandes d\'absence des étudiants';
