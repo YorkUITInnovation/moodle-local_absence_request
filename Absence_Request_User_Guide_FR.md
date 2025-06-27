@@ -360,6 +360,9 @@ R : Le système empêchera la soumission et affichera un message indiquant qu'il
 **Q : Le système peut-il être configuré pour autoriser plus de deux demandes par trimestre ?**
 R : Oui, les administrateurs peuvent ajuster le paramètre "Demandes par trimestre" dans la configuration du plugin.
 
+**Q : Comment accéder à Schulich Canvas depuis le plugin Demande d'absence ?**
+R : Si vous devez être redirigé vers Schulich Canvas, vous pouvez ajouter la chaîne de requête `?r=sb` à la fin de l'URL du plugin Demande d'absence (par exemple : `index.php?r=sb`). En visitant cette URL, vous serez automatiquement redirigé vers le portail Schulich Canvas. Ceci est utile si vous êtes invité ou si l'on vous demande d'accéder directement à Schulich Canvas depuis l'interface du plugin.
+
 ## Confidentialité et conformité au RGPD
 
 Le plugin de demande d'absence est conçu dans le respect de la confidentialité :
