@@ -9,6 +9,8 @@ global $USER, $DB, $OUTPUT, $PAGE, $CFG;
 require_login();
 $context = context_system::instance();
 
+$config = get_config('local_absence_request');
+
 $PAGE->set_url(new moodle_url('/local/absence_request/index.php'));
 $PAGE->set_context($context);
 $PAGE->set_title(get_string('absence_request', 'local_absence_request'));
@@ -17,13 +19,24 @@ $PAGE->set_heading(get_string('absence_request', 'local_absence_request'));
 require_once($CFG->dirroot . '/local/absence_request/classes/forms/request_form.php');
 
 $courseid = optional_param('courseid', 0, PARAM_INT);
+$return = optional_param('r', '', PARAM_TEXT);
 
 $userid = $USER->id;
 $eligible = false;
 $osgoode = false;
 $max_requests_exceeded = false;
-// Set return URL based on courseid.
-$returnurl = $courseid ? new moodle_url('/course/view.php', ['id' => $courseid]) : new moodle_url('/my/');
+
+if (!empty($return)) {
+    // If a return URL is provided, use it.
+    $returnurl = new moodle_url(helper::return_urls($return));
+} else if ($courseid) {
+    // If courseid is provided, redirect to course view.
+    $returnurl = new moodle_url('/course/view.php', ['id' => $courseid]);
+} else {
+    // Default return URL is the My Moodle page.
+    $returnurl = new moodle_url('/my/');
+}
+
 
 // Check eligibility
 $eligibility = helper::is_eligible($userid);
@@ -34,7 +47,6 @@ $max_requests_exceeded = $eligibility->max_requests_exceeded;
 
 // Render main page.
 echo $OUTPUT->header();
-
 if (!$eligible) {
     // Not eligible: show message using mustache.
     $renderer = $PAGE->get_renderer('core');
@@ -44,7 +56,8 @@ if (!$eligible) {
         $message = get_string('not_eligible', 'local_absence_request');
     }
     echo $OUTPUT->render_from_template('local_absence_request/not_eligible', [
-        'message' => $message
+        'message' => $message,
+        'url' => $returnurl->out(false)
     ]);
     echo $OUTPUT->footer();
     exit;
@@ -57,7 +70,8 @@ $numrequests = $DB->count_records_select('local_absence_request', 'userid = ? AN
     $userid, $termstart, $termend
 ]);
 
-if ($numrequests >= 2) {
+
+if ($numrequests >= $config->requests_per_term) {
     echo $OUTPUT->render_from_template('local_absence_request/not_eligible', [
         'message' => get_string('max_requests_reached', 'local_absence_request'),
         'url' => $returnurl->out(false)
@@ -84,6 +98,7 @@ echo $OUTPUT->render_from_template('local_absence_request/student_instructions',
 $form_data = new stdClass();
 $form_data->userid = $userid;
 $form_data->courseid = $courseid;
+$form_data->returnurl = $returnurl->out(false);
 // Show the request form.
 $form = new \local_absence_request\forms\request_form(null, ['formdata' => $form_data]);
 if ($form->is_cancelled()) {
@@ -142,7 +157,8 @@ if ($form->is_cancelled()) {
     }
 
     echo $OUTPUT->render_from_template('local_absence_request/request_submitted', [
-        'message' => get_string('request_submitted', 'local_absence_request')
+        'message' => get_string('request_submitted', 'local_absence_request'),
+        'url' => $data->returnurl,
     ]);
     echo $OUTPUT->footer();
     exit;

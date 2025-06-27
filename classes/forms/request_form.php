@@ -15,6 +15,8 @@ class request_form extends \moodleform {
 
         $mform->addElement('hidden', 'courseid', $formdata->courseid);
         $mform->setType('courseid', PARAM_INT);
+        $mform->addElement('hidden', 'returnurl', $formdata->returnurl);
+        $mform->setType('returnurl', PARAM_URL);
         $mform->addElement('select', 'circumstance', get_string('type_of_circumstance', 'local_absence_request'), [
             'short_term_health' => get_string('short_term_health', 'local_absence_request'),
             'bereavement' => get_string('bereavement', 'local_absence_request'),

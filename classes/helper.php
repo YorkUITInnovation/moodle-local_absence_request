@@ -182,7 +182,8 @@ class helper
      * @return \stdClass
      * @throws \dml_exception
      */
-    public static function is_eligible($userid) {
+    public static function is_eligible($userid)
+    {
         global $DB;
         $eligible = false;
         $eligiblity = new \stdClass();
@@ -232,7 +233,8 @@ class helper
      * Generates the SQL parameters for the absence request report.
      * @return \stdClass
      */
-    public static function get_report_sql() {
+    public static function get_report_sql()
+    {
         $params = new \stdClass();
         $params->fields = 'art.id,
            ar.faculty,
@@ -262,6 +264,20 @@ class helper
            {user} us On us.id = ar.userid';
 
         return $params;
+    }
+
+    /**
+     * Returns an array of URLs for the plugin.
+     * @return string
+     */
+    public static function return_urls($query_string): string
+    {
+        $urls = [
+            'sb' => 'https://schulich.instructure.com/'
+        ];
+
+        // Return value in the $urls array based on the query string.
+        return $urls[strtolower($query_string)];
     }
 }
 
