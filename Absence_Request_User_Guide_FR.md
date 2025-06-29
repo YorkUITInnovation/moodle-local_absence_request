@@ -343,6 +343,10 @@ R : Une fois soumises, les demandes ne peuvent pas être modifiées ou supprimé
 **Q : Dois-je soumettre une documentation médicale avec ma demande d'absence ?**
 R : Non, le système n'exige pas et n'accepte pas le téléchargement de documentation. Cependant, vous devriez conserver toute documentation justificative pour vos dossiers au cas où elle serait demandée ultérieurement.
 
+**Q : Comment accéder au rapport d'absence depuis Schulich Canvas ?**
+R : Depuis Schulich Canvas, vous pouvez ajouter la chaîne de requête `?r=sb` à la fin de l'URL du plugin Demande d'absence (par exemple : `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
+Lorsqu'un étudiant complète le formulaire de demande d'absence, un bouton « Retour à mes cours » est disponible. En cliquant sur ce bouton, l'étudiant sera redirigé vers Schulich Canvas, ce qui lui permet de poursuivre son travail sans interruption.
+
 ### Pour les enseignants et administrateurs
 
 **Q : Un enseignant signale ne pas recevoir les notifications d'absence. Que dois-je vérifier ?**
@@ -359,10 +363,6 @@ R : Le système empêchera la soumission et affichera un message indiquant qu'il
 
 **Q : Le système peut-il être configuré pour autoriser plus de deux demandes par trimestre ?**
 R : Oui, les administrateurs peuvent ajuster le paramètre "Demandes par trimestre" dans la configuration du plugin.
-
-**Q : Comment accéder au rapport d'absence depuis Schulich Canvas ?**
-R : Depuis Schulich Canvas, vous pouvez ajouter la chaîne de requête `?r=sb` à la fin de l'URL du plugin Demande d'absence (par exemple : `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
-Lorsqu'un étudiant complète le formulaire de demande d'absence, un bouton « Retour à mes cours » est disponible. En cliquant sur ce bouton, l'étudiant sera redirigé vers Schulich Canvas, ce qui lui permet de poursuivre son travail sans interruption.
 
 ## Confidentialité et conformité au RGPD
 

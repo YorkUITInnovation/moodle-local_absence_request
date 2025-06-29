@@ -324,6 +324,10 @@ A: Once submitted, requests cannot be edited or deleted. If you need to correct 
 **Q: Do I need to submit medical documentation with my absence request?**
 A: No, the system does not require or accept documentation uploads. However, you should keep any supporting documentation for your records in case it's requested later.
 
+**Q: How do I access the Absence Report from Schulich Canvas?**
+A: From within Schulich Canvas, you can add a link with the query string `?r=sb` to the end of the Absence Request plugin URL (for example: `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
+When a student completes the Absence Request form, a button "Back to my courses" is available. Clicking this button will redirect the student to Schulich Canvas, allowing them to continue their work seamlessly.
+
 ### For Teachers and Administrators
 
 **Q: A teacher reports not receiving absence notifications. What should I check?**
@@ -340,10 +344,6 @@ A: The system will prevent submission and display a message indicating they've r
 
 **Q: Can the system be configured to allow more than two requests per term?**
 A: Yes, administrators can adjust the "Requests per term" setting in the plugin configuration.
-
-**Q: How do I access the Absence Report from Schulich Canvas?**
-A: From within Schulich Canvas, you can add a link with the query string `?r=sb` to the end of the Absence Request plugin URL (for example: `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`). 
-When a student completes the Absence Request form, a button "Back to my courses" is available. Clicking this button will redirect the student to Schulich Canvas, allowing them to continue their work seamlessly.
 
 ## Privacy and GDPR Compliance
 
