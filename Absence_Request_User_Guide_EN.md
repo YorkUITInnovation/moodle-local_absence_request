@@ -1,6 +1,6 @@
 # Absence Request Plugin User Guide
 
-**For Students, Administrators, Teachers, and Faculty Administrators**
+**For Students, Administrators, Course Directors, and Faculty Administrators**
 
 *Version 1.0 - June 2025*
 
@@ -13,16 +13,16 @@
    - [Understanding Request Limits](#understanding-request-limits)
    - [After Submission](#after-submission)
    - [Best Practices for Students](#best-practices-for-students)
-3. [For Administrators](#for-administrators)
+3. [For eClass Administrators](#for-administrators)
    - [Installation](#installation)
    - [Configuration](#configuration)
    - [Managing User Permissions](#managing-user-permissions)
    - [Plugin Maintenance](#plugin-maintenance)
-4. [For Teachers](#for-teachers)
+4. [For Course Directors](#for-course-directors)
    - [Receiving Absence Notifications](#receiving-absence-notifications)
    - [Viewing Absence Requests](#viewing-absence-requests)
    - [Filtering and Sorting Requests](#filtering-and-sorting-requests)
-   - [Best Practices for Teachers](#best-practices-for-teachers)
+   - [Best Practices for Course Directors](#best-practices-for-course-directors)
 5. [For Faculty Administrators](#for-faculty-administrators)
    - [Accessing Faculty Reports](#accessing-faculty-reports)
    - [Report Filtering Options](#report-filtering-options)
@@ -34,17 +34,17 @@
 
 ## Introduction
 
-The Absence Request plugin is a comprehensive solution for managing student absence notifications in a Moodle environment. It streamlines the process of students reporting absences, notifying instructors, and tracking absence data for administrative purposes. The plugin supports the Academic Consideration for Missed Course Work Policy by providing a standardized and transparent mechanism for submitting and tracking absence requests.
+The Absence Request plugin is a comprehensive solution for managing student absence notifications in a Moodle environment. It streamlines the process of students reporting absences, notifying course directors, and tracking absence data for administrative purposes. The plugin supports the Academic Consideration for Missed Course Work Policy by providing a standardized and transparent mechanism for submitting and tracking absence requests.
 
 Key features include:
 - Student-initiated absence requests with support for different absence circumstances
-- Automatic notifications to course instructors
-- Comprehensive reporting for teachers and faculty administrators
+- Automatic notifications to course directors
+- Comprehensive reporting for course directors and faculty administrators
 - Configurable request limits per academic term
 - GDPR-compliant data management
 - Multi-language support (English and French)
 
-This guide explains how to use the plugin from the perspective of Students, Administrators, Teachers, and Faculty Administrators.
+This guide explains how to use the plugin from the perspective of Students, Administrators, Course Directors, and Faculty Administrators.
 
 ## For Students
 
@@ -118,17 +118,17 @@ Once you've submitted your absence request:
 
 1. **Automatic Notifications**:
    - You will receive an email confirmation of your submission
-   - All instructors for courses you are enrolled in during the specified absence period will be automatically notified
+   - All course directors for courses you are enrolled in during the specified absence period will be automatically notified
 
 2. **Course Accommodations**:
-   - Instructors will review your absence notification
-   - Follow up with individual instructors regarding specific missed assignments or assessments
+   - Course directors will review your absence notification
+   - Follow up with individual course directors regarding specific missed assignments or assessments
    - Be prepared to discuss make-up work or alternative arrangements upon your return
 
 3. **Record Keeping**:
    - Your absence request is stored in the system for the current academic year
    - You can view your submitted requests by clicking on the "Alerts" icon (bell) in the top right corner of the main navigation bar.
-   - The system maintains a record of all notifications sent to instructors
+   - The system maintains a record of all notifications sent to course directors
 
 ### Best Practices for Students
 
@@ -136,13 +136,13 @@ To effectively use the Absence Request system:
 
 1. **Submit Promptly**: Submit your request as soon as you know you'll be absent
 2. **Be Accurate**: Ensure your absence dates are accurate and include all affected days
-3. **Follow Up**: Contact instructors directly about specific missed work after they receive the notification
+3. **Follow Up**: Contact course directors directly about specific missed work after they receive the notification
 4. **Documentation**: Keep any supporting documentation (medical notes, etc.) for your records
 5. **Plan Ahead**: Be mindful of the two-request limit per term
-6. **Communication**: Use the absence request system in conjunction with direct communication with your instructors
+6. **Communication**: Use the absence request system in conjunction with direct communication with your course directors
 7. **Policy Awareness**: Familiarize yourself with the Academic Consideration Policy to understand your rights and responsibilities
 
-## For Moodle Administrators
+## For eClass Administrators
 
 ### Installation
 
@@ -168,9 +168,9 @@ Configure the plugin settings to align with your institution's absence policies:
 The plugin relies on Moodle's role and capability system to control access:
 
 1. Navigate to Site administration > Users > Permissions > Define roles
-2. For each relevant role (Administrator, Teacher, Non-editing teacher, Faculty Administrator):
+2. For each relevant role (Administrator, Course Director, Non-editing course director, Faculty Administrator):
    - Ensure appropriate capabilities are assigned:
-     - `local/absence_request:view_teacher_report`: For teachers to view absence reports for their courses
+     - `local/absence_request:view_teacher_report`: For course directors to view absence reports for their courses
      - `local/absence_request:view_faculty_report`: For faculty administrators to view faculty-wide reports
 
 To create a new Faculty Administrator role:
@@ -178,6 +178,10 @@ To create a new Faculty Administrator role:
 2. Click "Add a new role"
 3. Set appropriate permissions, ensuring `local/absence_request:view_faculty_report` is enabled
 4. Assign this role to appropriate users at the faculty/category level
+
+### Accessing from Schulich Canvas
+- The plugin can be accessed from Schulich Canvas by adding a link with the query string `?r=sb` to the end of the Absence Request plugin URL (e.g., `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
+- This allows students to seamlessly return to their courses after submitting an absence request.
 
 ### Plugin Maintenance
 
@@ -195,7 +199,7 @@ Regular maintenance ensures the plugin continues to function effectively:
    - Review usage patterns and request volumes periodically
    - Adjust configuration settings if needed based on actual usage
 
-## For Teachers
+## For Course Directors
 
 ### Receiving Absence Notifications
 
@@ -294,7 +298,7 @@ Faculty Administrators play a key role in supporting both students and faculty:
    - Provide guidance on how absence requests should be handled
 
 2. **Faculty Support**:
-   - Assist teachers with interpreting absence data
+   - Assist course directors with interpreting absence data
    - Provide guidance for complex cases or unusual circumstances
 
 3. **Student Support**:
@@ -315,23 +319,19 @@ A: For absences longer than 7 days, you should contact your academic advisor or 
 **Q: I've already submitted two absence requests this term, but I need to submit another one. Is this possible?**
 A: The system is limited to two requests per term as per institutional policy. For exceptional circumstances, please contact your faculty office to discuss alternative arrangements.
 
-**Q: Will my instructors automatically grant extensions for missed assignments?**
-A: The absence request system only notifies instructors of your absence. You should follow up directly with each instructor to discuss specific accommodations for missed work.
+**Q: Will my course directors automatically grant extensions for missed assignments?**
+A: The absence request system only notifies course directors of your absence. You should follow up directly with each course director to discuss specific accommodations for missed work.
 
 **Q: I submitted a request with incorrect dates. Can I edit or delete it?**
-A: Once submitted, requests cannot be edited or deleted. If you need to correct information, contact your instructors directly to explain the error.
+A: Once submitted, requests cannot be edited or deleted. If you need to correct information, contact your course directors directly to explain the error.
 
 **Q: Do I need to submit medical documentation with my absence request?**
 A: No, the system does not require or accept documentation uploads. However, you should keep any supporting documentation for your records in case it's requested later.
 
-**Q: How do I access the Absence Report from Schulich Canvas?**
-A: From within Schulich Canvas, you can add a link with the query string `?r=sb` to the end of the Absence Request plugin URL (for example: `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
-When a student completes the Absence Request form, a button "Back to my courses" is available. Clicking this button will redirect the student to Schulich Canvas, allowing them to continue their work seamlessly.
-
 ### For Teachers and Administrators
 
 **Q: A teacher reports not receiving absence notifications. What should I check?**
-A: Verify their Moodle email settings, check that they are correctly assigned as a teacher in the course, and ensure their user account has the correct permissions.
+A: Verify their Moodle email settings, check that they are correctly assigned as a course director in the course, and ensure their user account has the correct permissions.
 
 **Q: Can faculty administrators modify or delete absence requests?**
 A: No, the system is designed as a record-keeping tool. Administrators can view but not modify submitted requests to maintain data integrity.

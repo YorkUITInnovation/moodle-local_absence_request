@@ -1,6 +1,6 @@
 # Guide d'utilisation du plugin de demande d'absence
 
-**Pour les étudiants, administrateurs, enseignants et administrateurs de faculté**
+**Pour les étudiants, administrateurs, directeurs de cours et administrateurs de faculté**
 
 *Version 1.0 - Juin 2025*
 
@@ -13,16 +13,17 @@
    - [Comprendre les limites des demandes](#comprendre-les-limites-des-demandes)
    - [Après la soumission](#apres-la-soumission)
    - [Bonnes pratiques pour les étudiants](#bonnes-pratiques-pour-les-etudiants)
-3. [Pour les administrateurs](#pour-les-administrateurs)
+3. [Pour les administrateurs eClass](#pour-les-administrateurs)
    - [Installation](#installation)
    - [Configuration](#configuration)
    - [Gestion des permissions utilisateur](#gestion-des-permissions-utilisateur)
+   - [Accès depuis Schulich Canvas](#acces-depuis-schulich-canvas)
    - [Maintenance du plugin](#maintenance-du-plugin)
-4. [Pour les enseignants](#pour-les-enseignants)
+4. [Pour les directeurs de cours](#pour-les-directeurs-de-cours)
    - [Réception des notifications d'absence](#reception-des-notifications-dabsence)
    - [Visualisation des demandes d'absence](#visualisation-des-demandes-dabsence)
    - [Filtrage et tri des demandes](#filtrage-et-tri-des-demandes)
-   - [Bonnes pratiques pour les enseignants](#bonnes-pratiques-pour-les-enseignants)
+   - [Bonnes pratiques pour les directeurs de cours](#bonnes-pratiques-pour-les-directeurs-de-cours)
 5. [Pour les administrateurs de faculté](#pour-les-administrateurs-de-faculte)
    - [Accès aux rapports de faculté](#acces-aux-rapports-de-faculte)
    - [Options de filtrage des rapports](#options-de-filtrage-des-rapports)
@@ -34,17 +35,17 @@
 
 ## Introduction
 
-Le plugin de demande d'absence est une solution complète pour gérer les notifications d'absence des étudiants dans un environnement Moodle. Il simplifie le processus de déclaration des absences par les étudiants, de notification des enseignants et de suivi des données d'absence à des fins administratives. Le plugin soutient la politique de considération académique pour les travaux de cours manqués en fournissant un mécanisme standardisé et transparent pour soumettre et suivre les demandes d'absence.
+Le plugin de demande d'absence est une solution complète pour gérer les notifications d'absence des étudiants dans un environnement Moodle. Il simplifie le processus de déclaration des absences par les étudiants, de notification des directeurs de cours et de suivi des données d'absence à des fins administratives. Le plugin soutient la politique de considération académique pour les travaux de cours manqués en fournissant un mécanisme standardisé et transparent pour soumettre et suivre les demandes d'absence.
 
 Les principales fonctionnalités incluent :
 - Demandes d'absence initiées par les étudiants avec prise en charge de différentes circonstances d'absence
-- Notifications automatiques aux enseignants des cours
-- Rapports complets pour les enseignants et les administrateurs de faculté
+- Notifications automatiques aux directeurs de cours
+- Rapports complets pour les directeurs de cours et les administrateurs de faculté
 - Limites configurables de demandes par trimestre académique
 - Gestion des données conforme au RGPD
 - Prise en charge multilingue (anglais et français)
 
-Ce guide explique comment utiliser le plugin du point de vue des étudiants, administrateurs, enseignants et administrateurs de faculté.
+Ce guide explique comment utiliser le plugin du point de vue des étudiants, administrateurs, directeurs de cours et administrateurs de faculté.
 
 ## Pour les étudiants
 
@@ -118,17 +119,17 @@ Une fois que vous avez soumis votre demande d'absence :
 
 1. **Notifications automatiques** :
    - Vous recevrez une confirmation par email de votre soumission
-   - Tous les enseignants des cours auxquels vous êtes inscrit pendant la période d'absence spécifiée seront automatiquement notifiés
+   - Tous les directeurs de cours des cours auxquels vous êtes inscrit pendant la période d'absence spécifiée seront automatiquement notifiés
 
 2. **Accommodements de cours** :
-   - Les enseignants examineront votre notification d'absence
-   - Faites un suivi avec les enseignants individuels concernant les devoirs ou évaluations manqués
+   - Les directeurs de cours examineront votre notification d'absence
+   - Faites un suivi avec les directeurs de cours individuels concernant les devoirs ou évaluations manqués
    - Soyez prêt à discuter du travail de rattrapage ou des arrangements alternatifs à votre retour
 
 3. **Tenue des registres** :
    - Votre demande d'absence est stockée dans le système pour l'année académique en cours
    - Vous pouvez consulter vos demandes soumises en cliquant sur l'icône "Alertes" (cloche) dans le coin supérieur droit de la barre de navigation principale
-   - Le système conserve un enregistrement de toutes les notifications envoyées aux enseignants
+   - Le système conserve un enregistrement de toutes les notifications envoyées aux directeurs de cours
 
 ### Bonnes pratiques pour les étudiants
 
@@ -136,13 +137,13 @@ Pour utiliser efficacement le système de demande d'absence :
 
 1. **Soumettez rapidement** : Soumettez votre demande dès que vous savez que vous serez absent
 2. **Soyez précis** : Assurez-vous que vos dates d'absence sont exactes et incluent tous les jours concernés
-3. **Faites un suivi** : Contactez directement les enseignants concernant le travail spécifique manqué après qu'ils aient reçu la notification
+3. **Faites un suivi** : Contactez directement les directeurs de cours concernant le travail spécifique manqué après qu'ils aient reçu la notification
 4. **Documentation** : Conservez toute documentation justificative (notes médicales, etc.) pour vos dossiers
 5. **Planifiez à l'avance** : Soyez conscient de la limite de deux demandes par trimestre
-6. **Communication** : Utilisez le système de demande d'absence conjointement avec une communication directe avec vos enseignants
+6. **Communication** : Utilisez le système de demande d'absence conjointement avec une communication directe avec vos directeurs de cours
 7. **Connaissance de la politique** : Familiarisez-vous avec la politique de considération académique pour comprendre vos droits et responsabilités
 
-## Pour les administrateurs
+## Pour les administrateurs eClass
 
 ### Installation
 
@@ -168,9 +169,9 @@ Configurez les paramètres du plugin pour qu'ils soient alignés avec les politi
 Le plugin repose sur le système de rôles et de capacités de Moodle pour contrôler l'accès :
 
 1. Accédez à Administration du site > Utilisateurs > Permissions > Définir les rôles
-2. Pour chaque rôle pertinent (Administrateur, Enseignant, Enseignant non éditeur, Administrateur de faculté) :
+2. Pour chaque rôle pertinent (Administrateur, Directeur de cours, Directeur de cours non éditeur, Administrateur de faculté) :
    - Assurez-vous que les capacités appropriées sont attribuées :
-     - `local/absence_request:view_teacher_report` : Pour que les enseignants puissent voir les rapports d'absence de leurs cours
+     - `local/absence_request:view_teacher_report` : Pour que les directeurs de cours puissent voir les rapports d'absence de leurs cours
      - `local/absence_request:view_faculty_report` : Pour que les administrateurs de faculté puissent voir les rapports de l'ensemble de la faculté
 
 Pour créer un nouveau rôle d'administrateur de faculté :
@@ -178,6 +179,10 @@ Pour créer un nouveau rôle d'administrateur de faculté :
 2. Cliquez sur "Ajouter un nouveau rôle"
 3. Définissez les permissions appropriées, en veillant à ce que `local/absence_request:view_faculty_report` soit activé
 4. Attribuez ce rôle aux utilisateurs appropriés au niveau de la faculté/catégorie
+
+### Accès depuis Schulich Canvas
+- Le plugin peut être accessible depuis Schulich Canvas en ajoutant un lien avec la chaîne de requête `?r=sb` à la fin de l'URL du plugin Demande d'absence (par exemple : `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
+- Cela permet aux étudiants de revenir sans interruption à leurs cours après avoir soumis une demande d'absence.
 
 ### Maintenance du plugin
 
@@ -195,7 +200,7 @@ Une maintenance régulière garantit le bon fonctionnement du plugin :
    - Examinez périodiquement les modèles d'utilisation et les volumes de demandes
    - Ajustez les paramètres de configuration si nécessaire en fonction de l'utilisation réelle
 
-## Pour les enseignants
+## Pour les directeurs de cours
 
 ### Réception des notifications d'absence
 
@@ -245,7 +250,7 @@ Le rapport des demandes d'absence offre plusieurs options de filtrage et de tri 
 4. **Recherche** :
    - Utilisez la boîte de recherche pour trouver des étudiants ou des détails spécifiques sur les demandes
 
-### Bonnes pratiques pour les enseignants
+### Bonnes pratiques pour les directeurs de cours
 
 Lors de la réponse aux demandes d'absence :
 
@@ -306,14 +311,14 @@ Les rapports de faculté peuvent être utilisés à diverses fins administrative
 
 ### Rôle de soutien administratif
 
-Les administrateurs de faculté jouent un rôle clé dans le soutien des étudiants et des enseignants :
+Les administrateurs de faculté jouent un rôle clé dans le soutien des étudiants et des directeurs de cours :
 
 1. **Communication des politiques** :
    - Assurez-vous que les membres de la faculté comprennent la politique de considération académique
    - Fournissez des conseils sur la manière dont les demandes d'absence doivent être traitées
 
 2. **Soutien à la faculté** :
-   - Aidez les enseignants à interpréter les données d'absence
+   - Aidez les directeurs de cours à interpréter les données d'absence
    - Fournissez des conseils pour des cas complexes ou des circonstances inhabituelles
 
 3. **Soutien aux étudiants** :
@@ -334,29 +339,25 @@ R : Pour des absences de plus de 7 jours, vous devriez contacter votre conseille
 **Q : J'ai déjà soumis deux demandes d'absence ce trimestre, mais j'ai besoin d'en soumettre une autre. Est-ce possible ?**
 R : Le système est limité à deux demandes par trimestre selon la politique institutionnelle. Pour des circonstances exceptionnelles, veuillez contacter le bureau de votre faculté pour discuter d'arrangements alternatifs.
 
-**Q : Mes enseignants accorderont-ils automatiquement des prolongations pour les devoirs manqués ?**
-R : Le système de demande d'absence notifie seulement les enseignants de votre absence. Vous devriez faire un suivi directement avec chaque enseignant pour discuter des accommodements spécifiques pour le travail manqué.
+**Q : Mes directeurs de cours accorderont-ils automatiquement des prolongations pour les devoirs manqués ?**
+R : Le système de demande d'absence notifie seulement les directeurs de cours de votre absence. Vous devriez faire un suivi directement avec chaque directeur de cours pour discuter des accommodements spécifiques pour le travail manqué.
 
 **Q : J'ai soumis une demande avec des dates incorrectes. Puis-je la modifier ou la supprimer ?**
-R : Une fois soumises, les demandes ne peuvent pas être modifiées ou supprimées. Si vous devez corriger des informations, contactez vos enseignants directement pour expliquer l'erreur.
+R : Une fois soumises, les demandes ne peuvent pas être modifiées ou supprimées. Si vous devez corriger des informations, contactez vos directeurs de cours directement pour expliquer l'erreur.
 
 **Q : Dois-je soumettre une documentation médicale avec ma demande d'absence ?**
 R : Non, le système n'exige pas et n'accepte pas le téléchargement de documentation. Cependant, vous devriez conserver toute documentation justificative pour vos dossiers au cas où elle serait demandée ultérieurement.
 
-**Q : Comment accéder au rapport d'absence depuis Schulich Canvas ?**
-R : Depuis Schulich Canvas, vous pouvez ajouter la chaîne de requête `?r=sb` à la fin de l'URL du plugin Demande d'absence (par exemple : `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
-Lorsqu'un étudiant complète le formulaire de demande d'absence, un bouton « Retour à mes cours » est disponible. En cliquant sur ce bouton, l'étudiant sera redirigé vers Schulich Canvas, ce qui lui permet de poursuivre son travail sans interruption.
-
-### Pour les enseignants et administrateurs
+### Pour les directeurs de cours et administrateurs
 
 **Q : Un enseignant signale ne pas recevoir les notifications d'absence. Que dois-je vérifier ?**
-R : Vérifiez les paramètres de messagerie Moodle de l'enseignant, assurez-vous qu'il est correctement assigné en tant qu'enseignant dans le cours et que son compte utilisateur dispose des permissions correctes.
+R : Vérifiez les paramètres de messagerie Moodle du directeur de cours, assurez-vous qu'il est correctement assigné en tant que directeur de cours dans le cours et que son compte utilisateur dispose des permissions correctes.
 
 **Q : Les administrateurs de faculté peuvent-ils modifier ou supprimer des demandes d'absence ?**
 R : Non, le système est conçu comme un outil de tenue de registres. Les administrateurs peuvent consulter mais pas modifier les demandes soumises afin de maintenir l'intégrité des données.
 
 **Q : Comment les demandes d'absence sont-elles gérées pour les cours croisés ?**
-R : Lorsqu'un étudiant soumet une demande d'absence, des notifications sont envoyées aux enseignants de tous les cours dans lesquels l'étudiant est inscrit pendant la période spécifiée.
+R : Lorsqu'un étudiant soumet une demande d'absence, des notifications sont envoyées aux directeurs de cours de tous les cours dans lesquels l'étudiant est inscrit pendant la période spécifiée.
 
 **Q : Que se passe-t-il si un étudiant dépasse le nombre maximum de demandes par trimestre ?**
 R : Le système empêchera la soumission et affichera un message indiquant qu'il a atteint le nombre maximum de demandes autorisées.
@@ -378,7 +379,7 @@ Le plugin de demande d'absence est conçu dans le respect de la confidentialité
    - Prend en charge les demandes de suppression de données lorsque cela est approprié
 
 3. **Contrôles d'accès** :
-   - Les enseignants ne peuvent consulter que les données d'absence de leurs propres cours
+   - Les directeurs de cours ne peuvent consulter que les données d'absence de leurs propres cours
    - Les administrateurs de faculté ne peuvent consulter que les données de leur faculté assignée
    - Tous les accès sont enregistrés via le système de journalisation standard de Moodle
 
@@ -397,7 +398,7 @@ Cette politique décrit :
 - Les critères d'éligibilité pour la considération académique
 - Les types de circonstances qui qualifient pour une considération
 - Les exigences en matière de documentation
-- Les responsabilités des étudiants, enseignants et administrateurs
+- Les responsabilités des étudiants, directeurs de cours et administrateurs
 - Les processus d'appel
 
 Tous les utilisateurs du système de demande d'absence doivent se familiariser avec cette politique pour garantir une mise en œuvre et une adhésion appropriées.
