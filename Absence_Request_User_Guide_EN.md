@@ -17,6 +17,7 @@
    - [Installation](#installation)
    - [Configuration](#configuration)
    - [Managing User Permissions](#managing-user-permissions)
+   - [Accessing from Schulich Canvas](#accessing-from-schulich-canvas)
    - [Plugin Maintenance](#plugin-maintenance)
 4. [For Course Directors](#for-course-directors)
    - [Receiving Absence Notifications](#receiving-absence-notifications)
