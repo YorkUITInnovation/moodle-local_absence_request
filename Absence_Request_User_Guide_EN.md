@@ -13,7 +13,7 @@
    - [Understanding Request Limits](#understanding-request-limits)
    - [After Submission](#after-submission)
    - [Best Practices for Students](#best-practices-for-students)
-3. [For eClass Administrators](#for-administrators)
+3. [For eClass Administrators](#for-eclass-administrators)
    - [Installation](#installation)
    - [Configuration](#configuration)
    - [Managing User Permissions](#managing-user-permissions)

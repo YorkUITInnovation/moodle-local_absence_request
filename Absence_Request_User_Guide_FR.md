@@ -13,7 +13,7 @@
    - [Comprendre les limites des demandes](#comprendre-les-limites-des-demandes)
    - [Après la soumission](#apres-la-soumission)
    - [Bonnes pratiques pour les étudiants](#bonnes-pratiques-pour-les-etudiants)
-3. [Pour les administrateurs eClass](#pour-les-administrateurs)
+3. [Pour les administrateurs eClass](#pour-les-administrateurs-eclass)
    - [Installation](#installation)
    - [Configuration](#configuration)
    - [Gestion des permissions utilisateur](#gestion-des-permissions-utilisateur)
