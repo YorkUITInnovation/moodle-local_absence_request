@@ -360,8 +360,9 @@ R : Le système empêchera la soumission et affichera un message indiquant qu'il
 **Q : Le système peut-il être configuré pour autoriser plus de deux demandes par trimestre ?**
 R : Oui, les administrateurs peuvent ajuster le paramètre "Demandes par trimestre" dans la configuration du plugin.
 
-**Q : Comment accéder à Schulich Canvas depuis le plugin Demande d'absence ?**
-R : Si vous devez être redirigé vers Schulich Canvas, vous pouvez ajouter la chaîne de requête `?r=sb` à la fin de l'URL du plugin Demande d'absence (par exemple : `index.php?r=sb`). En visitant cette URL, vous serez automatiquement redirigé vers le portail Schulich Canvas. Ceci est utile si vous êtes invité ou si l'on vous demande d'accéder directement à Schulich Canvas depuis l'interface du plugin.
+**Q : Comment accéder au rapport d'absence depuis Schulich Canvas ?**
+R : Depuis Schulich Canvas, vous pouvez ajouter la chaîne de requête `?r=sb` à la fin de l'URL du plugin Demande d'absence (par exemple : `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
+Lorsqu'un étudiant complète le formulaire de demande d'absence, un bouton « Retour à mes cours » est disponible. En cliquant sur ce bouton, l'étudiant sera redirigé vers Schulich Canvas, ce qui lui permet de poursuivre son travail sans interruption.
 
 ## Confidentialité et conformité au RGPD
 
