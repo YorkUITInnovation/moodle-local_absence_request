@@ -1,5 +1,8 @@
 <?php
 // notifications.php - Handles notification logic for absence requests.
+// This class provides static methods to send notifications to students and course directors (teachers) when absence requests are submitted.
+// It uses Moodle's messaging API to send both email and Moodle notifications.
+
 namespace local_absence_request;
 include_once('../../config.php');
 include_once($CFG->libdir . '/messagelib.php');
@@ -10,10 +13,11 @@ class notifications
 {
     /**
      * Notify a student by email and Moodle notification.
+     * Sends a message to the student when their absence request is submitted.
+     *
      * @param int $userid The user ID of the student.
      * @param int $absence_request_id The ID of the absence request.
-     * @param string $subject The subject of the message.
-     * @param string $message The message body.
+     * @return bool|int Message send status.
      */
     public static function notify_student(int $userid, int $absence_request_id)
     {
@@ -49,11 +53,12 @@ class notifications
     }
 
     /**
-     * Notify a teacher by email and Moodle notification.
+     * Notify a teacher (course director) by email and Moodle notification.
+     * Sends a message to the course director when a student submits an absence request for their course.
+     *
      * @param int $userid The user ID of the teacher.
      * @param int $absence_request_id The ID of the absence request.
-     * @param string $subject The subject of the message.
-     * @param string $message The message body.
+     * @return bool|int Message send status.
      */
     public static function notify_teacher(int $userid, int $absence_request_id)
     {
@@ -91,4 +96,3 @@ class notifications
         return $notification;
     }
 }
-

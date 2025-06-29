@@ -9,6 +9,10 @@ use external_multiple_structure;
 use external_single_structure;
 use external_value;
 
+/**
+ * Helper class for the local_absence_request plugin.
+ * Provides utility functions for academic year, period, eligibility, and reporting.
+ */
 class helper
 {
 
@@ -49,10 +53,10 @@ class helper
     }
 
     /**
-     * Filters the given courses to return only those that match the current academic year.
+     * Filters the given courses to return only those that match the current academic year and period.
      *
      * @param array $courses An array of course objects, each expected to have an 'idnumber' property.
-     * @return array Filtered array of courses that belong to the current academic year.
+     * @return array Filtered array of courses that belong to the current academic year and period.
      */
     public static function get_courses_in_acadyear($courses)
     {
@@ -99,12 +103,11 @@ class helper
     }
 
     /**
-     * Returns the current period based on the current month.
+     * Returns the current period based on the current month or a configured value.
      * The periods are defined as follows:
      * - Winter: January to April
      * - Summer: May to August
      * - Fall: September to December
-     * - Winter Year: January to April of the next year
      *
      * @return int The current period constant
      */
@@ -148,9 +151,9 @@ class helper
     }
 
     /**
-     * Returns the term period based on the start date.
-     * @param $start
-     * @return string|null
+     * Returns the term period based on the start date timestamp.
+     * @param int $start Unix timestamp for the start date.
+     * @return string|null The period constant or null if not found.
      */
     public static function get_term_period($start)
     {
@@ -177,8 +180,9 @@ class helper
 
     /**
      * Checks if a user is eligible to submit an absence request.
-     * undergraduate (fieldid=1, data contains 'undergraduate'), not Osgoode (fieldid=2, data='LW').
-     * @param $userid
+     * Eligibility: undergraduate (fieldid=1, data contains 'undergraduate'), not Osgoode (fieldid=2, data='LW').
+     * Also checks if the user has exceeded the max requests per term.
+     * @param int $userid
      * @return \stdClass
      * @throws \dml_exception
      */
@@ -267,7 +271,8 @@ class helper
     }
 
     /**
-     * Returns an array of URLs for the plugin.
+     * Returns an array of URLs for the plugin based on a query string.
+     * @param string $query_string
      * @return string
      */
     public static function return_urls($query_string): string
@@ -280,4 +285,3 @@ class helper
         return $urls[strtolower($query_string)];
     }
 }
-

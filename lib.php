@@ -6,6 +6,14 @@ defined('MOODLE_INTERNAL') || die();
 
 use local_absence_request\helper;
 
+/**
+ * Extends the frontpage navigation to include links for the absence request plugin.
+ * Adds links for eligible users and those with faculty report permissions.
+ *
+ * @param navigation_node $parentnode
+ * @param stdClass $course
+ * @param context_course $context
+ */
 function local_absence_request_extend_navigation_frontpage(
     navigation_node $parentnode,
     stdClass        $course,
@@ -41,6 +49,14 @@ function local_absence_request_extend_navigation_frontpage(
     );
 }
 
+/**
+ * Extends the course navigation to include links for the absence request plugin.
+ * Adds links for eligible users and those with teacher report permissions.
+ *
+ * @param navigation_node $parentnode
+ * @param stdClass $course
+ * @param context_course $context
+ */
 function local_absence_request_extend_navigation_course(
     navigation_node $parentnode,
     stdClass        $course,
@@ -74,4 +90,3 @@ function local_absence_request_extend_navigation_course(
         'local_absence_request'
     );
 }
-

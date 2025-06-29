@@ -7,7 +7,14 @@ require_once($CFG->libdir.'/formslib.php');
 
 use local_absence_request\helper;
 
+/**
+ * Form class for submitting an absence request.
+ * Defines the form fields, validation, and rules for the absence request process.
+ */
 class request_form extends \moodleform {
+    /**
+     * Defines the form fields and their rules.
+     */
     public function definition() {
         $formdata = $this->_customdata['formdata'];
 
@@ -34,6 +41,7 @@ class request_form extends \moodleform {
 
     /**
      * Custom validation for the form.
+     * Ensures dates are valid, within the academic year/term, and not duplicated.
      *
      * @param array $data The submitted form data.
      * @param array $files The submitted files (not used here).
