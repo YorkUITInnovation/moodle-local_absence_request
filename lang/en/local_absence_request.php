@@ -23,12 +23,13 @@ $string['notify_instructor_body'] = 'A student has submitted an absence request.
 $string['notify_instructor_subject'] = 'Student Absence Request Notification';
 $string['pluginname'] = 'Absence Request';
 $string['report_link'] = 'View Absence Requests Report';
-$string['request_submitted'] = 'Your absence request has been submitted. Note: Any accommodations for missed course work need to be arranged with your individual instructors';
+$string['request_submitted'] = 'Your absence request has been submitted. Note: It is the responsibility of the student to arrange any accommodations for missed course work with your individual instructors';
 $string['short_term_health'] = 'Short-term health conditions (illness, physical injury, scheduled surgery)';
 $string['sisid'] = 'Student ID';
 $string['student_firstname'] = 'Student First Name';
 $string['student_instructions'] = '<p>Please fill out the form below to submit your absence request. You can only submit up to two requests per term. '
-    . 'Ensure that your request does not exceed 7 days in duration. Note that this request will be submitted for all courses you are enrolled in, in this term.</p>'
+    . 'Ensure that your request does not exceed 7 days in duration. Any reason beyond those listed in the drop-down '
+    . 'menu are not eligible for self-reported absence. Note that this request will be submitted for all courses you are enrolled in, in this term.</p>'
     . '<p>Any accommodations for missed course work need to be arranged with your individual instructors</p>'
     . '<p>For more information about the policy on Academic Consideration for Missed Work, please refer to the '
     . '<a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">Academic Consideration Policy</a>.</p>';

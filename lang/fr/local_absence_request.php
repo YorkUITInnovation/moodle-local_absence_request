@@ -23,12 +23,13 @@ $string['notify_instructor_body'] = "Un étudiant a soumis une demande d'absence
 $string['notify_instructor_subject'] = "Notification de demande d'absence d'un étudiant";
 $string['pluginname'] = "Demande d'absence";
 $string['report_link'] = "Voir le rapport des demandes d'absence";
-$string['request_submitted'] = "Votre demande d'absence a été soumise. Remarque: Toute adaptation pour le travail de cours manqué doit être organisée avec vos instructeurs individuels";
+$string['request_submitted'] = "Votre demande d'absence a bien été soumise. Remarque: Il est de la responsabilité de l'étudiant de prendre les dispositions nécessaires avec ses enseignants pour s'adapter aux cours manqués.";
 $string['short_term_health'] = "Problèmes de santé à court terme (maladie, blessure physique, chirurgie programmée)";
 $string['sisid'] = 'ID étudiant';
 $string['student_firstname'] = 'Prénom de l\'étudiant';
 $string['student_instructions'] = '<p>Veuillez remplir le formulaire ci-dessous pour soumettre votre demande d\'absence. Vous ne pouvez soumettre que deux demandes par session. '
-    . 'Assurez-vous que votre demande ne dépasse pas 7 jours. Cette demande sera soumise pour tous les cours auxquels vous êtes inscrit cette session.</p>'
+    . 'Assurez-vous que votre demande ne dépasse pas 7 jours. Toute raison autre que celles énumérées dans le menu déroulant '
+    . 'n’est pas admissible à une absence autodéclarée.Cette demande sera soumise pour tous les cours auxquels vous êtes inscrit cette session.</p>'
     . '<p>Toute adaptation pour le travail de cours manqué doit être organisée avec vos instructeurs individuels</p>'
     . '<p>Pour plus d\'informations sur la politique de considération académique pour le travail de cours manqué, veuillez consulter la '
     . '<a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">politique de considération académique</a>.</p>';
