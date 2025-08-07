@@ -43,5 +43,13 @@ if ($hassiteconfig) {
         ]
     ));
 
+    $settings->add(new admin_setting_configtext(
+        'local_absence_request_academic_year',
+        get_string('academic_year', 'local_absence_request'),
+        get_string('academic_year_desc', 'local_absence_request'),
+        '',
+        PARAM_RAW
+    ));
+
     $ADMIN->add('localplugins', $settings);
 }

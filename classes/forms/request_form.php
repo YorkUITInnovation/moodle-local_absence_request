@@ -3,7 +3,7 @@ namespace local_absence_request\forms;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->libdir.'/formslib.php');
+require_once($GLOBALS['CFG']->libdir.'/formslib.php');
 
 use local_absence_request\helper;
 
@@ -75,13 +75,16 @@ class request_form extends \moodleform {
         if (!empty($data['starttime']) && !empty($data['endtime'])) {
             $start = $data['starttime'];
             $end = $data['endtime'];
+            // ensure dates are within the current academic year
             if (date('Y', $start) != $acadyear || date('Y', $end) != $acadyear) {
                 $errors['starttime'] = get_string('error_academic_year', 'local_absence_request');
-                $errors['endtime'] = get_string('error_academic_year', 'local_absence_request');
+                $errors['endtime']   = get_string('error_academic_year', 'local_absence_request');
             }
-            if (helper::get_term_period($start) != $currentperiod || helper::get_term_period($end) != $currentperiod) {
+            // ensure dates are within the current term period
+            if (helper::get_term_period($start) != $currentperiod
+                || helper::get_term_period($end) != $currentperiod) {
                 $errors['starttime'] = get_string('error_term_period', 'local_absence_request');
-                $errors['endtime'] = get_string('error_term_period', 'local_absence_request');
+                $errors['endtime']   = get_string('error_term_period', 'local_absence_request');
             }
         }
 

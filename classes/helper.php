@@ -30,6 +30,9 @@ class helper
      */
     public static function get_acad_year()
     {
+        if (!empty($CFG->local_absence_request_academic_year)) {
+            return $CFG->local_absence_request_academic_year;
+        }
         $month = date('n', time());
         switch ($month) {
             case 1:

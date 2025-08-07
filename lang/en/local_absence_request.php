@@ -3,6 +3,8 @@
 $string['absence_end'] = 'Absence End Date and Time';
 $string['absence_request'] = 'Report an Absence';
 $string['absence_start'] = 'Absence Start Date and Time';
+$string['academic_year'] = 'Academic Year';
+$string['academic_year_desc'] = 'Set the academic year (example: 2024) for reported absences. Leave blank to use the current academic year based on the current month.';
 $string['all_faculties'] = 'All Faculties';
 $string['back_to_my_courses'] = 'Back to My Courses';
 $string['bereavement'] = 'Bereavement of an immediate family member';
