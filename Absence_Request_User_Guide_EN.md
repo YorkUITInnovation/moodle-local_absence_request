@@ -1,4 +1,4 @@
-# Absence Request Plugin User Guide
+# Absence Reporting Plugin User Guide
 
 **For Students, Administrators, Course Directors, and Faculty Administrators**
 
@@ -9,7 +9,7 @@
 1. [Introduction](#introduction)
 2. [For Students](#for-students)
    - [Eligibility Requirements](#eligibility-requirements)
-   - [Submitting an Absence Request](#submitting-an-absence-request)
+   - [Reporting an Absence](#reporting-an-absence)
    - [Understanding Request Limits](#understanding-request-limits)
    - [After Submission](#after-submission)
    - [Best Practices for Students](#best-practices-for-students)
@@ -35,13 +35,13 @@
 
 ## Introduction
 
-The Absence Request plugin is a comprehensive solution for managing student absence notifications in a Moodle environment. It streamlines the process of students reporting absences, notifying course directors, and tracking absence data for administrative purposes. The plugin supports the Academic Consideration for Missed Course Work Policy by providing a standardized and transparent mechanism for submitting and tracking absence requests.
+The Absence Reporting plugin is a comprehensive solution for managing student absence notifications in a Moodle environment. It streamlines the process of students reporting absences, notifying course directors, and tracking absence data for administrative purposes. The plugin supports the Academic Consideration for Missed Course Work Policy by providing a standardized and transparent mechanism for reporting and tracking absences.
 
 Key features include:
-- Student-initiated absence requests with support for different absence circumstances
+- Student-initiated absence reports with support for different absence circumstances
 - Automatic notifications to course directors
 - Comprehensive reporting for course directors and faculty administrators
-- Configurable request limits per academic term
+- Configurable reporting limits per academic term
 - GDPR-compliant data management
 - Multi-language support (English and French)
 
@@ -51,38 +51,38 @@ This guide explains how to use the plugin from the perspective of Students, Admi
 
 ### Eligibility Requirements
 
-To be eligible to submit an absence request:
+To be eligible to report an absence:
 
 1. **Enrollment Status**:
    - You must be currently enrolled in at least one course for the current academic term
+   - Only undergrad students are eligible to use the Absence Reporting system
    - The system will automatically check your enrollment status
 
-2. **Request Timing**:
-   - Requests must be submitted during the current academic term
-   - Requests cannot be submitted for past terms or future terms
+2. **Absence Report Timing**:
+   - Absence Reporting must be submitted during the current academic term
+   - Absences cannot be reported for past terms or future terms
    - Both the start and end dates of your absence must fall within the current term
 
 3. **Faculty Affiliation**:
    - Your faculty affiliation is automatically determined from your student profile
    - No additional action is required to specify your faculty
 
-### Submitting an Absence Request
+### Reporting an Absence
 
-To submit an absence request:
+To report an absence:
 
-1. **Access the Request Form**:
-   - Log in to Moodle
-   - Navigate to Site Home
-   - Click on "Absence Request" in the navigation menu
-   - Alternatively, you can access the form from within any of your courses by clicking on "Absence Request" in the course navigation
+1. **Access the Absence Reporting Form**:
+   - Log in to eClass using your Passport York ID
+   - Navigate into a curretn course
+   - Click on "Absence Reporting" in the navigation menu
 
 2. **Complete the Request Form**:
    - **Type of Circumstance**: Select the appropriate reason for your absence:
      - Short-term health conditions (illness, physical injury, scheduled surgery)
      - Bereavement of an immediate family member
      - Unforeseen or unavoidable incidents beyond your control
-   - **Absence Start Date and Time**: Select the date and time when your absence begins
-   - **Absence End Date and Time**: Select the date and time when your absence ends
+   - **Absence Start Date**: Select the date when your absence begins
+   - **Absence End Date**: Select the date when your absence ends
 
 3. **Form Validation**:
    - The system will automatically validate your request against the following criteria:
@@ -90,36 +90,38 @@ To submit an absence request:
      - The absence duration cannot exceed 7 days
      - The dates must fall within the current academic term
      - You cannot submit duplicate requests for the same date range
+     - You can only report two absences per term
 
-4. **Submit the Request**:
+4. **Report the Absence**:
    - Review your information for accuracy
-   - Click the "Submit Absence Request" button
+   - Click the "Report Absence" button
    - You will receive a confirmation message upon successful submission
 
 ### Understanding Request Limits
 
-The Absence Request system has specific limitations:
+The Absence Reporting system has specific limitations:
 
-1. **Requests Per Term**:
-   - You can submit a maximum of two (2) absence requests per academic term
-   - The system will prevent submission of additional requests once you reach this limit
+1. **Reports Per Term**:
+   - You can report a maximum of two (2) absences per academic term
+   - The system will prevent submission of additional reports once you reach this limit
    - This limit is set by institutional policy and cannot be overridden
 
 2. **Duration Limits**:
-   - Each absence request cannot exceed 7 consecutive days
+   - Each absence report cannot exceed 7 consecutive days
    - For absences longer than 7 days, please contact your academic advisor for guidance
 
 3. **Academic Year Boundaries**:
-   - Requests cannot span across different academic terms
+   - Reports cannot span across different academic terms
    - Both the start and end dates must be within the same term period
 
 ### After Submission
 
-Once you've submitted your absence request:
+Once you've submitted your absence report:
 
 1. **Automatic Notifications**:
    - You will receive an email confirmation of your submission
-   - All course directors for courses you are enrolled in during the specified absence period will be automatically notified
+   - An eClass alert will be generated in your notifications area (bell icon in the top right corner)
+   - All course directors for courses you are enrolled in during the specified absence period will be automatically notified of your report
 
 2. **Course Accommodations**:
    - Course directors will review your absence notification
@@ -133,21 +135,21 @@ Once you've submitted your absence request:
 
 ### Best Practices for Students
 
-To effectively use the Absence Request system:
+To effectively use the Absence Reporting system:
 
 1. **Submit Promptly**: Submit your request as soon as you know you'll be absent
 2. **Be Accurate**: Ensure your absence dates are accurate and include all affected days
 3. **Follow Up**: Contact course directors directly about specific missed work after they receive the notification
-4. **Documentation**: Keep any supporting documentation (medical notes, etc.) for your records
+4. **Documentation**: Although not required for reporting an absence, keep any supporting documentation (medical notes, etc.) for your records
 5. **Plan Ahead**: Be mindful of the two-request limit per term
-6. **Communication**: Use the absence request system in conjunction with direct communication with your course directors
+6. **Communication**: Use the absence reporting system in conjunction with direct communication with your course directors
 7. **Policy Awareness**: Familiarize yourself with the Academic Consideration Policy to understand your rights and responsibilities
 
 ## For eClass Administrators
 
 ### Installation
 
-The Absence Request plugin is installed like most Moodle plugins:
+The Absence Reporting plugin is installed like most Moodle plugins:
 
 1. Download the plugin zip file from the Moodle plugins directory or provided source
 2. Extract the contents to `/path/to/moodle/local/absence_request`
@@ -160,9 +162,9 @@ The Absence Request plugin is installed like most Moodle plugins:
 
 Configure the plugin settings to align with your institution's absence policies:
 
-1. Navigate to Site administration > Plugins > Local plugins > Absence Request
+1. Navigate to Site administration > Plugins > Local plugins > Absence Reporting
 2. Configure the following settings:
-   - **Requests per term**: Set the maximum number of absence requests students can submit per term (default: 2)
+   - **Reports per term**: Set the maximum number of absence reports students can submit per term (default: 2)
 
 ### Managing User Permissions
 
@@ -181,15 +183,15 @@ To create a new Faculty Administrator role:
 4. Assign this role to appropriate users at the faculty/category level
 
 ### Accessing from Schulich Canvas
-- The plugin can be accessed from Schulich Canvas by adding a link with the query string `?r=sb` to the end of the Absence Request plugin URL (e.g., `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
-- This allows students to seamlessly return to their courses after submitting an absence request.
+- The plugin can be accessed from Schulich Canvas by adding a link with the query string `?r=sb` to the end of the Absence Reporting plugin URL (e.g., `https://eclass.yorku.ca/local/absence_request/index.php?r=sb`).
+- This allows students to seamlessly return to their courses after submitting an absence report.
 
 ### Plugin Maintenance
 
 Regular maintenance ensures the plugin continues to function effectively:
 
 1. **Database Management**:
-   - The plugin stores absence request data in dedicated tables
+   - The plugin stores absence report data in dedicated tables
    - Regular backups are recommended as part of your normal Moodle backup procedures
 
 2. **Updates**:
@@ -197,14 +199,14 @@ Regular maintenance ensures the plugin continues to function effectively:
    - Follow standard Moodle update procedures when new versions are available
 
 3. **Monitoring**:
-   - Review usage patterns and request volumes periodically
+   - Review usage patterns and reporting volumes periodically
    - Adjust configuration settings if needed based on actual usage
 
 ## For Course Directors
 
 ### Receiving Absence Notifications
 
-When a student submits an absence request for a course you teach:
+When a student submits an absence report for a course you teach:
 
 1. You will receive an email notification with:
    - Student information
@@ -228,7 +230,7 @@ Access absence requests in two ways:
 2. **Via Moodle Navigation**:
    - Log in to Moodle
    - Navigate to Site Home
-   - Click on "Absence Request" in the navigation menu
+   - Click on "Absence Reporting" in the navigation menu
    - Select "View Absence Requests Report"
 
 ### Filtering and Sorting Requests
@@ -254,7 +256,7 @@ Faculty Administrators can view aggregated reports for all courses within their 
 
 1. Log in to Moodle with your Faculty Administrator account
 2. Navigate to Site Home or Dashboard
-3. Click on "Absence Request" in the navigation menu (may be in the "More" menu)
+3. Click on "Absence Reporting" in the navigation menu (may be in the "More" menu)
 4. Select "Faculty Absence Report"
 
 ### Report Filtering Options
@@ -348,7 +350,7 @@ A: Yes, administrators can adjust the "Requests per term" setting in the plugin 
 
 ## Privacy and GDPR Compliance
 
-The Absence Request plugin is designed with privacy in mind:
+The Absence Reporting plugin is designed with privacy in mind:
 
 1. **Data Collection**:
    - Only necessary personal data is collected for the legitimate purpose of processing absence requests
@@ -371,7 +373,7 @@ The Absence Request plugin is designed with privacy in mind:
 
 ## Appendix: Academic Consideration Policy
 
-The Absence Request plugin supports the Academic Consideration for Missed Course Work Policy. For full details on this policy, please refer to the official policy document available in the plugin directory:
+The Absence Reporting plugin supports the Academic Consideration for Missed Course Work Policy. For full details on this policy, please refer to the official policy document available in the plugin directory:
 
 `20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf`
 
@@ -382,8 +384,8 @@ This policy outlines:
 - Responsibilities of students, faculty, and administrators
 - Appeals processes
 
-All users of the Absence Request system should familiarize themselves with this policy to ensure proper implementation and adherence.
+All users of the Absence Reporting system should familiarize themselves with this policy to ensure proper implementation and adherence.
 
 ---
 
-*This user guide was created for the Moodle Absence Request Plugin developed by UIT Innovation © 2025.*
+*This user guide was created for the Moodle Absence Reporting Plugin developed by UIT Innovation © 2025.*
