@@ -24,7 +24,7 @@ $string['not_enrolled_in_courses'] = 'You are not enrolled in any courses for th
 $string['notify_instructor_body'] = 'A student has reported an absence. View the report: {$a}';
 $string['notify_instructor_subject'] = 'Student Reported Absence Notification';
 $string['pluginname'] = 'Absence Reporting';
-$string['report_link'] = 'View Reported Absences Report';
+$string['report_link'] = 'View Absence Report';
 $string['request_submitted'] = 'Your reported absence has been submitted. Note: It is the responsibility of the student to arrange any accommodations for missed course work with your individual instructors';
 $string['short_term_health'] = 'Short-term health conditions (illness, physical injury, scheduled surgery)';
 $string['sisid'] = 'Student ID';
@@ -63,7 +63,7 @@ $string['use_period_Y'] = 'Year';
 // Notifications
 $string['absence_request:view_faculty_report'] = 'View Faculty Absence Report';
 $string['absence_request:view_teacher_report'] = 'View Absence Report';
-$string['messageprovider:absence_notification'] = 'Absence Request Notifications';
+$string['messageprovider:absence_notification'] = 'Absence Notifications';
 $string['student_message_subject'] = 'Absence Reported Successfully';
 $string['teacher_message_subject'] = 'Reported Absence Notification';
 $string['student_message'] = 'Hello {$a->firstname}, '

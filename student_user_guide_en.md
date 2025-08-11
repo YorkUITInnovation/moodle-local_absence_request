@@ -68,7 +68,7 @@ Once you've submitted your absence report:
 
 1. **Automatic Notifications**:
     - You will receive an email confirmation of your submission
-    - An eClass alert will be generated in your notifications area (bell icon in the top right corner)
+    - An eClass alert will be generated in your notifications area (Alert icon in the top right corner)
     - All course directors for courses you are enrolled in during the specified absence period will be automatically notified of your report
 
 2. **Course Accommodations**:
@@ -76,16 +76,11 @@ Once you've submitted your absence report:
     - Follow up with individual course directors regarding specific missed assignments or assessments
     - Be prepared to discuss make-up work or alternative arrangements upon your return
 
-3. **Record Keeping**:
-    - Your absence request is stored in the system for the current academic year
-    - You can view your submitted requests by clicking on the "Alerts" icon (bell) in the top right corner of the main navigation bar.
-    - The system maintains a record of all notifications sent to course directors
-
 ### Best Practices for Students
 
 To effectively use the Absence Reporting system:
 
-1. **Submit Promptly**: Submit your request as soon as you know you'll be absent
+1. **Submit Promptly**: Report your absence as soon as you know you'll be absent
 2. **Be Accurate**: Ensure your absence dates are accurate and include all affected days
 3. **Follow Up**: Contact course directors directly about specific missed work after they receive the notification
 4. **Documentation**: Although not required for reporting an absence, keep any supporting documentation (medical notes, etc.) for your records
