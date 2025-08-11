@@ -40,13 +40,15 @@ function local_absence_request_extend_navigation_frontpage(
         return;
     }
     // Add the absence request link to the front page navigation.
-    $parentnode->add(
-        get_string('pluginname', 'local_absence_request'),
-        new moodle_url('/local/absence_request/index.php'),
-        navigation_node::TYPE_CUSTOM,
-        null,
-        'local_absence_request'
-    );
+    if ($eligibility->eligible) {
+        $parentnode->add(
+            get_string('pluginname', 'local_absence_request'),
+            new moodle_url('/local/absence_request/index.php'),
+            navigation_node::TYPE_CUSTOM,
+            null,
+            'local_absence_request'
+        );
+    }
 }
 
 /**
@@ -82,11 +84,13 @@ function local_absence_request_extend_navigation_course(
         // If the user is not eligible, do not add the link.
         return;
     }
-    $parentnode->add(
-        get_string('pluginname', 'local_absence_request'),
-        new moodle_url('/local/absence_request/index.php?courseid=' . $course->id),
-        navigation_node::TYPE_CUSTOM,
-        null,
-        'local_absence_request'
-    );
+    if ($eligibility->eligible) {
+        $parentnode->add(
+            get_string('pluginname', 'local_absence_request'),
+            new moodle_url('/local/absence_request/index.php?courseid=' . $course->id),
+            navigation_node::TYPE_CUSTOM,
+            null,
+            'local_absence_request'
+        );
+    }
 }

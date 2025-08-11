@@ -1,16 +1,5 @@
 Absence Reporting - Student User Guide (English)
 =================================================
-## Introduction
-
-The Absence Reporting plugin is a comprehensive solution for managing student absence notifications in a Moodle environment. It streamlines the process of students reporting absences, notifying course directors, and tracking absence data for administrative purposes. The plugin supports the Academic Consideration for Missed Course Work Policy by providing a standardized and transparent mechanism for reporting and tracking absences.
-
-Key features include:
-- Student-initiated absence reports with support for different absence circumstances
-- Automatic notifications to course directors
-- Comprehensive reporting for course directors and faculty administrators
-- Configurable reporting limits per academic term
-- GDPR-compliant data management
-- Multi-language support (English and French)
 
 ### Eligibility Requirements
 
@@ -25,10 +14,6 @@ To be eligible to report an absence:
     - Absence Reporting must be submitted during the current academic term
     - Absences cannot be reported for past terms or future terms
     - Both the start and end dates of your absence must fall within the current term
-
-3. **Faculty Affiliation**:
-    - Your faculty affiliation is automatically determined from your student profile
-    - No additional action is required to specify your faculty
 
 ### Reporting an Absence
 
