@@ -36,7 +36,7 @@ $string['student_instructions'] = '<p>Please fill out the form below to report a
     . '<p>For more information about the policy on Academic Consideration for Missed Work, please refer to the '
     . '<a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">Academic Consideration Policy</a>.</p>';
 $string['student_lastname'] = 'Student Last Name';
-$string['submit_request'] = 'report An Absence';
+$string['submit_request'] = 'Report An Absence';
 $string['to_date'] = 'To Date';
 $string['type_of_circumstance'] = 'Type of Circumstance';
 $string['unforeseen'] = 'Unforeseen or unavoidable incidents beyond the student’s control';
