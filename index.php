@@ -80,7 +80,7 @@ if ($numrequests >= $config->requests_per_term) {
     exit;
 }
 
-$mycourses = enrol_get_users_courses($userid, true);
+$mycourses = enrol_get_users_courses($userid, false);
 // Make sure we only have the courses for this academic year
 $mycourses = helper::get_courses_in_acadyear($mycourses);
 
