@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/absence_request/db" VERSION="2025061200" COMMENT="Absence Request plugin tables">
+<XMLDB PATH="local/absence_request/db" VERSION="20250907" COMMENT="Absence Request plugin tables"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
   <TABLES>
     <TABLE NAME="local_absence_request" COMMENT="Absence requests">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="faculty" TYPE="char" LENGTH="64" NOTNULL="false"/>
-        <FIELD NAME="circumstance" TYPE="char" LENGTH="32" NOTNULL="true"/>
-        <FIELD NAME="starttime" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="endtime" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="acadyear" TYPE="int" LENGTH="5" NOTNULL="true"/>
-        <FIELD NAME="termperiod" TYPE="char" LENGTH="1" NOTNULL="true"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="faculty" TYPE="char" LENGTH="64" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="circumstance" TYPE="char" LENGTH="32" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="starttime" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="endtime" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="acadyear" TYPE="int" LENGTH="5" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="termperiod" TYPE="char" LENGTH="1" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -23,9 +26,9 @@
     <TABLE NAME="local_absence_req_course" COMMENT="Courses for absence requests">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="absence_request_id" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="absence_request_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -39,9 +42,10 @@
     <TABLE NAME="local_absence_req_teacher" COMMENT="Teachers for absence request courses">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="absence_req_course_id" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true"/>
-        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="absence_req_course_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="acknowledged" TYPE="int" LENGTH="1" NOTNULL="false" DEFAULT="0" SEQUENCE="false" COMMENT="Boolean"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -50,6 +54,7 @@
       <INDEXES>
         <INDEX NAME="absence_req_course_id_idx" UNIQUE="false" FIELDS="absence_req_course_id"/>
         <INDEX NAME="teacher_userid_idx" UNIQUE="false" FIELDS="userid"/>
+        <INDEX NAME="user_ack_x" UNIQUE="false" FIELDS="userid, acknowledged"/>
       </INDEXES>
     </TABLE>
   </TABLES>

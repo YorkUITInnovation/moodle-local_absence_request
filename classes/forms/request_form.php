@@ -3,7 +3,7 @@ namespace local_absence_request\forms;
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($GLOBALS['CFG']->libdir.'/formslib.php');
+require_once($CFG->libdir.'/formslib.php');
 
 use local_absence_request\helper;
 
