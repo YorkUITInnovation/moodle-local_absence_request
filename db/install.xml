@@ -54,7 +54,7 @@
       <INDEXES>
         <INDEX NAME="absence_req_course_id_idx" UNIQUE="false" FIELDS="absence_req_course_id"/>
         <INDEX NAME="teacher_userid_idx" UNIQUE="false" FIELDS="userid"/>
-        <INDEX NAME="user_ack_x" UNIQUE="false" FIELDS="userid, acknowledged"/>
+        <INDEX NAME="userid_ackn_x" UNIQUE="false" FIELDS="userid, acknowledged"/>
       </INDEXES>
     </TABLE>
   </TABLES>
