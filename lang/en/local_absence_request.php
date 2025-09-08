@@ -61,6 +61,7 @@ $string['use_period_S'] = 'Summer';
 $string['use_period_Y'] = 'Year';
 
 // Notifications
+$string['absence_request:acknowledge'] = 'Acknowledge Absence Request';
 $string['absence_request:view_faculty_report'] = 'View Faculty Absence Report';
 $string['absence_request:view_teacher_report'] = 'View Absence Report';
 $string['messageprovider:absence_notification'] = 'Absence Notifications';
@@ -107,3 +108,6 @@ $string['privacy:path:teacherrequests'] = 'Teacher notifications';
 
 $string['teacher_firstname'] = 'Teacher First Name';
 $string['teacher_lastname'] = 'Teacher Last Name';
+
+// Access language strings
+

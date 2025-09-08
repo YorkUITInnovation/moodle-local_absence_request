@@ -15,17 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for the absence request plugin
+ * Web service external functions and service definitions.
  *
  * @package    local_absence_request
- * @copyright  2025 Patrick Thibaudeau
+ * @copyright  2025
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->component = 'local_absence_request';
-$plugin->version = 2025090710;
-$plugin->requires = 2022112800; // Moodle 4.1.0
-$plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v1.1.0';
+// We defined the web service functions to install.
+$functions = array(
+    'local_absence_request_acknowledge' => array(
+        'classname'   => 'local_absence_request_teacher',
+        'methodname'  => 'acknowledge',
+        'classpath'   => 'local/absence_request/classes/external/teacher_ws.php',
+        'description' => 'Toggle acknowledged field for teacher absence request',
+        'type'        => 'write',
+        'ajax'        => true,
+        'capabilities' => 'local/absence_request:acknowledge'
+    )
+);
