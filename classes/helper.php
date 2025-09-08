@@ -244,6 +244,7 @@ class helper
     {
         $params = new \stdClass();
         $params->fields = 'art.id,
+           art.acknowledged,
            ar.faculty,
            ar.circumstance,
            ar.starttime,

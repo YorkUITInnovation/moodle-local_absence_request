@@ -39,7 +39,8 @@ class absence_requests_table extends \table_sql {
             'course_id_number',
             'teacher_firstname',
             'teacher_lastname',
-            'timecreated']
+            'timecreated',
+                'acknowledged']
         );
         // Define the column headers (localized strings).
         $this->define_headers([
@@ -54,6 +55,7 @@ class absence_requests_table extends \table_sql {
             get_string('teacher_firstname', 'local_absence_request'),
             get_string('teacher_lastname', 'local_absence_request'),
             get_string('timecreated', 'moodle'),
+            get_string('acknowledged', 'local_absence_request'),
         ]);
     }
 
@@ -95,5 +97,29 @@ class absence_requests_table extends \table_sql {
      */
     public function col_timecreated($values) {
         return userdate($values->timecreated);
+    }
+
+    /**
+     * Render the 'acknowledged' column with clickable checkmark or X.
+     *
+     * @param object $values Row data object.
+     * @return string HTML for clickable acknowledged status.
+     */
+    public function col_acknowledged($values) {
+        if ($values->acknowledged == 1) {
+            // Green checkmark for acknowledged
+            return '<i 
+            class="fa fa-check local-absence-request-acknowledge" 
+            data-id="' . $values->id . '" 
+            style="color: green; cursor: pointer; font-size: 1.2em;" 
+            title="Acknowledged - Click to toggle"></i>';
+        } else {
+            // Red X for not acknowledged
+            return '<i 
+            class="fa fa-times local-absence-request-acknowledge" 
+            data-id="' . $values->id . '" 
+            style="color: red; cursor: pointer; font-size: 1.2em;" 
+            title="Not acknowledged - Click to toggle"></i>';
+        }
     }
 }
