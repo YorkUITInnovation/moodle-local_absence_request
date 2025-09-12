@@ -5,7 +5,7 @@ require_once($CFG->dirroot . '/local/absence_request/classes/tables/absence_requ
 global $OUTPUT, $PAGE, $USER;
 $context = context_system::instance();
 require_login(1, false);
-$PAGE->set_url(new moodle_url('/local/absence_request/view.php'));
+$PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
 $PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
 // Get form parameters.
 $starttime = optional_param('starttime', '', PARAM_TEXT);
@@ -63,6 +63,7 @@ if (!empty($starttime)) {
 
 // Always filter by current user.
 $where .= ($where ? ' AND ' : '') . " art.userid = ?";
+
 $params[] = $USER->id;
 
 $table->set_sql($fields, $from, $where, $params);

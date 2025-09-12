@@ -6,6 +6,7 @@ $string['absence_start'] = 'Date et heure de début de l’absence';
 $string['all_faculties'] = 'Toutes les facultés';
 $string['back_to_my_courses'] = 'Retour à mes cours';
 $string['bereavement'] = 'Deuil d’un membre de la famille proche';
+$string['circumstance'] = 'Circonstance';
 $string['course'] = 'Cours';
 $string['duration'] = 'Durée (jours)';
 $string['error_academic_year'] = 'L’absence signalée doit se situer dans l’année universitaire en cours.';
@@ -26,12 +27,15 @@ $string['report_link'] = 'Voir le rapport des absences signalées';
 $string['request_submitted'] = 'Votre absence signalée a été soumise. Note : il appartient à l’étudiant de prendre des dispositions avec chaque enseignant pour le travail manqué.';
 $string['short_term_health'] = 'Conditions de santé à court terme (maladie, blessure, chirurgie programmée)';
 $string['sisid'] = 'Numéro d’étudiant';
+$string['student'] = 'Étudiant';
 $string['student_firstname'] = 'Prénom de l’étudiant';
 $string['student_instructions'] = '<p>Veuillez remplir le formulaire ci-dessous pour signaler une absence. Vous pouvez soumettre au maximum deux absences par trimestre. Assurez-vous que votre absence ne dépasse pas 7 jours. Toute raison autre que celles listées dans le menu déroulant n’est pas éligible pour une absence auto-déclarée. Notez que cette absence signalée sera soumise pour tous les cours auxquels vous êtes inscrit ce trimestre.</p>'
     . '<p>Toute disposition pour le travail manqué doit être prise avec chacun de vos enseignants.</p>'
     . '<p>Pour plus d’informations sur la politique de considération académique pour le travail manqué, veuillez consulter la <a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">Politique de considération académique</a>.</p>';
 $string['student_lastname'] = 'Nom de famille de l’étudiant';
+$string['submitted'] = 'Soumis';
 $string['submit_request'] = 'Signaler une absence';
+$string['teacher'] = 'Enseignant';
 $string['to_date'] = 'Date de fin';
 $string['type_of_circumstance'] = 'Type de circonstance';
 $string['unforeseen'] = 'Incidents imprévus ou inévitables hors du contrôle de l’étudiant';

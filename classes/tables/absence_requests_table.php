@@ -16,7 +16,8 @@ use moodle_url;
  * Class absence_requests_table
  * Displays a table of absence requests with student and course director details.
  */
-class absence_requests_table extends \table_sql {
+class absence_requests_table extends \table_sql
+{
     // Faculty filter (if needed for future extension)
     protected $faculty;
 
@@ -26,37 +27,100 @@ class absence_requests_table extends \table_sql {
      *
      * @param string $uniqueid Unique identifier for the table instance.
      */
-    public function __construct($uniqueid) {
+    public function __construct($uniqueid)
+    {
         parent::__construct($uniqueid);
 
         // Define the columns to be displayed in the table.
         $this->define_columns([
-            'student_firstname',
-            'student_lastname',
-            'sisid','circumstance',
-            'starttime',
-            'endtime',
-            'course_id_number',
-            'teacher_firstname',
-            'teacher_lastname',
-            'timecreated',
+                'student_lastname',
+                'sisid',
+                'circumstance',
+                'starttime',
+                'endtime',
+                'fullname',
+                'teacher_lastname',
+                'timecreated',
                 'acknowledged']
         );
         // Define the column headers (localized strings).
         $this->define_headers([
-            get_string('student_firstname', 'local_absence_request'),
-            get_string('student_lastname', 'local_absence_request'),
+            get_string('student', 'local_absence_request'),
             get_string('sisid', 'local_absence_request'),
-            get_string('type_of_circumstance', 'local_absence_request'),
+            get_string('circumstance', 'local_absence_request'),
             get_string('absence_start', 'local_absence_request'),
             get_string('absence_end', 'local_absence_request'),
             get_string('course', 'local_absence_request'),
             // These columns display the course director's first and last name. The language string keys remain 'teacher_firstname' and 'teacher_lastname' for compatibility.
-            get_string('teacher_firstname', 'local_absence_request'),
-            get_string('teacher_lastname', 'local_absence_request'),
-            get_string('timecreated', 'moodle'),
+            get_string('teacher', 'local_absence_request'),
+            get_string('submitted', 'local_absence_request'),
             get_string('acknowledged', 'local_absence_request'),
         ]);
+    }
+
+    /**
+     * Override get_sql_sort to always include starttime and endtime in sort order.
+     *
+     * @return string The ORDER BY clause for the SQL query.
+     */
+    public function get_sql_sort()
+    {
+        $sort = parent::get_sql_sort();
+
+        // Always append starttime and endtime to the sort order using proper field references
+        $additional_sort = 'ar.starttime ASC, ar.endtime ASC';
+
+        if (empty($sort)) {
+            // If no sort is specified, use just the additional sort
+            return $additional_sort;
+        } else {
+            // If there's already a sort, append the additional sort
+            return $sort . ', ' . $additional_sort;
+        }
+    }
+
+    /**
+     * Override define_baseurl to preserve starttime and endtime parameters in sort URLs.
+     *
+     * @param moodle_url $url The base URL for the table
+     */
+    public function define_baseurl($url)
+    {
+        // Get current request parameters
+        $starttime = optional_param('starttime', '', PARAM_TEXT);
+        $endtime = optional_param('endtime', '', PARAM_TEXT);
+        $faculty = optional_param('faculty', 'ALL', PARAM_TEXT);
+
+        // Add these parameters to the base URL so they persist through sorting
+        if (!empty($starttime)) {
+            $url->param('starttime', $starttime);
+        }
+        if (!empty($endtime)) {
+            $url->param('endtime', $endtime);
+        }
+        if (!empty($faculty)) {
+            $url->param('faculty', $faculty);
+        }
+
+        parent::define_baseurl($url);
+    }
+
+    /**
+     * Set link for student profile
+     */
+    public function col_student($values)
+    {
+        $url = new moodle_url('/user/profile.php', ['id' => $values->userid]);
+        return '<a href="' . $url->out() . '">' . $values->student_lastname . ', ' . $values->student_firstname . '</a>';
+    }
+
+    /**
+     * Set link for student profile
+     */
+    public function col_teacher($values)
+    {
+
+        return $values->teacher_firstname . ' ' . $values->teacher_lastname;
     }
 
     /**
@@ -65,7 +129,8 @@ class absence_requests_table extends \table_sql {
      * @param object $values Row data object.
      * @return string Localized circumstance string.
      */
-    public function col_circumstance($values) {
+    public function col_circumstance($values)
+    {
         return get_string($values->circumstance, 'local_absence_request');
     }
 
@@ -75,7 +140,8 @@ class absence_requests_table extends \table_sql {
      * @param object $values Row data object.
      * @return string Formatted start date.
      */
-    public function col_starttime($values) {
+    public function col_starttime($values)
+    {
         return userdate($values->starttime);
     }
 
@@ -85,7 +151,8 @@ class absence_requests_table extends \table_sql {
      * @param object $values Row data object.
      * @return string Formatted end date.
      */
-    public function col_endtime($values) {
+    public function col_endtime($values)
+    {
         return userdate($values->endtime);
     }
 
@@ -95,7 +162,8 @@ class absence_requests_table extends \table_sql {
      * @param object $values Row data object.
      * @return string Formatted creation date.
      */
-    public function col_timecreated($values) {
+    public function col_timecreated($values)
+    {
         return userdate($values->timecreated);
     }
 
@@ -105,7 +173,8 @@ class absence_requests_table extends \table_sql {
      * @param object $values Row data object.
      * @return string HTML for clickable acknowledged status.
      */
-    public function col_acknowledged($values) {
+    public function col_acknowledged($values)
+    {
         if ($values->acknowledged == 1) {
             // Green checkmark for acknowledged
             return '<i 

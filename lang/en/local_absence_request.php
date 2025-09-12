@@ -1,8 +1,8 @@
 <?php
 // Language strings for absence_request plugin.
-$string['absence_end'] = 'Absence End Date';
+$string['absence_end'] = 'End Date';
 $string['absence_request'] = 'Report an Absence';
-$string['absence_start'] = 'Absence Start Date';
+$string['absence_start'] = 'Start Date';
 $string['academic_year'] = 'Academic Year';
 $string['academic_year_desc'] = 'Set the academic year (example: 2024) for reported absences. Leave blank to use the current academic year based on the current month.';
 $string['acknowledged'] = 'Acknowledged';
@@ -10,6 +10,7 @@ $string['acknowledge'] = 'Acknowledge';
 $string['all_faculties'] = 'All Faculties';
 $string['back_to_my_courses'] = 'Back to My Courses';
 $string['bereavement'] = 'Bereavement of an immediate family member';
+$string['circumstance'] = 'Circumstance';
 $string['course'] = 'Course';
 $string['duration'] = 'Duration (days)';
 $string['error_academic_year'] = 'The reported absence must be within the current academic year.';
@@ -30,15 +31,18 @@ $string['report_link'] = 'View Absence Report';
 $string['request_submitted'] = 'Your reported absence has been submitted. Note: It is the responsibility of the student to arrange any accommodations for missed course work with your individual instructors';
 $string['short_term_health'] = 'Short-term health conditions (illness, physical injury, scheduled surgery)';
 $string['sisid'] = 'Student ID';
-$string['student_firstname'] = 'Student First Name';
+$string['student'] = 'Student';
+$string['student_firstname'] = 'First Name';
 $string['student_instructions'] = '<p>Please fill out the form below to report an absence. You can only submit up to two absences per term. '
     . 'Ensure that your absence does not exceed 7 days in duration. Any reason beyond those listed in the drop-down '
     . 'menu are not eligible for a self-reported absence. Note that this reported absence will be submitted for all courses you are enrolled in, in this term.</p>'
     . '<p>Any accommodations for missed course work need to be arranged with your individual instructors</p>'
     . '<p>For more information about the policy on Academic Consideration for Missed Work, please refer to the '
     . '<a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">Academic Consideration Policy</a>.</p>';
-$string['student_lastname'] = 'Student Last Name';
+$string['student_lastname'] = 'Last Name';
+$string['submitted'] = 'Submitted';
 $string['submit_request'] = 'Report An Absence';
+$string['teacher'] = 'Instructor';
 $string['to_date'] = 'To Date';
 $string['type_of_circumstance'] = 'Type of Circumstance';
 $string['unforeseen'] = 'Unforeseen or unavoidable incidents beyond the student’s control';
