@@ -6,6 +6,7 @@ global $OUTPUT, $PAGE, $USER;
 $context = context_system::instance();
 require_login(1, false);
 $PAGE->set_url(new moodle_url('/local/absence_request/view.php'));
+$PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
 // Get form parameters.
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
