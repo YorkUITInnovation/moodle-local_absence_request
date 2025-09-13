@@ -38,7 +38,7 @@ class absence_requests_table extends \table_sql
                 'circumstance',
                 'starttime',
                 'endtime',
-                'fullname',
+                'course_fullname',
                 'teacher_lastname',
                 'timecreated',
                 'acknowledged']
@@ -60,12 +60,31 @@ class absence_requests_table extends \table_sql
 
     /**
      * Override get_sql_sort to always include starttime and endtime in sort order.
+     * Also fixes ambiguous column references by using proper table aliases.
      *
      * @return string The ORDER BY clause for the SQL query.
      */
     public function get_sql_sort()
     {
         $sort = parent::get_sql_sort();
+
+        // Fix ambiguous column references by replacing bare column names with aliased versions
+        if (!empty($sort)) {
+            // Map problematic column names to their proper aliases
+            $column_mappings = [
+                'firstname' => 'us.firstname',
+                'lastname' => 'us.lastname',
+                'student_lastname' => 'us.lastname',
+                'student_firstname' => 'us.firstname',
+                'teacher_lastname' => 'ut.lastname',
+                'teacher_firstname' => 'ut.firstname'
+            ];
+
+            foreach ($column_mappings as $column => $replacement) {
+                // Replace column names that are not already prefixed with a table alias
+                $sort = preg_replace('/\b' . preg_quote($column) . '\b(?!\s*\.)/', $replacement, $sort);
+            }
+        }
 
         // Always append starttime and endtime to the sort order using proper field references
         $additional_sort = 'ar.starttime ASC, ar.endtime ASC';
@@ -108,7 +127,7 @@ class absence_requests_table extends \table_sql
     /**
      * Set link for student profile
      */
-    public function col_student($values)
+    public function col_student_lastname($values)
     {
         $url = new moodle_url('/user/profile.php', ['id' => $values->userid]);
         return '<a href="' . $url->out() . '">' . $values->student_lastname . ', ' . $values->student_firstname . '</a>';
@@ -117,7 +136,7 @@ class absence_requests_table extends \table_sql
     /**
      * Set link for student profile
      */
-    public function col_teacher($values)
+    public function col_teacher_lastname($values)
     {
 
         return $values->teacher_firstname . ' ' . $values->teacher_lastname;
