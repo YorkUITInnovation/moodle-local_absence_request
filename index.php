@@ -115,7 +115,7 @@ if ($form->is_cancelled()) {
     require_once($CFG->dirroot . '/user/lib.php');
 
     $instructors = [];
-    // Get the editingteacher in the role table 
+    // Get the editingteacher in the role table
     $role = $DB->get_record('role', ['shortname' => 'editingteacher'], '*', MUST_EXIST);
 
     $reporturl = (new moodle_url('/local/absence_request/view.php'))->out(false);
@@ -137,7 +137,24 @@ if ($form->is_cancelled()) {
     $absence_request_id = $DB->insert_record('local_absence_request', $record);
     // Notify the student.
     notifications::notify_student($userid, $absence_request_id);
+
+    // Array to track teachers that have been notified to avoid duplicate notifications
+    $notified_teachers = [];
+
     foreach ($mycourses as $course) {
+        // Check if the student is suspended in this specific course.
+        $sql = "SELECT ue.status 
+                FROM {user_enrolments} ue 
+                JOIN {enrol} e ON e.id = ue.enrolid 
+                WHERE ue.userid = ? AND e.courseid = ?";
+        $studentenrolment = $DB->get_record_sql($sql, [$userid, $course->id]);
+
+        if ($studentenrolment && $studentenrolment->status == ENROL_USER_SUSPENDED) {
+            // Student is suspended in this course, skip to next course
+            continue;
+        }
+
+        // Student is not suspended, create course record
         $course_record = new stdClass();
         $course_record->absence_request_id = $absence_request_id;
         $course_record->courseid = $course->id;
@@ -146,13 +163,26 @@ if ($form->is_cancelled()) {
         $context = context_course::instance($course->id);
         $teachers = get_role_users($role->id, $context);
         foreach ($teachers as $teacher) {
-            $teacher_record = new stdClass();
-            $teacher_record->absence_req_course_id = $absence_req_course_id;
-            $teacher_record->userid = $teacher->id;
-            $teacher_record->timecreated = time();
-            $DB->insert_record('local_absence_req_teacher', $teacher_record);
-            // Notify the teacher.
-            notifications::notify_teacher($teacher->id, $absence_request_id);
+            // Get the enrolment method for this teacher in this specific course
+            $sql = "SELECT e.enrol 
+                    FROM {enrol} e 
+                    JOIN {user_enrolments} ue ON e.id = ue.enrolid 
+                    WHERE ue.userid = ? AND e.courseid = ?";
+            $teacherenrolment = $DB->get_record_sql($sql, [$teacher->id, $course->id]);
+
+            if ($teacherenrolment && $teacherenrolment->enrol == 'arms') {
+                $teacher_record = new stdClass();
+                $teacher_record->absence_req_course_id = $absence_req_course_id;
+                $teacher_record->userid = $teacher->id;
+                $teacher_record->timecreated = time();
+                $DB->insert_record('local_absence_req_teacher', $teacher_record);
+
+                // Only notify the teacher if they haven't been notified yet
+                if (!in_array($teacher->id, $notified_teachers)) {
+                    notifications::notify_teacher($teacher->id, $absence_request_id);
+                    $notified_teachers[] = $teacher->id;
+                }
+            }
         }
     }
 
