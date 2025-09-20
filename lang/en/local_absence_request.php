@@ -38,7 +38,7 @@ $string['student_instructions'] = '<p>Please fill out the form below to report a
     . 'menu are not eligible for a self-reported absence. Note that this reported absence will be submitted for all courses you are enrolled in, in this term.</p>'
     . '<p>Any accommodations for missed course work need to be arranged with your individual instructors</p>'
     . '<p>For more information about the policy on Academic Consideration for Missed Work, please refer to the '
-    . '<a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">Academic Consideration Policy</a>.</p>';
+    . '<a href="https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/" target="_blank">Academic Consideration Policy</a>.</p>';
 $string['student_lastname'] = 'Last Name';
 $string['submitted'] = 'Submitted';
 $string['submit_request'] = 'Report An Absence';

@@ -31,8 +31,8 @@ class notifications
             [
                 'firstname' => $student->firstname,
                 'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
-                'startdate' => userdate($absence_request->starttime),
-                'enddate' => userdate($absence_request->endtime),
+                'startdate' => date('m/d/Y', $absence_request->starttime),
+                'enddate' => date('m/d/Y', $absence_request->endtime),
             ]
         );
 
@@ -73,10 +73,11 @@ class notifications
         $message = get_string('teacher_message', 'local_absence_request', [
                 'url' => $url->out(false),
                 'studentname' => fullname($student),
+                'policylink' => 'https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/',
                 'idnumber' => $student->idnumber,
                 'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
-                'startdate' => userdate($absence_request->starttime),
-                'enddate' => userdate($absence_request->endtime),
+                'startdate' => date('m/d/Y', $absence_request->starttime),
+                'enddate' => date('m/d/Y', $absence_request->endtime),
             ]
         );
         $user = $DB->get_record('user', ['id' => $userid]);

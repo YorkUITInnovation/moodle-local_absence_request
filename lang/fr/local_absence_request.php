@@ -31,7 +31,7 @@ $string['student'] = 'Étudiant';
 $string['student_firstname'] = 'Prénom de l’étudiant';
 $string['student_instructions'] = '<p>Veuillez remplir le formulaire ci-dessous pour signaler une absence. Vous pouvez soumettre au maximum deux absences par trimestre. Assurez-vous que votre absence ne dépasse pas 7 jours. Toute raison autre que celles listées dans le menu déroulant n’est pas éligible pour une absence auto-déclarée. Notez que cette absence signalée sera soumise pour tous les cours auxquels vous êtes inscrit ce trimestre.</p>'
     . '<p>Toute disposition pour le travail manqué doit être prise avec chacun de vos enseignants.</p>'
-    . '<p>Pour plus d’informations sur la politique de considération académique pour le travail manqué, veuillez consulter la <a href="20250227_Senate_approved_Acad Consid_for_Missed_Course_Work_Policy_Final.pdf" target="_blank">Politique de considération académique</a>.</p>';
+    . '<p>Pour plus d’informations sur la politique de considération académique pour le travail manqué, veuillez consulter la <a href="https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/" target="_blank">Politique de considération académique</a>.</p>';
 $string['student_lastname'] = 'Nom de famille de l’étudiant';
 $string['submitted'] = 'Soumis';
 $string['submit_request'] = 'Signaler une absence';
