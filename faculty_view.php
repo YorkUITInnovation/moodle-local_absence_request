@@ -2,12 +2,20 @@
 require_once(__DIR__ . '/../../config.php');
 require_once($CFG->dirroot . '/local/absence_request/classes/tables/absence_requests_table.php');
 
+use local_absence_request\helper;
+
 global $OUTPUT, $PAGE, $USER;
 $context = context_system::instance();
 require_login(1, false);
+// If not have capability to view faculty report, redirect to previous page.
+if (!has_capability('local/absence_request:view_teacher_report', $context)) {
+    redirect(new moodle_url('/my/'), get_string('nopermissiontoviewpage', 'local_absence_request'), 5);
+}
+
 $PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
 $PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
 // Get form parameters.
+$faculty = optional_param('faculty', '', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHA);
@@ -23,14 +31,15 @@ if (empty($starttime)) {
 
 // Set parameters for mustache template rendering.
 $template_data = [
-    'showfaculties' => false,
+    'showfaculties' => true,
     'starttime' => $starttime,
     'endtime' => $endtime,
+    'faculties' => helper::get_faculties()
 ];
 
 // Table class will be loaded from classes/tables/absence_requests_table.php
 $table = new \local_absence_request\tables\absence_requests_table('absence-requests-table');
-$table->is_downloading($download, 'absence_report_' . date('Ymd', time()) , 'absence_report');
+$table->is_downloading($download, 'faculty_absence_report_' . date('Ymd', time()) , 'absence_report');
 
 if (!$table->is_downloading()) {
     // Only print headers if not asked to download data.
@@ -64,9 +73,9 @@ if (!empty($starttime)) {
 }
 
 // Always filter by current user.
-$where .= ($where ? ' AND ' : '') . " art.userid = ?";
+$where .= ($where ? ' AND ' : '') . " ar.faculty = ?";
 
-$params[] = $USER->id;
+$params[] = $faculty;
 
 $table->set_sql($fields, $from, $where, $params);
 $table->define_baseurl($PAGE->url);

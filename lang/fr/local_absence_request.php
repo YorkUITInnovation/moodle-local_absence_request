@@ -18,6 +18,7 @@ $string['faculty'] = 'Faculté';
 $string['from_date'] = 'Date de début';
 $string['max_requests_reached'] = 'Vous avez atteint le nombre maximum d’absences pour ce trimestre.';
 $string['nopermission'] = 'Vous n’avez pas la permission de voir cette page.';
+$string['nopermissiontoviewpage'] = 'Vous n\'avez pas la permission de voir cette page.';
 $string['not_eligible'] = 'Vous n’êtes pas éligible pour signaler une absence.';
 $string['not_enrolled_in_courses'] = 'Vous n’êtes inscrit à aucun cours pour ce trimestre. Vous pouvez uniquement signaler des absences pour les cours auxquels vous êtes inscrit.';
 $string['notify_instructor_body'] = 'Un étudiant a signalé une absence. Voir le rapport : {$a}';

@@ -22,6 +22,7 @@ $string['faculty'] = 'Faculty';
 $string['from_date'] = 'From Date';
 $string['max_requests_reached'] = 'You have reached the maximum number of absences for this term.';
 $string['nopermission'] = 'You do not have permission to view this page.';
+$string['nopermissiontoviewpage'] = 'You do not have permission to view this page.';
 $string['not_eligible'] = 'You are not eligible to report an absence.';
 $string['not_enrolled_in_courses'] = 'You are not enrolled in any courses for this term. You can only report absences for courses you are enrolled in.';
 $string['notify_instructor_body'] = 'A student has reported an absence. View the report: {$a}';

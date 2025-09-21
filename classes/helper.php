@@ -30,6 +30,7 @@ class helper
      */
     public static function get_acad_year()
     {
+        global $CFG;
         if (!empty($CFG->local_absence_request_academic_year)) {
             return $CFG->local_absence_request_academic_year;
         }
@@ -288,5 +289,29 @@ class helper
 
         // Return value in the $urls array based on the query string.
         return $urls[strtolower($query_string)];
+    }
+
+    /**
+     * Returns an array of faculty information with title and value pairs.
+     * The value is the faculty abbreviation and the title is the full faculty name.
+     *
+     * @return array Array of objects with 'title' and 'value' properties
+     */
+    public static function get_faculties()
+    {
+        return [
+            (object)['title' => 'Select', 'value' => ''],
+            (object)['title' => 'Faculty of Liberal Arts & Professional Studies', 'value' => 'AP'],
+            (object)['title' => 'Faculty of Education', 'value' => 'ED'],
+            (object)['title' => 'Faculty of Environmental & Urban Change', 'value' => 'EU'],
+            (object)['title' => 'School of the Arts, Media, Performance & Design', 'value' => 'FA'],
+            (object)['title' => 'Glendon College / Collège universitaire Glendon', 'value' => 'GL'],
+            (object)['title' => 'Faculty of Graduate Studies', 'value' => 'GS'],
+            (object)['title' => 'Faculty of Health', 'value' => 'HH'],
+            (object)['title' => 'Lassonde School of Engineering', 'value' => 'LE'],
+            (object)['title' => 'Osgoode Hall Law School', 'value' => 'LW'],
+            (object)['title' => 'Schulich School of Business', 'value' => 'SB'],
+            (object)['title' => 'Faculty of Science', 'value' => 'SC'],
+        ];
     }
 }
