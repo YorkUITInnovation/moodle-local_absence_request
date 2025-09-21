@@ -26,7 +26,7 @@ function local_absence_request_extend_navigation_frontpage(
     if (has_capability('local/absence_request:view_faculty_report', $context)) {
         $parentnode->add(
             get_string('view_faculty_report', 'local_absence_request'),
-            new moodle_url('/local/absence_request/view.php'),
+            new moodle_url('/local/absence_request/faculty_view.php'),
             navigation_node::TYPE_CUSTOM,
             null,
             'local_absence_request_view_faculty_report'

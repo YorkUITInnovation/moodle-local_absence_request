@@ -118,7 +118,6 @@ if ($form->is_cancelled()) {
     // Get the editingteacher in the role table
     $role = $DB->get_record('role', ['shortname' => 'editingteacher'], '*', MUST_EXIST);
 
-    $reporturl = (new moodle_url('/local/absence_request/view.php'))->out(false);
     // Get the ldapfaculty id from the user_info_field table
     $ldapfacultyfield = $DB->get_record('user_info_field', ['shortname' => 'ldapfaculty'], '*', MUST_EXIST);
     // Get faculty from user profile field 'ldapfaculty'.
