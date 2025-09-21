@@ -295,12 +295,12 @@ class helper
      * Returns an array of faculty information with title and value pairs.
      * The value is the faculty abbreviation and the title is the full faculty name.
      *
-     * @return array Array of objects with 'title' and 'value' properties
+     * @param string $selected_faculty The currently selected faculty abbreviation
+     * @return array Array of objects with 'title', 'value', and 'selected' properties
      */
-    public static function get_faculties()
+    public static function get_faculties($selected_faculty = '')
     {
-        return [
-            (object)['title' => 'Select', 'value' => ''],
+        $faculties = [
             (object)['title' => 'Faculty of Liberal Arts & Professional Studies', 'value' => 'AP'],
             (object)['title' => 'Faculty of Education', 'value' => 'ED'],
             (object)['title' => 'Faculty of Environmental & Urban Change', 'value' => 'EU'],
@@ -313,5 +313,12 @@ class helper
             (object)['title' => 'Schulich School of Business', 'value' => 'SB'],
             (object)['title' => 'Faculty of Science', 'value' => 'SC'],
         ];
+
+        // Add selected property to each faculty
+        foreach ($faculties as $faculty) {
+            $faculty->selected = ($faculty->value === $selected_faculty);
+        }
+
+        return $faculties;
     }
 }

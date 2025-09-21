@@ -69,10 +69,21 @@ $where .= ($where ? ' AND ' : '') . " art.userid = ?";
 $params[] = $USER->id;
 
 $table->set_sql($fields, $from, $where, $params);
-$table->define_baseurl($PAGE->url);
+
+// Create base URL with all current parameters to preserve them during pagination
+$baseurl = new moodle_url($PAGE->url);
+if (!empty($starttime)) {
+    $baseurl->param('starttime', $starttime);
+}
+if (!empty($endtime)) {
+    $baseurl->param('endtime', $endtime);
+}
+
+$table->define_baseurl($baseurl);
 
 $table->out(20, true);
 
 if (!$table->is_downloading()) {
     echo $OUTPUT->footer();
 }
+

@@ -8,12 +8,11 @@ global $OUTPUT, $PAGE, $USER;
 $context = context_system::instance();
 require_login(1, false);
 // If not have capability to view faculty report, redirect to previous page.
-if (!has_capability('local/absence_request:view_teacher_report', $context)) {
+if (!has_capability('local/absence_request:view_faculty_report', $context)) {
     redirect(new moodle_url('/my/'), get_string('nopermissiontoviewpage', 'local_absence_request'), 5);
 }
 
-$PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
-$PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
+$PAGE->set_url(new moodle_url('/local/absence_request/faculty_view.php'));
 // Get form parameters.
 $faculty = optional_param('faculty', '', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
@@ -34,7 +33,7 @@ $template_data = [
     'showfaculties' => true,
     'starttime' => $starttime,
     'endtime' => $endtime,
-    'faculties' => helper::get_faculties()
+    'faculties' => helper::get_faculties($faculty)
 ];
 
 // Table class will be loaded from classes/tables/absence_requests_table.php
@@ -78,7 +77,20 @@ $where .= ($where ? ' AND ' : '') . " ar.faculty = ?";
 $params[] = $faculty;
 
 $table->set_sql($fields, $from, $where, $params);
-$table->define_baseurl($PAGE->url);
+
+// Create base URL with all current parameters to preserve them during pagination
+$baseurl = new moodle_url($PAGE->url);
+if (!empty($faculty)) {
+    $baseurl->param('faculty', $faculty);
+}
+if (!empty($starttime)) {
+    $baseurl->param('starttime', $starttime);
+}
+if (!empty($endtime)) {
+    $baseurl->param('endtime', $endtime);
+}
+
+$table->define_baseurl($baseurl);
 
 $table->out(20, true);
 
