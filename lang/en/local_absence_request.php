@@ -66,6 +66,13 @@ $string['use_period_W'] = 'Winter';
 $string['use_period_S'] = 'Summer';
 $string['use_period_Y'] = 'Year';
 
+// Enrollment methods settings
+$string['enrollment_methods'] = 'Teacher Enrollment Methods for Notifications';
+$string['enrollment_methods_desc'] = 'Select which teacher enrollment methods should receive absence notifications. Only teachers enrolled through the selected methods will be notified when students report absences.';
+$string['enrollment_methods_all'] = 'All';
+$string['enrollment_methods_manual'] = 'Manual';
+$string['enrollment_methods_arms'] = 'ARMS';
+
 // Notifications
 $string['absence_request:acknowledge'] = 'Acknowledge Absence Request';
 $string['absence_request:view_faculty_report'] = 'View Faculty Absence Report';
@@ -116,4 +123,3 @@ $string['teacher_firstname'] = 'Teacher First Name';
 $string['teacher_lastname'] = 'Teacher Last Name';
 
 // Access language strings
-

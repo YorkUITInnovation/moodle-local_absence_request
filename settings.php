@@ -51,5 +51,17 @@ if ($hassiteconfig) {
         PARAM_RAW
     ));
 
+    $settings->add(new admin_setting_configselect(
+        'local_absence_request/enrollment_methods',
+        get_string('enrollment_methods', 'local_absence_request'),
+        get_string('enrollment_methods_desc', 'local_absence_request'),
+        'arms',
+        [
+            'all' => get_string('enrollment_methods_all', 'local_absence_request'),
+            'manual' => get_string('enrollment_methods_manual', 'local_absence_request'),
+            'arms' => get_string('enrollment_methods_arms', 'local_absence_request'),
+        ]
+    ));
+
     $ADMIN->add('localplugins', $settings);
 }

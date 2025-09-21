@@ -56,6 +56,13 @@ $string['use_period_W'] = 'Hiver';
 $string['use_period_S'] = 'Été';
 $string['use_period_Y'] = 'Année';
 
+// Enrollment methods settings
+$string['enrollment_methods'] = 'Méthodes d\'inscription des enseignants pour les notifications';
+$string['enrollment_methods_desc'] = 'Sélectionnez quelles méthodes d\'inscription des enseignants doivent recevoir les notifications d\'absence. Seuls les enseignants inscrits par les méthodes sélectionnées seront notifiés lorsque les étudiants signalent des absences.';
+$string['enrollment_methods_all'] = 'Toutes';
+$string['enrollment_methods_manual'] = 'Manuelle';
+$string['enrollment_methods_arms'] = 'ARMS';
+
 // Notifications
 $string['absence_request:view_faculty_report'] = 'Voir le rapport d’absence par faculté';
 $string['absence_request:view_teacher_report'] = 'Voir le rapport d’absence';
@@ -102,4 +109,3 @@ $string['privacy:path:teacherrequests'] = 'Notifications aux enseignants';
 
 $string['teacher_firstname'] = 'Prénom de l’enseignant';
 $string['teacher_lastname'] = 'Nom de famille de l’enseignant';
-

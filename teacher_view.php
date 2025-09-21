@@ -56,6 +56,8 @@ if (!empty($starttime)) {
     $where .= ($where ? ' AND ' : '') . " ar.starttime  BETWEEN ? AND ?";
     if (empty($endtime)) {
         $endtime = $starttime . ' 23:59:59';
+    } else {
+        $endtime = $endtime . ' 23:59:59';
     }
     $params[] = strtotime($starttime);
     $params[] = strtotime($endtime);

@@ -170,7 +170,29 @@ if ($form->is_cancelled()) {
                     WHERE ue.userid = ? AND e.courseid = ?";
             $teacherenrolment = $DB->get_record_sql($sql, [$teacher->id, $course->id]);
 
-            if ($teacherenrolment && $teacherenrolment->enrol == 'arms') {
+            // Check if this teacher should receive notifications based on enrollment methods setting
+            $should_notify = false;
+            $enrollment_methods_setting = get_config('local_absence_request', 'enrollment_methods');
+
+            if ($teacherenrolment) {
+                switch ($enrollment_methods_setting) {
+                    case 'all':
+                        // Notify all teachers regardless of enrollment method
+                        $should_notify = true;
+                        break;
+                    case 'manual':
+                        // Only notify teachers enrolled manually
+                        $should_notify = ($teacherenrolment->enrol == 'manual');
+                        break;
+                    case 'arms':
+                    default:
+                        // Only notify teachers enrolled via ARMS (default behavior)
+                        $should_notify = ($teacherenrolment->enrol == 'arms');
+                        break;
+                }
+            }
+
+            if ($should_notify) {
                 $teacher_record = new stdClass();
                 $teacher_record->absence_req_course_id = $absence_req_course_id;
                 $teacher_record->userid = $teacher->id;
