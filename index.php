@@ -200,7 +200,7 @@ if ($form->is_cancelled()) {
 
                 // Only notify the teacher if they haven't been notified yet
                 if (!in_array($teacher->id, $notified_teachers)) {
-                    notifications::notify_teacher($teacher->id, $absence_request_id);
+                    notifications::notify_teacher($teacher->id, $absence_request_id, $course->fullname);
                     $notified_teachers[] = $teacher->id;
                 }
             }

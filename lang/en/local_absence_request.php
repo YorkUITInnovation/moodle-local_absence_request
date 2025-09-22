@@ -81,12 +81,13 @@ $string['absence_request:view_teacher_report'] = 'View Absence Report';
 $string['messageprovider:absence_notification'] = 'Absence Notifications';
 $string['student_message_subject'] = 'Absence Reported Successfully';
 $string['teacher_message_subject'] = 'Reported Absence Notification';
-$string['student_message'] = 'Hello {$a->firstname}, '
+$string['student_full_message'] = 'Hello {$a->firstname}, '
     .'<p>Your reported absence has been successfully submitted.</p>'
     . '<p>'
     . '<b>Circumstance:</b> {$a->circumstance}<br>'
     . '<b>Start date:</b> {$a->startdate}<br>'
     . '<b>End date:</b> {$a->enddate}<br>'
+    . '<b>Number of days:</b> {$a->numberofdays}<br>'
     . '</p>'
     . '<p>Any accommodations for missed course work need to be arranged with your individual instructors</p>'
     . '<p>Thank you!</p>';
@@ -97,6 +98,8 @@ $string['teacher_message'] = 'Hello, <p>You have received a self-reported absenc
     . '<b>Circumstance:</b> {$a->circumstance}<br>'
     . '<b>Start date:</b> {$a->startdate}<br>'
     . '<b>End date:</b> {$a->enddate}<br>'
+    . '<b>Number of days:</b> {$a->numberofdays}<br>'
+    . '<b>Course:</b> {$a->course}<br>'
     . '</p>'
     . '<p>You can also review all requests in the <a href="{$a->url}">absence report.</a></p>'
     . '<p>Thank you!</p>';

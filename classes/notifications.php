@@ -24,15 +24,18 @@ class notifications
         global $DB;
         // Get the absence  request details
         $absence_request = $DB->get_record('local_absence_request', ['id' => $absence_request_id]);
+        // Calculate days
+        $number_of_days = helper::calculate_days($absence_request->start_timestamp, $absence_request->end_timestamp);
         // Get student from the absence request
         $student = $DB->get_record('user', ['id' => $userid]);
         $subject = get_string('student_message_subject', 'local_absence_request');
-        $message = get_string('student_message', 'local_absence_request',
+        $message = get_string('student_full_message', 'local_absence_request',
             [
                 'firstname' => $student->firstname,
                 'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
                 'startdate' => date('m/d/Y', $absence_request->starttime),
                 'enddate' => date('m/d/Y', $absence_request->endtime),
+                'numberofdays' => $number_of_days
             ]
         );
 
@@ -60,11 +63,13 @@ class notifications
      * @param int $absence_request_id The ID of the absence request.
      * @return bool|int Message send status.
      */
-    public static function notify_teacher(int $userid, int $absence_request_id)
+    public static function notify_teacher(int $userid, int $absence_request_id, string $course_fullname)
     {
         global $DB;
         // Get the absence  request details
         $absence_request = $DB->get_record('local_absence_request', ['id' => $absence_request_id]);
+        // Calculate days
+        $number_of_days = helper::calculate_days($absence_request->start_timestamp, $absence_request->end_timestamp);
         // Get student from the absence request
         $student = $DB->get_record('user', ['id' => $absence_request->userid]);
 
@@ -78,6 +83,8 @@ class notifications
                 'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
                 'startdate' => date('m/d/Y', $absence_request->starttime),
                 'enddate' => date('m/d/Y', $absence_request->endtime),
+                'numberofdays' => $number_of_days,
+                'course' => $course_fullname
             ]
         );
         $user = $DB->get_record('user', ['id' => $userid]);
@@ -85,7 +92,7 @@ class notifications
         $eventdata = new \core\message\message();
         $eventdata->component = 'local_absence_request';
         $eventdata->name = 'absence_notification';
-        $eventdata->userfrom = \core_user::get_noreply_user();
+        $eventdata->userfrom = $student;
         $eventdata->userto = $user;
         $eventdata->subject = $subject;
         $eventdata->fullmessage = $message;

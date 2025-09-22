@@ -277,6 +277,29 @@ class helper
     }
 
     /**
+     * Calculates the number of days between start and end dates.
+     * If start date equals end date, it counts as one day.
+     *
+     * @param int $start_timestamp Unix timestamp for the start date
+     * @param int $end_timestamp Unix timestamp for the end date
+     * @return int Number of days
+     */
+    public static function calculate_days($start_timestamp, $end_timestamp)
+    {
+        // Convert timestamps to dates (removing time component)
+        $start_date = new \DateTime(date('Y-m-d', $start_timestamp));
+        $end_date = new \DateTime(date('Y-m-d', $end_timestamp));
+
+        // Calculate the difference
+        $diff = $start_date->diff($end_date);
+        $days = $diff->days;
+
+        // If dates are equal or difference is 0, return 1 day
+        // Otherwise return the difference + 1 (inclusive of both start and end dates)
+        return ($days == 0) ? 1 : $days + 1;
+    }
+
+    /**
      * Returns an array of URLs for the plugin based on a query string.
      * @param string $query_string
      * @return string
