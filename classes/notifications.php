@@ -63,9 +63,10 @@ class notifications
      * @param int $absence_request_id The ID of the absence request.
      * @return bool|int Message send status.
      */
-    public static function notify_teacher(int $userid, int $absence_request_id, string $course_fullname)
+    public static function notify_teacher(int $userid, int $absence_request_id, int $course_id, int $teacher_record_id)
     {
         global $DB;
+        $course = $DB->get_record('course', ['id' => $course_id], 'id,fullname', MUST_EXIST);
         // Get the absence  request details
         $absence_request = $DB->get_record('local_absence_request', ['id' => $absence_request_id]);
         // Calculate days
@@ -84,7 +85,10 @@ class notifications
                 'startdate' => date('m/d/Y', $absence_request->starttime),
                 'enddate' => date('m/d/Y', $absence_request->endtime),
                 'numberofdays' => $number_of_days,
-                'course' => $course_fullname
+                'course' => $course->fullname,
+                'acknowledgeurl' => new \moodle_url('/local/absence_request/acknowledge.php',
+                    ['id' => $teacher_record_id, 'u' => $userid, 'c' => $course_id]
+                )
             ]
         );
         $user = $DB->get_record('user', ['id' => $userid]);

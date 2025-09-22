@@ -102,6 +102,7 @@ $string['teacher_message'] = 'Hello, <p>You have received a self-reported absenc
     . '<b>Course:</b> {$a->course}<br>'
     . '</p>'
     . '<p>You can also review all requests in the <a href="{$a->url}">absence report.</a></p>'
+    . '<p><a href="{$a->acknowledgeurl}" style="display: inline-block; padding: 10px 20px; background-color: #007cba; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; border: none; cursor: pointer;">Acknowledge this request</a></p>'
     . '<p>Thank you!</p>';
 
 // Privacy API strings
