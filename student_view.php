@@ -38,7 +38,7 @@ $sql = "SELECT ar.*,
         INNER JOIN {user} u ON u.id = ar.userid
         WHERE ar.userid = :userid 
         AND ar.acadyear = :acadyear
-        ORDER BY ar.timecreated DESC";
+        ORDER BY ar.timecreated";
 
 $absence_requests = $DB->get_records_sql($sql, [
     'userid' => $student_id,

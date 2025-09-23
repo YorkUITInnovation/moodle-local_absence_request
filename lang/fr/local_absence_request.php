@@ -1,8 +1,11 @@
 <?php
 // Language strings for absence_request plugin - French version.
 $string['absence_end'] = 'Date de fin';
+$string['absence_end_help'] = 'Le dernier jour de votre absence. Si votre absence ne dure qu\'une journée, définissez la date de fin à la même date que la date de début.';
+$string['absence_end_max_days'] = 'Date de fin (max 7 jours à partir de la date de début)';
 $string['absence_request'] = 'Signaler une absence';
 $string['absence_start'] = 'Date de début';
+$string['absence_start_help'] = 'Le premier jour de votre absence. Notez que les absences ne peuvent pas être rétrodatées.';
 $string['academic_year'] = 'Année académique';
 $string['academic_year_desc'] = 'Définir l\'année académique (exemple: 2024) pour les absences signalées. Laisser vide pour utiliser l\'année académique actuelle basée sur le mois actuel.';
 $string['acknowledged'] = 'Accusé de réception';

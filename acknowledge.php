@@ -11,8 +11,11 @@ require_once('classes/helper.php');
 
 use local_absence_request\helper;
 
+global $DB, $USER;
 // Get encrypted token parameter
 $token = required_param('token', PARAM_TEXT);
+
+require_login();
 
 // Decrypt and validate parameters
 $decrypted_params = helper::decrypt_params($token);
@@ -32,8 +35,13 @@ $id = $validated_params['id']; // Record ID from local_absence_req_teacher table
 $u = $validated_params['u'];   // User ID
 $c = $validated_params['c'];   // Course ID
 
+// Check if the user is the same as the logged in user
+if ($u != $USER->id) {
+    $returnurl = new moodle_url('/my/');
+    redirect($returnurl, get_string('nopermission', 'local_absence_request'), null, \core\output\notification::NOTIFY_ERROR);
+}
+
 // Check if record exists
-global $DB;
 $record = $DB->get_record('local_absence_req_teacher', array('id' => $id));
 if (!$record) {
     $returnurl = new moodle_url('/my/');

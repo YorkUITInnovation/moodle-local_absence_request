@@ -1,8 +1,11 @@
 <?php
 // Language strings for absence_request plugin.
 $string['absence_end'] = 'End Date';
+$string['absence_end_help'] = 'The last day of your absence. If your absence is only one day, set the end date to be the same as the start date.';
+$string['absence_end_max_days'] = 'End Date (max 7 days from start date)';
 $string['absence_request'] = 'Report an Absence';
 $string['absence_start'] = 'Start Date';
+$string['absence_start_help'] = 'The first day of your absence. Note that absences cannot be backdated.';
 $string['academic_year'] = 'Academic Year';
 $string['academic_year_desc'] = 'Set the academic year (example: 2024) for reported absences. Leave blank to use the current academic year based on the current month.';
 $string['acknowledged'] = 'Acknowledged';

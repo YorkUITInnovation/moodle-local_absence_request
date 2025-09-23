@@ -30,10 +30,15 @@ class request_form extends \moodleform {
             'unforeseen' => get_string('unforeseen', 'local_absence_request'),
         ]);
         $mform->addRule('circumstance', null, 'required', null, 'client');
+
         $mform->addElement('date_selector', 'starttime', get_string('absence_start', 'local_absence_request'));
+        $mform->addHelpButton('starttime', 'absence_start', 'local_absence_request');
         $mform->addRule('starttime', null, 'required', null, 'client');
-        $mform->addElement('date_selector', 'endtime', get_string('absence_end', 'local_absence_request'));
+
+        $mform->addElement('date_selector', 'endtime', get_string('absence_end_max_days', 'local_absence_request'));
         $mform->addRule('endtime', null, 'required', null, 'client');
+        $mform->addHelpButton('endtime', 'absence_end', 'local_absence_request');
+
         $mform->addElement('hidden', 'userid', 0);
         $mform->setType('userid', PARAM_INT);
         $this->add_action_buttons(true, get_string('submit_request', 'local_absence_request'));
