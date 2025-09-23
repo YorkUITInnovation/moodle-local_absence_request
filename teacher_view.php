@@ -3,8 +3,15 @@ require_once(__DIR__ . '/../../config.php');
 require_once($CFG->dirroot . '/local/absence_request/classes/tables/absence_requests_table.php');
 
 global $OUTPUT, $PAGE, $USER;
-$context = context_system::instance();
+
 require_login(1, false);
+
+// Check if the plugin is enabled
+if (!get_config('local_absence_request', 'enabled')) {
+    redirect(new moodle_url('/my/'));
+}
+
+$context = context_system::instance();
 $PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
 $PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
 // Get form parameters.
@@ -86,4 +93,3 @@ $table->out(20, true);
 if (!$table->is_downloading()) {
     echo $OUTPUT->footer();
 }
-

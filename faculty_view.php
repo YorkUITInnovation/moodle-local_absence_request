@@ -5,8 +5,15 @@ require_once($CFG->dirroot . '/local/absence_request/classes/tables/absence_requ
 use local_absence_request\helper;
 
 global $OUTPUT, $PAGE, $USER;
-$context = context_system::instance();
+
 require_login(1, false);
+
+// Check if the plugin is enabled
+if (!get_config('local_absence_request', 'enabled')) {
+    redirect(new moodle_url('/my/'));
+}
+
+$context = context_system::instance();
 // If not have capability to view faculty report, redirect to previous page.
 if (!has_capability('local/absence_request:view_faculty_report', $context)) {
     redirect(new moodle_url('/my/'), get_string('nopermissiontoviewpage', 'local_absence_request'), 5);

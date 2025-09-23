@@ -13,6 +13,11 @@ use local_absence_request\helper;
 
 require_login();
 
+// Check if the plugin is enabled
+if (!get_config('local_absence_request', 'enabled')) {
+    redirect(new moodle_url('/my/'));
+}
+
 global $DB, $USER, $PAGE, $OUTPUT;
 
 $PAGE->set_context(context_system::instance());

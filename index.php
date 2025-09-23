@@ -7,6 +7,12 @@ use local_absence_request\notifications;
 
 global $USER, $DB, $OUTPUT, $PAGE, $CFG;
 require_login();
+
+// Check if the plugin is enabled
+if (!get_config('local_absence_request', 'enabled')) {
+    redirect(new moodle_url('/my/'));
+}
+
 $context = context_system::instance();
 
 $config = get_config('local_absence_request');
@@ -166,7 +172,7 @@ if ($form->is_cancelled()) {
         $teachers = get_role_users($role->id, $context);
         foreach ($teachers as $teacher) {
             // Get the enrolment method for this teacher in this specific course
-            $sql = "SELECT e.enrol 
+            $sql = "SELECT e.id, e.enrol 
                     FROM {enrol} e 
                     JOIN {user_enrolments} ue ON e.id = ue.enrolid 
                     WHERE ue.userid = ? AND e.courseid = ?";

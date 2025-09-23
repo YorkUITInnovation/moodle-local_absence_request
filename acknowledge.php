@@ -12,6 +12,12 @@ require_once('classes/helper.php');
 use local_absence_request\helper;
 
 global $DB, $USER;
+
+// Check if the plugin is enabled
+if (!get_config('local_absence_request', 'enabled')) {
+    redirect(new moodle_url('/my/'));
+}
+
 // Get encrypted token parameter
 $token = required_param('token', PARAM_TEXT);
 

@@ -16,6 +16,8 @@ $string['bereavement'] = 'Deuil d\'un membre de la famille immédiate';
 $string['circumstance'] = 'Circonstance';
 $string['course'] = 'Cours';
 $string['duration'] = 'Durée (jours)';
+$string['enabled'] = 'Activer le plugin de demande d\'absence';
+$string['enabled_desc'] = 'Activer ou désactiver la fonctionnalité de demande d\'absence. Lorsque désactivé, les étudiants ne pourront pas soumettre de demandes d\'absence.';
 $string['error_academic_year'] = 'L\'absence signalée doit être dans l\'année académique actuelle.';
 $string['error_already_submitted_for_selected_dates'] = 'Vous avez déjà soumis une absence pour les dates sélectionnées.';
 $string['error_end_before_start'] = 'La date de fin ne peut pas être avant la date de début.';
@@ -141,4 +143,3 @@ $string['back_to_dashboard'] = 'Retour au tableau de bord';
 $string['days'] = 'jours';
 $string['my_reported_absences'] = 'Mes absences signalées';
 $string['reported_absence'] = 'Absence signalée';
-
