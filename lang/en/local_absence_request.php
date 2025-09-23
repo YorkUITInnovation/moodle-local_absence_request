@@ -48,6 +48,9 @@ $string['to_date'] = 'To Date';
 $string['type_of_circumstance'] = 'Type of Circumstance';
 $string['unforeseen'] = 'Unforeseen or unavoidable incidents beyond the student’s control';
 $string['view_faculty_report'] = 'Faculty Absence Report';
+$string['view_my_reported_absences'] = 'View My Reported Absences';
+$string['my_reported_absences'] = 'My Reported Absences';
+
 
 // Settings strings
 $string['requests_per_term'] = 'Maximum requests per term';
@@ -119,5 +122,23 @@ $string['privacy:path:teacherrequests'] = 'Teacher notifications';
 
 $string['teacher_firstname'] = 'Teacher First Name';
 $string['teacher_lastname'] = 'Teacher Last Name';
+
+// Student view strings
+$string['view_my_reported_absences'] = 'View My Reported Absences';
+$string['fall_term'] = 'Fall Term';
+$string['winter_term'] = 'Winter Term';
+$string['summer_term'] = 'Summer Term';
+$string['affected_courses'] = 'Affected Courses';
+$string['notified_instructors'] = 'Notified Instructors';
+$string['employee_id'] = 'Employee ID';
+$string['pending_acknowledgment'] = 'Pending Acknowledgment';
+$string['no_instructors_notified'] = 'No instructors were notified for this course';
+$string['no_absences_for_term'] = 'No reported absences for this term';
+$string['no_reported_absences'] = 'No Reported Absences';
+$string['no_absences_message'] = 'You have not reported any absences for the current academic year.';
+$string['report_new_absence'] = 'Report New Absence';
+$string['back_to_dashboard'] = 'Back to Dashboard';
+$string['days'] = 'days';
+$string['my_reported_absences'] = 'My Reported Absences';
 
 // Access language strings

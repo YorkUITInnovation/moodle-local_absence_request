@@ -119,3 +119,22 @@ $string['privacy:path:teacherrequests'] = 'Notifications des enseignants';
 
 $string['teacher_firstname'] = 'Prénom de l\'enseignant';
 $string['teacher_lastname'] = 'Nom de famille de l\'enseignant';
+
+// Student view strings
+$string['view_my_reported_absences'] = 'Voir mes absences signalées';
+$string['fall_term'] = 'Terme d\'automne';
+$string['winter_term'] = 'Terme d\'hiver';
+$string['summer_term'] = 'Terme d\'été';
+$string['affected_courses'] = 'Cours affectés';
+$string['notified_instructors'] = 'Instructeurs notifiés';
+$string['employee_id'] = 'ID employé';
+$string['pending_acknowledgment'] = 'En attente d\'accusé de réception';
+$string['no_instructors_notified'] = 'Aucun instructeur n\'a été notifié pour ce cours';
+$string['no_absences_for_term'] = 'Aucune absence signalée pour ce terme';
+$string['no_reported_absences'] = 'Aucune absence signalée';
+$string['no_absences_message'] = 'Vous n\'avez signalé aucune absence pour l\'année académique actuelle.';
+$string['report_new_absence'] = 'Signaler une nouvelle absence';
+$string['back_to_dashboard'] = 'Retour au tableau de bord';
+$string['days'] = 'jours';
+$string['my_reported_absences'] = 'Mes absences signalées';
+

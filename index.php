@@ -47,6 +47,9 @@ $max_requests_exceeded = $eligibility->max_requests_exceeded;
 
 // Render main page.
 echo $OUTPUT->header();
+
+echo $OUTPUT->render_from_template('local_absence_request/student_view_absences',[]);
+
 if (!$eligible) {
     // Not eligible: show message using mustache.
     $renderer = $PAGE->get_renderer('core');
