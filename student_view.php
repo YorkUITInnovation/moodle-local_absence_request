@@ -13,6 +13,8 @@ use local_absence_request\helper;
 
 require_login();
 
+global $DB, $USER, $PAGE, $OUTPUT;
+
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url('/local/absence_request/student_view.php');
 $PAGE->set_title(get_string('my_reported_absences', 'local_absence_request'));
