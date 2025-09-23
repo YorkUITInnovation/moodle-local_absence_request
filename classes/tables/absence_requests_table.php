@@ -161,7 +161,7 @@ class absence_requests_table extends \table_sql
      */
     public function col_starttime($values)
     {
-        return userdate($values->starttime);
+        return date('l F d, Y', $values->starttime);
     }
 
     /**
@@ -172,7 +172,7 @@ class absence_requests_table extends \table_sql
      */
     public function col_endtime($values)
     {
-        return userdate($values->endtime);
+        return date('l F d, Y', $values->endtime);
     }
 
     /**
