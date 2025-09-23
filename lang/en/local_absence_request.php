@@ -49,30 +49,23 @@ $string['type_of_circumstance'] = 'Type of Circumstance';
 $string['unforeseen'] = 'Unforeseen or unavoidable incidents beyond the student’s control';
 $string['view_faculty_report'] = 'Faculty Absence Report';
 
-// Settings page strings
-$string['requests_per_term'] = 'Number of requests per term';
-$string['requests_per_term_desc'] = 'Set the maximum number of reported absences a student can submit per term.';
-$string['teacher_message'] = 'Teacher message';
-$string['teacher_message_desc'] = 'Default message to be sent to teachers when an absence is reported.';
-$string['student_message'] = 'Student message';
-$string['student_message_desc'] = 'Default message to be sent to students when an absence is reported.';
-$string['use_period'] = 'Use Period';
-$string['use_period_desc'] = 'This setting is only to be used while testing the plugin. '
-    . 'It allows you to select the period during which reported absences can be submitted. '
-    . 'Note: Year is always available as Winter, never fall. So if testing for Year courses, '
-    . 'make sure you select a date between January and April.';
-$string['use_period_no'] = 'No';
-$string['use_period_F'] = 'Fall';
-$string['use_period_W'] = 'Winter';
-$string['use_period_S'] = 'Summer';
-$string['use_period_Y'] = 'Year';
-
-// Enrollment methods settings
-$string['enrollment_methods'] = 'Teacher Enrollment Methods for Notifications';
-$string['enrollment_methods_desc'] = 'Select which teacher enrollment methods should receive absence notifications. Only teachers enrolled through the selected methods will be notified when students report absences.';
-$string['enrollment_methods_all'] = 'All';
-$string['enrollment_methods_manual'] = 'Manual';
-$string['enrollment_methods_arms'] = 'ARMS';
+// Settings strings
+$string['requests_per_term'] = 'Maximum requests per term';
+$string['requests_per_term_desc'] = 'Maximum number of absence requests a student can submit per term';
+$string['use_period'] = 'Use specific period';
+$string['use_period_desc'] = 'Override automatic period detection for testing purposes';
+$string['use_period_no'] = 'Use automatic detection';
+$string['use_period_F'] = 'Fall period';
+$string['use_period_W'] = 'Winter period';
+$string['use_period_S'] = 'Summer period';
+$string['use_period_Y'] = 'Full year period';
+$string['enrollment_methods'] = 'Enrollment methods';
+$string['enrollment_methods_desc'] = 'Which enrollment methods to include when checking student enrollments';
+$string['enrollment_methods_all'] = 'All enrollment methods';
+$string['enrollment_methods_manual'] = 'Manual enrollment only';
+$string['enrollment_methods_arms'] = 'ARMS enrollment only';
+$string['passwordsaltmain'] = 'Password Salt for Encryption';
+$string['passwordsaltmain_desc'] = 'A secret password salt used to encrypt acknowledgment URLs in teacher emails. This prevents users from hacking the acknowledgment system by manipulating URL parameters. Leave blank to use the default Moodle password salt.';
 
 // Notifications
 $string['absence_request:acknowledge'] = 'Acknowledge Absence Request';

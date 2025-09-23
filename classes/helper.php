@@ -344,4 +344,111 @@ class helper
 
         return $faculties;
     }
+
+    /**
+     * Get encryption key from Moodle configuration
+     * Uses the site's dataroot and password salt for key generation
+     *
+     * @return string The encryption key
+     */
+    private static function get_encryption_key()
+    {
+        global $CFG;
+
+        // Get custom password salt from plugin settings, fallback to Moodle's default
+        $custom_salt = get_config('local_absence_request', 'passwordsaltmain');
+        $password_salt = !empty($custom_salt) ? $custom_salt : $CFG->passwordsaltmain;
+
+        // Use a combination of site-specific values for key generation
+        $key_material = $CFG->dataroot . $password_salt . 'absence_request_secure_params';
+        return hash('sha256', $key_material);
+    }
+
+    /**
+     * Encrypt parameters for secure URL transmission
+     *
+     * @param array $params Array of parameters to encrypt (e.g., ['id' => 123, 'u' => 456, 'c' => 789])
+     * @return string Base64 encoded encrypted string
+     */
+    public static function encrypt_params(array $params)
+    {
+        $key = self::get_encryption_key();
+        $data = json_encode($params);
+
+        // Generate a random IV
+        $iv = random_bytes(16);
+
+        // Encrypt the data
+        $encrypted = openssl_encrypt($data, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+
+        // Combine IV and encrypted data
+        $result = $iv . $encrypted;
+
+        // Return base64 encoded for URL safety
+        return base64_encode($result);
+    }
+
+    /**
+     * Decrypt parameters from secure URL
+     *
+     * @param string $encrypted_data Base64 encoded encrypted string
+     * @return array|false Decrypted parameters array or false on failure
+     */
+    public static function decrypt_params($encrypted_data)
+    {
+        try {
+            $key = self::get_encryption_key();
+
+            // Decode from base64
+            $data = base64_decode($encrypted_data);
+            if ($data === false) {
+                return false;
+            }
+
+            // Extract IV (first 16 bytes) and encrypted data
+            $iv = substr($data, 0, 16);
+            $encrypted = substr($data, 16);
+
+            // Decrypt
+            $decrypted = openssl_decrypt($encrypted, 'AES-256-CBC', $key, OPENSSL_RAW_DATA, $iv);
+            if ($decrypted === false) {
+                return false;
+            }
+
+            // Decode JSON
+            $params = json_decode($decrypted, true);
+            if ($params === null) {
+                return false;
+            }
+
+            return $params;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Validate decrypted parameters for acknowledge.php
+     *
+     * @param array $params Decrypted parameters
+     * @return array|false Validated parameters or false on failure
+     */
+    public static function validate_acknowledge_params($params)
+    {
+        // Check required parameters exist and are integers
+        if (!isset($params['id']) || !isset($params['u']) || !isset($params['c'])) {
+            return false;
+        }
+
+        if (!is_numeric($params['id']) || !is_numeric($params['u']) || !is_numeric($params['c'])) {
+            return false;
+        }
+
+        // Convert to integers
+        return [
+            'id' => (int)$params['id'],
+            'u' => (int)$params['u'],
+            'c' => (int)$params['c']
+        ];
+    }
 }

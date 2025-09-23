@@ -63,5 +63,12 @@ if ($hassiteconfig) {
         ]
     ));
 
+    $settings->add(new admin_setting_configpasswordunmask(
+        'local_absence_request/passwordsaltmain',
+        get_string('passwordsaltmain', 'local_absence_request'),
+        get_string('passwordsaltmain_desc', 'local_absence_request'),
+        ''
+    ));
+
     $ADMIN->add('localplugins', $settings);
 }

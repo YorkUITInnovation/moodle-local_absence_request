@@ -4,10 +4,10 @@
 // It uses Moodle's messaging API to send both email and Moodle notifications.
 
 namespace local_absence_request;
-include_once('../../config.php');
-include_once($CFG->libdir . '/messagelib.php');
 
 defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->libdir . '/messagelib.php');
 
 class notifications
 {
@@ -25,7 +25,7 @@ class notifications
         // Get the absence  request details
         $absence_request = $DB->get_record('local_absence_request', ['id' => $absence_request_id]);
         // Calculate days
-        $number_of_days = helper::calculate_days($absence_request->start_timestamp, $absence_request->end_timestamp);
+        $number_of_days = helper::calculate_days($absence_request->starttime, $absence_request->endtime);
         // Get student from the absence request
         $student = $DB->get_record('user', ['id' => $userid]);
         $subject = get_string('student_message_subject', 'local_absence_request');
@@ -70,11 +70,13 @@ class notifications
         // Get the absence  request details
         $absence_request = $DB->get_record('local_absence_request', ['id' => $absence_request_id]);
         // Calculate days
-        $number_of_days = helper::calculate_days($absence_request->start_timestamp, $absence_request->end_timestamp);
+        $number_of_days = helper::calculate_days($absence_request->starttime, $absence_request->endtime);
         // Get student from the absence request
         $student = $DB->get_record('user', ['id' => $absence_request->userid]);
 
         $url = new \moodle_url('/local/absence_request/teacher_view.php', ['id' => $absence_request_id]);
+        $acknowledgeulr = new \moodle_url('/local/absence_request/acknowledge.php',
+            ['token' => helper::encrypt_params(['id' => $teacher_record_id, 'u' => $userid, 'c' => $course_id])]);
         $subject = get_string('teacher_message_subject', 'local_absence_request');
         $message = get_string('teacher_message', 'local_absence_request', [
                 'url' => $url->out(false),
@@ -86,9 +88,7 @@ class notifications
                 'enddate' => date('m/d/Y', $absence_request->endtime),
                 'numberofdays' => $number_of_days,
                 'course' => $course->fullname,
-                'acknowledgeurl' => new \moodle_url('/local/absence_request/acknowledge.php',
-                    ['id' => $teacher_record_id, 'u' => $userid, 'c' => $course_id]
-                )
+                'acknowledgeurl' => $acknowledgeulr->out(false)
             ]
         );
         $user = $DB->get_record('user', ['id' => $userid]);
