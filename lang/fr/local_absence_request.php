@@ -137,4 +137,5 @@ $string['report_new_absence'] = 'Signaler une nouvelle absence';
 $string['back_to_dashboard'] = 'Retour au tableau de bord';
 $string['days'] = 'jours';
 $string['my_reported_absences'] = 'Mes absences signalées';
+$string['reported_absence'] = 'Absence signalée';
 

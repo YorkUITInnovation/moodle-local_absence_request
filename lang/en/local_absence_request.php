@@ -140,5 +140,6 @@ $string['report_new_absence'] = 'Report New Absence';
 $string['back_to_dashboard'] = 'Back to Dashboard';
 $string['days'] = 'days';
 $string['my_reported_absences'] = 'My Reported Absences';
+$string['reported_absence'] = 'Reported Absence';
 
 // Access language strings

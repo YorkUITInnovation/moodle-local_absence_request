@@ -131,6 +131,15 @@ foreach ($absence_requests as $request) {
     }
 }
 
+// Add sequential numbering to requests within each term
+foreach ($terms_data as &$term) {
+    $counter = 1;
+    foreach ($term['requests'] as &$request) {
+        $request['sequence_number'] = $counter;
+        $counter++;
+    }
+}
+
 // Prepare template data
 $template_data = [
     'academic_year' => $academic_year,
