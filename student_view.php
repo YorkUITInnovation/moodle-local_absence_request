@@ -18,11 +18,6 @@ if (!get_config('local_absence_request', 'enabled')) {
     redirect(new moodle_url('/my/'));
 }
 
-global $DB, $USER, $PAGE, $OUTPUT;
-
-$PAGE->set_context(context_system::instance());
-$PAGE->set_url('/local/absence_request/student_view.php');
-$PAGE->set_title(get_string('my_reported_absences', 'local_absence_request'));
 $PAGE->set_heading(get_string('my_reported_absences', 'local_absence_request'));
 $PAGE->requires->css('/local/absence_request/styles.css');
 

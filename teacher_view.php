@@ -12,13 +12,6 @@ if (!get_config('local_absence_request', 'enabled')) {
 }
 
 $context = context_system::instance();
-$PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
-$PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
-// Get form parameters.
-$starttime = optional_param('starttime', '', PARAM_TEXT);
-$endtime = optional_param('endtime', '', PARAM_TEXT);
-$download = optional_param('download', '', PARAM_ALPHA);
-
 // If starttime is empty, set starttime to sunday of the current week
 if (empty($starttime)) {
     $starttime = strtotime('last sunday');
@@ -93,3 +86,4 @@ $table->out(20, true);
 if (!$table->is_downloading()) {
     echo $OUTPUT->footer();
 }
+

@@ -13,12 +13,6 @@ if (!get_config('local_absence_request', 'enabled')) {
     redirect(new moodle_url('/my/'));
 }
 
-$context = context_system::instance();
-
-$config = get_config('local_absence_request');
-
-$PAGE->set_url(new moodle_url('/local/absence_request/index.php'));
-$PAGE->set_context($context);
 $PAGE->set_title(get_string('absence_request', 'local_absence_request'));
 $PAGE->set_heading(get_string('absence_request', 'local_absence_request'));
 

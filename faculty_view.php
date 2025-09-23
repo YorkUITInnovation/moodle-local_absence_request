@@ -14,13 +14,6 @@ if (!get_config('local_absence_request', 'enabled')) {
 }
 
 $context = context_system::instance();
-// If not have capability to view faculty report, redirect to previous page.
-if (!has_capability('local/absence_request:view_faculty_report', $context)) {
-    redirect(new moodle_url('/my/'), get_string('nopermissiontoviewpage', 'local_absence_request'), 5);
-}
-
-$PAGE->set_url(new moodle_url('/local/absence_request/faculty_view.php'));
-// Get form parameters.
 $faculty = optional_param('faculty', '', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
