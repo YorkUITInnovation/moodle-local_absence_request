@@ -3,7 +3,7 @@
 }}
 <div class="row mb-4">
     <div class="col-12">
-        <p class="text-muted">{{#str}}
+        <p class="accessible-muted">{{#str}}
             academic_year, local_absence_request{{/str}}: {{academic_year}} | {{#str}}
             student, local_absence_request{{/str}}: {{student_name}}</p>
     </div>
@@ -29,7 +29,7 @@
                                                 aria-controls="collapse-request-{{id}}">
                                             <i class="fa fa-chevron-right accordion-icon mr-2"></i>
                                             <strong>{{#str}}reported_absence, local_absence_request{{/str}} #{{sequence_number}}</strong>
-                                            <div class="request-summary text-muted ml-2">
+                                            <div class="request-summary accessible-muted ml-2">
                                                 {{circumstance}} • {{startdate}} to {{enddate}} • {{duration}} {{#str}}days{{/str}}
                                             </div>
                                         </button>
@@ -58,7 +58,7 @@
                                                         <strong>{{#str}}duration, local_absence_request{{/str}}:</strong> {{duration}} {{#str}}days{{/str}}
                                                     </div>
                                                     <div class="mb-2">
-                                                        <small class="text-muted">{{#str}}submitted, local_absence_request{{/str}}: {{timecreated}}</small>
+                                                        <small class="accessible-muted">{{#str}}submitted, local_absence_request{{/str}}: {{timecreated}}</small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,7 +78,7 @@
                                                                         aria-controls="collapse-{{request_id}}-{{clean_id}}">
                                                                     <i class="fa fa-chevron-right accordion-icon mr-2"></i>
                                                                     <strong>{{fullname}}</strong>
-                                                                    <div class="course-info text-muted ml-2">
+                                                                    <div class="course-info accessible-muted ml-2">
                                                                         {{shortname}} {{#idnumber}}({{idnumber}}){{/idnumber}}
                                                                     </div>
                                                                 </button>
@@ -106,7 +106,7 @@
                                                                     </div>
                                                                 {{/teachers}}
                                                                 {{^teachers}}
-                                                                    <p class="text-muted">{{#str}}no_instructors_notified, local_absence_request{{/str}}</p>
+                                                                    <p class="accessible-muted">{{#str}}no_instructors_notified, local_absence_request{{/str}}</p>
                                                                 {{/teachers}}
                                                             </div>
                                                         </div>
@@ -153,6 +153,11 @@
 </div>
 
 <style>
+    /* Accessible color for muted text - meets WCAG AA contrast requirements */
+    .accessible-muted {
+        color: #495057 !important;
+    }
+
     .absence-request {
         transition: all 0.2s;
     }
@@ -167,6 +172,7 @@
 
     .badge-success {
         background-color: #28a745;
+        color: #ffffff;
     }
 
     .badge-warning {
@@ -176,7 +182,7 @@
 
     .request-accordion-btn {
         text-decoration: none !important;
-        color: #333 !important;
+        color: #212529 !important;
         width: 100%;
         text-align: left;
         padding: 0.75rem 0;
@@ -184,7 +190,7 @@
     }
 
     .request-accordion-btn:hover {
-        color: #007bff !important;
+        color: #0056b3 !important;
         text-decoration: none !important;
     }
 
@@ -198,18 +204,19 @@
         font-size: 0.85rem;
         font-weight: normal;
         margin-top: 0.25rem;
+        color: #495057 !important;
     }
 
     .course-accordion-btn {
         text-decoration: none !important;
-        color: #333 !important;
+        color: #212529 !important;
         width: 100%;
         text-align: left;
         padding: 0.5rem 0;
     }
 
     .course-accordion-btn:hover {
-        color: #007bff !important;
+        color: #0056b3 !important;
         text-decoration: none !important;
     }
 
@@ -221,6 +228,7 @@
     .accordion-icon {
         transition: transform 0.2s;
         font-size: 0.8rem;
+        color: #495057;
     }
 
     .request-accordion-btn[aria-expanded="true"] .accordion-icon,
@@ -231,6 +239,7 @@
     .course-info {
         display: inline-block;
         font-size: 0.9rem;
+        color: #495057 !important;
     }
 
     .absence-request-details {
@@ -259,5 +268,16 @@
 
     .btn-primary:hover {
         color: white !important;
+    }
+
+    /* Ensure all text in cards has sufficient contrast */
+    .card-body,
+    .card-header {
+        color: #212529;
+    }
+
+    /* Make sure small text is still accessible */
+    small {
+        color: #495057 !important;
     }
 </style>
