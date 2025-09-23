@@ -95,7 +95,7 @@ $string['teacher_message'] = 'Bonjour, <p>Vous avez reçu une absence auto-signa
     . '<b>Cours :</b> {$a->course}<br>'
     . '</p>'
     . '<p>Vous pouvez également consulter toutes les demandes dans le <a href="{$a->url}">rapport d\'absence.</a></p>'
-    . '<p><a href="{$a->acknowledgeurl}" style="display: inline-block; padding: 10px 20px; background-color: #007cba; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; border: none; cursor: pointer;">Accuser réception de cette demande</a></p>'
+    . '<p><a href="{$a->acknowledgeurl}" style="display: inline-block; padding: 10px 20px; background-color: #E31837; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; border: none; cursor: pointer;">Accuser réception de cette demande</a></p>'
     . '<p>Merci !</p>';
 
 // Privacy API strings
