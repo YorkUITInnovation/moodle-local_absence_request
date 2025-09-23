@@ -33,8 +33,8 @@ class notifications
             [
                 'firstname' => $student->firstname,
                 'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
-                'startdate' => date('m/d/Y', $absence_request->starttime),
-                'enddate' => date('m/d/Y', $absence_request->endtime),
+                'startdate' => date('l F d, Y', $absence_request->starttime),
+                'enddate' => date('l F d, Y', $absence_request->endtime),
                 'numberofdays' => $number_of_days
             ]
         );
@@ -72,7 +72,7 @@ class notifications
         // Calculate days
         $number_of_days = helper::calculate_days($absence_request->starttime, $absence_request->endtime);
         // Get student from the absence request
-        $student = $DB->get_record('user', ['id' => $absence_request->userid]);
+        $student = $DB->get_record('user', ['id' => $absence_request->userid], '*', MUST_EXIST);
 
         $url = new \moodle_url('/local/absence_request/teacher_view.php', ['id' => $absence_request_id]);
         $acknowledgeulr = new \moodle_url('/local/absence_request/acknowledge.php',
@@ -84,8 +84,8 @@ class notifications
                 'policylink' => 'https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/',
                 'idnumber' => $student->idnumber,
                 'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
-                'startdate' => date('m/d/Y', $absence_request->starttime),
-                'enddate' => date('m/d/Y', $absence_request->endtime),
+                'startdate' => date('l F d, Y', $absence_request->starttime),
+                'enddate' => date('l F d, Y', $absence_request->endtime),
                 'numberofdays' => $number_of_days,
                 'course' => $course->fullname,
                 'acknowledgeurl' => $acknowledgeulr->out(false)
