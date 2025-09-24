@@ -18,6 +18,8 @@ $string['course'] = 'Cours';
 $string['duration'] = 'Durée (jours)';
 $string['enabled'] = 'Activer le plugin de demande d\'absence';
 $string['enabled_desc'] = 'Activer ou désactiver la fonctionnalité de demande d\'absence. Lorsque désactivé, les étudiants ne pourront pas soumettre de demandes d\'absence.';
+$string['acknowledge_enabled'] = 'Activer l\'accusé de réception';
+$string['acknowledge_enabled_desc'] = 'Activer ou désactiver la fonctionnalité d\'accusé de réception. Lorsque activé, les instructeurs recevront des liens d\'accusé de réception dans leurs courriels de notification pour confirmer qu\'ils ont examiné la demande d\'absence.';
 $string['error_academic_year'] = 'L\'absence signalée doit être dans l\'année académique actuelle.';
 $string['error_already_submitted_for_selected_dates'] = 'Vous avez déjà soumis une absence pour les dates sélectionnées.';
 $string['error_end_before_start'] = 'La date de fin ne peut pas être avant la date de début.';
@@ -100,7 +102,7 @@ $string['teacher_message'] = 'Bonjour, <p>Vous avez reçu une absence auto-signa
     . '<b>Cours :</b> {$a->course}<br>'
     . '</p>'
     . '<p>Vous pouvez également consulter toutes les demandes dans le <a href="{$a->url}">rapport d\'absence.</a></p>'
-    . '<p><a href="{$a->acknowledgeurl}" style="display: inline-block; padding: 10px 20px; background-color: #E31837; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; border: none; cursor: pointer;">Accuser réception de cette demande</a></p>'
+    . '{$a->acknowledgeurl}'
     . '<p>Merci !</p>';
 
 // Privacy API strings

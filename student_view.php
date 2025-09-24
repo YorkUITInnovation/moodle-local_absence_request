@@ -11,7 +11,13 @@ require_once('classes/helper.php');
 
 use local_absence_request\helper;
 
-require_login();
+global $CFG, $PAGE;
+
+$courseid = optional_param('courseid', 0, PARAM_INT);
+
+require_login($courseid);
+
+$context = context_course::instance($courseid);
 
 // Check if the plugin is enabled
 if (!get_config('local_absence_request', 'enabled')) {
@@ -20,6 +26,7 @@ if (!get_config('local_absence_request', 'enabled')) {
 
 $PAGE->set_heading(get_string('my_reported_absences', 'local_absence_request'));
 $PAGE->requires->css('/local/absence_request/styles.css');
+$PAGE->set_context($context);
 
 // Ensure jQuery and Bootstrap JavaScript are loaded
 $PAGE->requires->jquery();
@@ -144,6 +151,7 @@ foreach ($terms_data as &$term) {
 
 // Prepare template data
 $template_data = [
+    'courseid' => $courseid,
     'academic_year' => $academic_year,
     'student_name' => fullname($USER),
     'terms' => array_values($terms_data),

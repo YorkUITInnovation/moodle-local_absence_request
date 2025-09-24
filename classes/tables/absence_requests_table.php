@@ -31,20 +31,23 @@ class absence_requests_table extends \table_sql
     {
         parent::__construct($uniqueid);
 
-        // Define the columns to be displayed in the table.
-        $this->define_columns([
-                'student_lastname',
-                'sisid',
-                'circumstance',
-                'starttime',
-                'endtime',
-                'course_fullname',
-                'teacher_lastname',
-                'timecreated',
-                'acknowledged']
-        );
-        // Define the column headers (localized strings).
-        $this->define_headers([
+        // Check if acknowledge receipt is enabled
+        $acknowledge_enabled = get_config('local_absence_request', 'acknowledge_enabled');
+
+        // Define the base columns to be displayed in the table.
+        $columns = [
+            'student_lastname',
+            'sisid',
+            'circumstance',
+            'starttime',
+            'endtime',
+            'course_fullname',
+            'teacher_lastname',
+            'timecreated'
+        ];
+
+        // Define the base column headers (localized strings).
+        $headers = [
             get_string('student', 'local_absence_request'),
             get_string('sisid', 'local_absence_request'),
             get_string('circumstance', 'local_absence_request'),
@@ -53,9 +56,17 @@ class absence_requests_table extends \table_sql
             get_string('course', 'local_absence_request'),
             // These columns display the course director's first and last name. The language string keys remain 'teacher_firstname' and 'teacher_lastname' for compatibility.
             get_string('teacher', 'local_absence_request'),
-            get_string('submitted', 'local_absence_request'),
-            get_string('acknowledged', 'local_absence_request'),
-        ]);
+            get_string('submitted', 'local_absence_request')
+        ];
+
+        // Add acknowledged column only if enabled
+        if ($acknowledge_enabled) {
+            $columns[] = 'acknowledged';
+            $headers[] = get_string('acknowledged', 'local_absence_request');
+        }
+
+        $this->define_columns($columns);
+        $this->define_headers($headers);
     }
 
     /**

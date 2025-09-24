@@ -75,22 +75,35 @@ class notifications
         $student = $DB->get_record('user', ['id' => $absence_request->userid], '*', MUST_EXIST);
 
         $url = new \moodle_url('/local/absence_request/teacher_view.php', ['id' => $absence_request_id]);
-        $acknowledgeulr = new \moodle_url('/local/absence_request/acknowledge.php',
-            ['token' => helper::encrypt_params(['id' => $teacher_record_id, 'u' => $userid, 'c' => $course_id])]);
+
+        // Check if acknowledge receipt is enabled
+        $acknowledge_enabled = get_config('local_absence_request', 'acknowledge_enabled');
+
+        // Prepare message parameters
+        $message_params = [
+            'url' => $url->out(false),
+            'studentname' => fullname($student),
+            'policylink' => 'https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/',
+            'idnumber' => $student->idnumber,
+            'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
+            'startdate' => date('l F d, Y', $absence_request->starttime),
+            'enddate' => date('l F d, Y', $absence_request->endtime),
+            'numberofdays' => $number_of_days,
+            'course' => $course->fullname,
+        ];
+
+        // Add acknowledge URL only if enabled
+        if ($acknowledge_enabled) {
+            $acknowledgeulr = new \moodle_url('/local/absence_request/acknowledge.php',
+                ['token' => helper::encrypt_params(['id' => $teacher_record_id, 'u' => $userid, 'c' => $course_id])]);
+            $message_params['acknowledgeurl'] = '<p><a href="' . $acknowledgeulr->out(false) . '" style="display: inline-block; padding: 10px 20px; background-color: #E31837; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; border: none; cursor: pointer;">Acknowledge this request</a></p>';
+        } else {
+            $message_params['acknowledgeurl'] = '';
+        }
+
         $subject = get_string('teacher_message_subject', 'local_absence_request');
-        $message = get_string('teacher_message', 'local_absence_request', [
-                'url' => $url->out(false),
-                'studentname' => fullname($student),
-                'policylink' => 'https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/',
-                'idnumber' => $student->idnumber,
-                'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
-                'startdate' => date('l F d, Y', $absence_request->starttime),
-                'enddate' => date('l F d, Y', $absence_request->endtime),
-                'numberofdays' => $number_of_days,
-                'course' => $course->fullname,
-                'acknowledgeurl' => $acknowledgeulr->out(false)
-            ]
-        );
+        $message = get_string('teacher_message', 'local_absence_request', $message_params);
+
         $user = $DB->get_record('user', ['id' => $userid]);
         // Prepare the message data
         $eventdata = new \core\message\message();

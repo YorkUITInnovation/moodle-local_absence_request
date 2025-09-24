@@ -28,6 +28,13 @@ if ($hassiteconfig) {
         1
     ));
 
+    $settings->add(new admin_setting_configcheckbox(
+        'local_absence_request/acknowledge_enabled',
+        get_string('acknowledge_enabled', 'local_absence_request'),
+        get_string('acknowledge_enabled_desc', 'local_absence_request'),
+        1
+    ));
+
     $settings->add(new admin_setting_configtext(
         'local_absence_request/requests_per_term',
         get_string('requests_per_term', 'local_absence_request'),

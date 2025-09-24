@@ -6,20 +6,26 @@ use local_absence_request\helper;
 use local_absence_request\notifications;
 
 global $USER, $DB, $OUTPUT, $PAGE, $CFG;
-require_login();
 
+require_once($CFG->dirroot . '/local/absence_request/classes/forms/request_form.php');
 // Check if the plugin is enabled
 if (!get_config('local_absence_request', 'enabled')) {
     redirect(new moodle_url('/my/'));
 }
 
-$PAGE->set_title(get_string('absence_request', 'local_absence_request'));
-$PAGE->set_heading(get_string('absence_request', 'local_absence_request'));
 
-require_once($CFG->dirroot . '/local/absence_request/classes/forms/request_form.php');
+
 
 $courseid = optional_param('courseid', 0, PARAM_INT);
 $return = optional_param('r', '', PARAM_TEXT);
+$context = context_course::instance($courseid);
+
+$PAGE->set_url(new moodle_url('/local/absence_request/index.php', ['courseid' => $courseid]));
+$PAGE->set_title(get_string('absence_request', 'local_absence_request'));
+$PAGE->set_heading(get_string('absence_request', 'local_absence_request'));
+$PAGE->set_context($context);
+
+require_login($courseid);
 
 $userid = $USER->id;
 $eligible = false;
@@ -48,7 +54,7 @@ $max_requests_exceeded = $eligibility->max_requests_exceeded;
 // Render main page.
 echo $OUTPUT->header();
 
-echo $OUTPUT->render_from_template('local_absence_request/student_view_absences',[]);
+echo $OUTPUT->render_from_template('local_absence_request/student_view_absences',['courseid' => $courseid]);
 
 if (!$eligible) {
     // Not eligible: show message using mustache.
@@ -74,7 +80,7 @@ $numrequests = $DB->count_records_select('local_absence_request', 'userid = ? AN
 ]);
 
 
-if ($numrequests >= $config->requests_per_term) {
+if ($numrequests >= get_config('local_absence_request','requests_per_term')) {
     echo $OUTPUT->render_from_template('local_absence_request/not_eligible', [
         'message' => get_string('max_requests_reached', 'local_absence_request'),
         'url' => $returnurl->out(false)
@@ -217,6 +223,7 @@ if ($form->is_cancelled()) {
     echo $OUTPUT->footer();
     exit;
 }
+
 // Render the form using mustache.
 $formhtml = $form->render();
 echo $OUTPUT->render_from_template('local_absence_request/request_form', [

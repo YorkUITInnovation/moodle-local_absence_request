@@ -18,6 +18,8 @@ $string['course'] = 'Course';
 $string['duration'] = 'Duration (days)';
 $string['enabled'] = 'Enable Absence Request Plugin';
 $string['enabled_desc'] = 'Enable or disable the absence request functionality. When disabled, students will not be able to submit absence requests.';
+$string['acknowledge_enabled'] = 'Enable Acknowledge Receipt';
+$string['acknowledge_enabled_desc'] = 'Enable or disable the acknowledge receipt functionality. When enabled, instructors will receive acknowledgment links in their notification emails to confirm they have reviewed the absence request.';
 $string['error_academic_year'] = 'The reported absence must be within the current academic year.';
 $string['error_already_submitted_for_selected_dates'] = 'You have already submitted an absence for the selected dates.';
 $string['error_end_before_start'] = 'The end date cannot be before the start date.';
@@ -103,7 +105,7 @@ $string['teacher_message'] = 'Hello, <p>You have received a self-reported absenc
     . '<b>Course:</b> {$a->course}<br>'
     . '</p>'
     . '<p>You can also review all requests in the <a href="{$a->url}">absence report.</a></p>'
-    . '<p><a href="{$a->acknowledgeurl}" style="display: inline-block; padding: 10px 20px; background-color: #E31837; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; border: none; cursor: pointer;">Acknowledge this request</a></p>'
+    . '{$a->acknowledgeurl}'
     . '<p>Thank you!</p>';
 
 // Privacy API strings
