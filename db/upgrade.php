@@ -30,7 +30,8 @@ defined('MOODLE_INTERNAL') || die();
  * @param int $oldversion the version we are upgrading from
  * @return bool result
  */
-function xmldb_local_absence_request_upgrade($oldversion) {
+function xmldb_local_absence_request_upgrade($oldversion)
+{
     global $CFG, $DB;
 
     $dbman = $DB->get_manager();
@@ -56,6 +57,45 @@ function xmldb_local_absence_request_upgrade($oldversion) {
         }
         // Absence_request savepoint reached.
         upgrade_plugin_savepoint(true, 2025090700, 'local', 'absence_request');
+    }
+
+    if ($oldversion < 2025092201) {
+
+        // Define field emailsent to be added to local_absence_req_teacher.
+        $table = new xmldb_table('local_absence_req_teacher');
+        $field = new xmldb_field('emailsent', XMLDB_TYPE_INTEGER, '1', null, null, null, '0', 'acknowledged');
+
+        // Conditionally launch add field emailsent.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define index emailsent_idx (not unique) to be added to local_absence_req_teacher.
+        $table = new xmldb_table('local_absence_req_teacher');
+        $index = new xmldb_index('emailsent_idx', XMLDB_INDEX_NOTUNIQUE, ['emailsent']);
+
+
+        // Conditionally launch add index emailsent_idx.
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+
+
+        // Define index user_emailsent_idx (not unique) to be added to local_absence_req_teacher.
+        $table = new xmldb_table('local_absence_req_teacher');
+        $index = new xmldb_index('user_emailsent_idx', XMLDB_INDEX_NOTUNIQUE, ['userid', 'emailsent']);
+
+        // Conditionally launch add index user_emailsent_idx.
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+
+        // Update all existing records to have emailsent = 1.
+        $sql = "UPDATE {local_absence_req_teacher} SET emailsent = 1";
+        $DB->execute($sql);
+
+        // Absence_request savepoint reached.
+        upgrade_plugin_savepoint(true, 2025092201, 'local', 'absence_request');
     }
 
     return true;
