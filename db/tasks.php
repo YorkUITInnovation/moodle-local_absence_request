@@ -15,17 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information for the absence request plugin
+ * Definition of scheduled tasks for the absence request plugin.
  *
  * @package    local_absence_request
- * @copyright  2025 Patrick Thibaudeau
+ * @copyright  2025 Your Institution
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_absence_request';
-$plugin->version = 2025092202;
-$plugin->requires = 2022112800; // Moodle 4.1.0
-$plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v1.2.0';
+$tasks = [
+    [
+        'classname' => 'local_absence_request\task\send_teacher_notifications',
+        'blocking' => 0,
+        'minute' => '50',
+        'hour' => '23',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ],
+];

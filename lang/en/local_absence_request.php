@@ -26,7 +26,7 @@ $string['error_end_before_start'] = 'The end date cannot be before the start dat
 $string['error_max_7_days'] = 'The absence cannot be longer than 7 days.';
 $string['error_term_period'] = 'The absence must be within the current term period.';
 $string['faculty'] = 'Faculty';
-$string['from_date'] = 'From Date';
+$string['from_date'] = 'From Submission Date';
 $string['max_requests_reached'] = 'You have reached the maximum number of absences for this term.';
 $string['nopermission'] = 'You do not have permission to view this page.';
 $string['nopermissiontoviewpage'] = 'You do not have permission to view this page.';
@@ -49,9 +49,10 @@ $string['student_instructions'] = '<p>Please fill out the form below to report a
     . '<a href="https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/" target="_blank">Academic Consideration Policy</a>.</p>';
 $string['student_lastname'] = 'Last Name';
 $string['submitted'] = 'Submitted';
+$string['task_send_teacher_notifications'] = 'Send teacher notifications for absence requests';
 $string['submit_request'] = 'Report An Absence';
 $string['teacher'] = 'Instructor';
-$string['to_date'] = 'To Date';
+$string['to_date'] = 'To Submission Date';
 $string['type_of_circumstance'] = 'Type of Circumstance';
 $string['unforeseen'] = 'Unforeseen or unavoidable incidents beyond the student’s control';
 $string['view_faculty_report'] = 'Faculty Absence Report';
@@ -90,22 +91,13 @@ $string['student_full_message'] = 'Hello {$a->firstname}, '
     . '<b>Circumstance:</b> {$a->circumstance}<br>'
     . '<b>Start date:</b> {$a->startdate}<br>'
     . '<b>End date:</b> {$a->enddate}<br>'
-    . '<b>Convert concatenation to a scalar value:</b> {$a->numberofdays}<br>'
+    . '<b>Absence duration in days</b> {$a->numberofdays}<br>'
     . '</p>'
     . '<p>Any accommodations for missed course work need to be arranged with your individual instructors</p>'
     . '<p>Thank you!</p>';
-$string['teacher_message'] = 'Hello, <p>You have received a self-reported absence under the Policy on Academic '
-    . '<a href="{$a->policylink}">Consideration for Missed Course Work</a>. The details are below.</p>'
-    . '<p>'
-    . '<b>Student:</b> {$a->studentname} ({$a->idnumber})<br>'
-    . '<b>Circumstance:</b> {$a->circumstance}<br>'
-    . '<b>Start date:</b> {$a->startdate}<br>'
-    . '<b>End date:</b> {$a->enddate}<br>'
-    . '<b>Absence duration in days:</b> {$a->numberofdays}<br>'
-    . '<b>Course:</b> {$a->course}<br>'
-    . '</p>'
-    . '<p>You can also review all requests in the <a href="{$a->url}">absence report.</a></p>'
-    . '{$a->acknowledgeurl}'
+$string['teacher_message'] = 'Hello, <p>You have received {$a->absence_count} new self-reported absence(s) under the Policy on Academic '
+    . '<a href="{$a->policylink}">Consideration for Missed Course Work</a>.</p>'
+    . '<p>Please visit the <a href="{$a->url}">absence report</a> to view the details of all reported absences and acknowledge them.</p>'
     . '<p>Thank you!</p>';
 
 // Privacy API strings

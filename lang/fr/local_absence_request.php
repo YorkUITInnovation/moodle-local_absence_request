@@ -49,6 +49,7 @@ $string['student_instructions'] = '<p>Veuillez remplir le formulaire ci-dessous 
     . '<a href="https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/" target="_blank">Politique de considération académique</a>.</p>';
 $string['student_lastname'] = 'Nom de famille';
 $string['submitted'] = 'Soumis';
+$string['task_send_teacher_notifications'] = 'Envoyer les notifications aux enseignants pour les demandes d\'absence';
 $string['submit_request'] = 'Signaler une absence';
 $string['teacher'] = 'Instructeur';
 $string['to_date'] = 'Date de fin';
@@ -91,17 +92,9 @@ $string['student_full_message'] = 'Bonjour {$a->firstname}, '
     . '</p>'
     . '<p>Tous les accommodements pour le travail de cours manqué doivent être organisés avec vos instructeurs individuels</p>'
     . '<p>Merci !</p>';
-$string['teacher_message'] = 'Bonjour, <p>Vous avez reçu une absence auto-signalée sous la Politique de '
-    . '<a href="{$a->policylink}">Considération académique pour le travail de cours manqué</a>. Les détails sont ci-dessous.</p>'
-    . '<p>'
-    . '<b>Étudiant :</b> {$a->studentname} ({$a->idnumber})<br>'
-    . '<b>Circonstance :</b> {$a->circumstance}<br>'
-    . '<b>Date de début :</b> {$a->startdate}<br>'
-    . '<b>Date de fin :</b> {$a->enddate}<br>'
-    . '<b>Durée de l\'absence en jours :</b> {$a->numberofdays}<br>'
-    . '<b>Cours :</b> {$a->course}<br>'
-    . '</p>'
-    . '<p>Vous pouvez également consulter toutes les demandes dans le <a href="{$a->url}">rapport d\'absence.</a></p>'
+$string['teacher_message'] = 'Bonjour, <p>Vous avez reçu {$a->absence_count} nouvelle' . ($a->absence_count != 1 ? 's' : '') . ' absence' . ($a->absence_count != 1 ? 's' : '') . ' auto-signalée' . ($a->absence_count != 1 ? 's' : '') . ' sous la Politique de '
+    . '<a href="{$a->policylink}">Considération académique pour le travail de cours manqué</a>.</p>'
+    . '<p>Veuillez consulter le <a href="{$a->url}">rapport d\'absence</a> pour voir les détails de toutes les absences signalées et les accuser réception.</p>'
     . '{$a->acknowledgeurl}'
     . '<p>Merci !</p>';
 

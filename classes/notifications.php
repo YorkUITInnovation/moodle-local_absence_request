@@ -59,63 +59,45 @@ class notifications
      * Notify a teacher (course director) by email and Moodle notification.
      * Sends a message to the course director when a student submits an absence request for their course.
      *
-     * @param int $userid The user ID of the teacher.
-     * @param int $absence_request_id The ID of the absence request.
+     * @param int $teacher_user_id The user ID of the teacher.
+     * @param array $courses Array of course data with absence details.
      * @return bool|int Message send status.
      */
-    public static function notify_teacher(int $userid, int $absence_request_id, int $course_id, int $teacher_record_id)
+    public static function notify_teacher(int $teacher_user_id, int $absence_request_count)
     {
         global $DB;
-        $course = $DB->get_record('course', ['id' => $course_id], 'id,fullname', MUST_EXIST);
-        // Get the absence  request details
-        $absence_request = $DB->get_record('local_absence_request', ['id' => $absence_request_id]);
-        // Calculate days
-        $number_of_days = helper::calculate_days($absence_request->starttime, $absence_request->endtime);
-        // Get student from the absence request
-        $student = $DB->get_record('user', ['id' => $absence_request->userid], '*', MUST_EXIST);
 
-        $url = new \moodle_url('/local/absence_request/teacher_view.php', ['id' => $absence_request_id]);
+        // Get the teacher record that will be used in $eventdata->userto
+        $teacher = $DB->get_record('user', ['id' => $teacher_user_id]);
+        if (!$teacher) {
+            return false;
+        }
 
-        // Check if acknowledge receipt is enabled
-        $acknowledge_enabled = get_config('local_absence_request', 'acknowledge_enabled');
+        $url = new \moodle_url('/local/absence_request/teacher_view.php', []);
 
-        // Prepare message parameters
+
+        // Prepare message parameters with absence count
         $message_params = [
             'url' => $url->out(false),
-            'studentname' => fullname($student),
             'policylink' => 'https://www.yorku.ca/secretariat/policies/policies/academic-consideration-for-missed-course-work-policy-on/',
-            'idnumber' => $student->idnumber,
-            'circumstance' => get_string($absence_request->circumstance, 'local_absence_request'),
-            'startdate' => date('l F d, Y', $absence_request->starttime),
-            'enddate' => date('l F d, Y', $absence_request->endtime),
-            'numberofdays' => $number_of_days,
-            'course' => $course->fullname,
+            'absence_count' => $absence_request_count
         ];
-
-        // Add acknowledge URL only if enabled
-        if ($acknowledge_enabled) {
-            $acknowledgeulr = new \moodle_url('/local/absence_request/acknowledge.php',
-                ['token' => helper::encrypt_params(['id' => $teacher_record_id, 'u' => $userid, 'c' => $course_id])]);
-            $message_params['acknowledgeurl'] = '<p><a href="' . $acknowledgeulr->out(false) . '" style="display: inline-block; padding: 10px 20px; background-color: #E31837; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; text-align: center; border: none; cursor: pointer;">Acknowledge this request</a></p>';
-        } else {
-            $message_params['acknowledgeurl'] = '';
-        }
 
         $subject = get_string('teacher_message_subject', 'local_absence_request');
         $message = get_string('teacher_message', 'local_absence_request', $message_params);
 
-        $user = $DB->get_record('user', ['id' => $userid]);
         // Prepare the message data
         $eventdata = new \core\message\message();
         $eventdata->component = 'local_absence_request';
         $eventdata->name = 'absence_notification';
-        $eventdata->userfrom = $student;
-        $eventdata->userto = $user;
+        $eventdata->userfrom = \core_user::get_noreply_user();
+        $eventdata->userto = $teacher;
         $eventdata->subject = $subject;
         $eventdata->fullmessage = $message;
         $eventdata->fullmessageformat = FORMAT_HTML;
         $eventdata->fullmessagehtml = $message;
         $eventdata->smallmessage = html_to_text($message);
+
         // Send the message
         $notification = message_send($eventdata);
         return $notification;

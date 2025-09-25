@@ -206,12 +206,6 @@ if ($form->is_cancelled()) {
                 $teacher_record->userid = $teacher->id;
                 $teacher_record->timecreated = time();
                 $new_teacher_record = $DB->insert_record('local_absence_req_teacher', $teacher_record);
-
-                // Only notify the teacher if they haven't been notified yet
-//                if (!in_array($teacher->id, $notified_teachers)) {
-                notifications::notify_teacher($teacher->id, $absence_request_id, $course->id, $new_teacher_record);
-                $notified_teachers[] = $teacher->id;
-//                }
             }
         }
     }

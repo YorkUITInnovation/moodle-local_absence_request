@@ -11,6 +11,12 @@ if (!get_config('local_absence_request', 'enabled')) {
     redirect(new moodle_url('/my/'));
 }
 
+// Get form parameters.
+$faculty = optional_param('faculty', '', PARAM_TEXT);
+$starttime = optional_param('starttime', '', PARAM_TEXT);
+$endtime = optional_param('endtime', '', PARAM_TEXT);
+$download = optional_param('download', '', PARAM_ALPHA);
+
 $context = context_system::instance();
 // If starttime is empty, set starttime to sunday of the current week
 if (empty($starttime)) {
@@ -53,7 +59,7 @@ $where = '';
 $params = [];
 
 if (!empty($starttime)) {
-    $where .= ($where ? ' AND ' : '') . " ar.starttime  BETWEEN ? AND ?";
+    $where .= ($where ? ' AND ' : '') . " ar.timecreated  BETWEEN ? AND ?";
     if (empty($endtime)) {
         $endtime = $starttime . ' 23:59:59';
     } else {
