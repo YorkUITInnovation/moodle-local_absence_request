@@ -32,6 +32,8 @@ $template_data = [
     'showfaculties' => false,
     'starttime' => $starttime,
     'endtime' => $endtime,
+    'teacher_view' => true,
+    'acknowledge_enabled' => get_config('local_absence_request', 'acknowledge_enabled')
 ];
 
 // Table class will be loaded from classes/tables/absence_requests_table.php
@@ -42,8 +44,12 @@ if (!$table->is_downloading()) {
     // Only print headers if not asked to download data.
     // Print the page header.
     $PAGE->set_context($context);
-    $PAGE->set_title(get_string('absence_request', 'local_absence_request'));
-    $PAGE->set_heading(get_string('absence_request', 'local_absence_request'));
+    $PAGE->set_title(get_string('reported_absences', 'local_absence_request'));
+    $PAGE->set_heading(get_string('reported_absences', 'local_absence_request'));
+
+    // Load the acknowledge JavaScript module for bulk operations
+    $PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
+
     echo $OUTPUT->header();
     // Render faculty filter form.
     echo $OUTPUT->render_from_template('local_absence_request/faculty_filter_form', $template_data);
@@ -72,7 +78,7 @@ if (!empty($starttime)) {
 // Always filter by current user.
 $where .= ($where ? ' AND ' : '') . " art.userid = ?";
 
-$params[] = $USER->id;
+$params[] = (int)$USER->id;
 
 $table->set_sql($fields, $from, $where, $params);
 
@@ -92,4 +98,3 @@ $table->out(20, true);
 if (!$table->is_downloading()) {
     echo $OUTPUT->footer();
 }
-

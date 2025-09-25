@@ -40,7 +40,9 @@ $template_data = [
     'showfaculties' => true,
     'starttime' => $starttime,
     'endtime' => $endtime,
-    'faculties' => helper::get_faculties($faculty)
+    'faculties' => helper::get_faculties($faculty),
+    'teacher_view' => false,
+    'acknowledge_enabled' => get_config('local_absence_request', 'acknowledge_enabled')
 ];
 
 // Table class will be loaded from classes/tables/absence_requests_table.php
@@ -78,10 +80,11 @@ if (!empty($starttime)) {
     $params[] = strtotime($endtime);
 }
 
-// Always filter by current user.
-$where .= ($where ? ' AND ' : '') . " ar.faculty = ?";
-
-$params[] = $faculty;
+// Only filter by faculty if a specific faculty is selected
+if (!empty($faculty) && $faculty !== 'ALL') {
+    $where .= ($where ? ' AND ' : '') . " ar.faculty = ?";
+    $params[] = $faculty;
+}
 
 $table->set_sql($fields, $from, $where, $params);
 

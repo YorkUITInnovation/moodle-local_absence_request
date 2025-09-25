@@ -15,22 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Web service external functions and service definitions.
+ * Web service function definitions for absence request plugin.
  *
  * @package    local_absence_request
- * @copyright  2025
+ * @copyright  2025 Your Institution
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// We defined the web service functions to install.
-$functions = array(
-    'local_absence_request_acknowledge' => array(
-        'classname'   => 'local_absence_request_teacher',
-        'methodname'  => 'acknowledge',
-        'classpath'   => 'local/absence_request/classes/external/teacher_ws.php',
-        'description' => 'Toggle acknowledged field for teacher absence request',
+defined('MOODLE_INTERNAL') || die();
+
+$functions = [
+    'local_absence_request_acknowledge_request' => [
+        'classname'   => 'local_absence_request\external\teacher_ws',
+        'methodname'  => 'acknowledge_request',
+        'classpath'   => '',
+        'description' => 'Acknowledge or unacknowledge a single absence request',
         'type'        => 'write',
         'ajax'        => true,
-        'capabilities' => 'local/absence_request:acknowledge'
-    )
-);
+        'loginrequired' => true,
+    ],
+    'local_absence_request_bulk_acknowledge' => [
+        'classname'   => 'local_absence_request\external\teacher_ws',
+        'methodname'  => 'bulk_acknowledge',
+        'classpath'   => '',
+        'description' => 'Bulk acknowledge multiple absence requests',
+        'type'        => 'write',
+        'ajax'        => true,
+        'loginrequired' => true,
+    ],
+];

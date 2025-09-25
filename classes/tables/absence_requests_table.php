@@ -67,14 +67,23 @@ class absence_requests_table extends \table_sql
         $columns[] = 'timecreated';
         $headers[] = get_string('submitted', 'local_absence_request');
 
-        // Add acknowledged column only if enabled
+        // Add acknowledged column and checkbox column only if enabled
         if ($acknowledge_enabled) {
+            // Add checkbox column for bulk selection
+            array_unshift($columns, 'checkbox');
+            array_unshift($headers, '<input type="checkbox" id="select_all_absences" title="Select All">');
+
             $columns[] = 'acknowledged';
             $headers[] = get_string('acknowledged', 'local_absence_request');
         }
 
         $this->define_columns($columns);
         $this->define_headers($headers);
+
+        // Make checkbox column not sortable if acknowledge is enabled
+        if ($acknowledge_enabled) {
+            $this->no_sorting('checkbox');
+        }
     }
 
     /**
@@ -240,5 +249,18 @@ class absence_requests_table extends \table_sql
             style="color: red; cursor: pointer; font-size: 1.2em;" 
             title="Not acknowledged - Click to toggle"></i>';
         }
+    }
+
+    /**
+     * Render the checkbox column for bulk actions.
+     *
+     * @param object $values Row data object.
+     * @return string HTML for the checkbox input.
+     */
+    public function col_checkbox($values)
+    {
+        // Return a checkbox input for the row, checked if acknowledged
+        $checked = $values->acknowledged ? 'checked' : '';
+        return '<input type="checkbox" class="absence-checkbox" data-id="' . $values->id . '" ' . $checked . '>';
     }
 }

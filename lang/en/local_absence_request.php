@@ -142,3 +142,11 @@ $string['my_reported_absences'] = 'My Reported Absences';
 $string['reported_absence'] = 'Reported Absence';
 
 // Access language strings
+
+// Bulk acknowledge strings
+$string['bulk_acknowledge'] = 'Acknowledge Selected';
+$string['select_all'] = 'Select All';
+$string['bulk_acknowledge_success'] = 'Successfully acknowledged {$a} absence request(s)';
+$string['bulk_acknowledge_error'] = 'Error acknowledging absence requests';
+$string['select_items_to_acknowledge'] = 'Select items in the table below to acknowledge them';
+
