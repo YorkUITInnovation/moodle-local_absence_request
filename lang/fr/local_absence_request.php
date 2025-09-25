@@ -143,3 +143,12 @@ $string['select_all'] = 'Tout sélectionner';
 $string['bulk_acknowledge_success'] = 'Accusé de réception effectué avec succès pour {$a} demande(s) d\'absence';
 $string['bulk_acknowledge_error'] = 'Erreur lors de l\'accusé de réception des demandes d\'absence';
 $string['select_items_to_acknowledge'] = 'Sélectionnez les éléments dans le tableau ci-dessous pour les accuser réception';
+$string['reported_absence'] = 'Absence signalée';
+$string['reported_absences'] = 'Absences signalées';
+
+// Bulk acknowledge strings
+$string['bulk_acknowledge'] = 'Reconnaître la sélection';
+$string['select_all'] = 'Tout sélectionner';
+$string['bulk_acknowledge_success'] = '{$a} demande(s) d\'absence ont été reconnues avec succès';
+$string['bulk_acknowledge_error'] = 'Erreur lors de la prise en compte des demandes d\'absence';
+$string['select_items_to_acknowledge'] = 'Sélectionnez les éléments dans le tableau ci-dessous pour les reconnaître';

@@ -40,12 +40,25 @@ $template_data = [
 $table = new \local_absence_request\tables\absence_requests_table('absence-requests-table', true);
 $table->is_downloading($download, 'absence_report_' . date('Ymd', time()) , 'absence_report');
 
+$PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
+// Create base URL with all current parameters to preserve them during pagination
+$baseurl = new moodle_url($PAGE->url);
+if (!empty($starttime)) {
+    $baseurl->param('starttime', $starttime);
+}
+if (!empty($endtime)) {
+    $baseurl->param('endtime', $endtime);
+}
+
+$table->define_baseurl($baseurl);
+
 if (!$table->is_downloading()) {
     // Only print headers if not asked to download data.
     // Print the page header.
     $PAGE->set_context($context);
     $PAGE->set_title(get_string('reported_absences', 'local_absence_request'));
     $PAGE->set_heading(get_string('reported_absences', 'local_absence_request'));
+
 
     // Load the acknowledge JavaScript module for bulk operations
     $PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
@@ -81,17 +94,6 @@ $where .= ($where ? ' AND ' : '') . " art.userid = ?";
 $params[] = (int)$USER->id;
 
 $table->set_sql($fields, $from, $where, $params);
-
-// Create base URL with all current parameters to preserve them during pagination
-$baseurl = new moodle_url($PAGE->url);
-if (!empty($starttime)) {
-    $baseurl->param('starttime', $starttime);
-}
-if (!empty($endtime)) {
-    $baseurl->param('endtime', $endtime);
-}
-
-$table->define_baseurl($baseurl);
 
 $table->out(20, true);
 
