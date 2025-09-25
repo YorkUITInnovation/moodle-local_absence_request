@@ -41,6 +41,7 @@ class absence_requests_table extends \table_sql
             'circumstance',
             'starttime',
             'endtime',
+            'duration',
             'course_fullname',
             'teacher_lastname',
             'timecreated'
@@ -53,6 +54,7 @@ class absence_requests_table extends \table_sql
             get_string('circumstance', 'local_absence_request'),
             get_string('absence_start', 'local_absence_request'),
             get_string('absence_end', 'local_absence_request'),
+            get_string('duration', 'local_absence_request'),
             get_string('course', 'local_absence_request'),
             // These columns display the course director's first and last name. The language string keys remain 'teacher_firstname' and 'teacher_lastname' for compatibility.
             get_string('teacher', 'local_absence_request'),
@@ -184,6 +186,18 @@ class absence_requests_table extends \table_sql
     public function col_endtime($values)
     {
         return date('l F d, Y', $values->endtime);
+    }
+
+    /**
+     * Render the 'duration' column using helper::calculate_days.
+     *
+     * @param object $values Row data object.
+     * @return string Duration in days with proper pluralization.
+     */
+    public function col_duration($values)
+    {
+        $days = \local_absence_request\helper::calculate_days($values->starttime, $values->endtime);
+        return $days . ' ' . ($days == 1 ? get_string('day', 'core') : get_string('days', 'core'));
     }
 
     /**
