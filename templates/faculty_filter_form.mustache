@@ -11,7 +11,7 @@
                     <label for="faculty">{{#str}}faculty, local_absence_request{{/str}}:</label>
                     <select name="faculty" id="faculty" class="form-control">
                         {{#faculties}}
-                            <option value="{{value}}" {{#is_selected}}selected{{/is_selected}}>{{title}}</option>
+                            <option value="{{value}}" {{#selected}}selected{{/selected}}>{{title}}</option>
                         {{/faculties}}
                     </select>
                 </div>

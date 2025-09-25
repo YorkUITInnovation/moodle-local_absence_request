@@ -48,7 +48,7 @@ $template_data = [
 // Table class will be loaded from classes/tables/absence_requests_table.php
 $table = new \local_absence_request\tables\absence_requests_table('absence-requests-table');
 $table->is_downloading($download, 'faculty_absence_report_' . date('Ymd', time()), 'absence_report');
-
+$PAGE->set_url('/local/absence_request/faculty_view.php');
 if (!$table->is_downloading()) {
     // Only print headers if not asked to download data.
     // Print the page header.
@@ -65,12 +65,12 @@ $sqlparams = \local_absence_request\helper::get_report_sql();
 $fields = $sqlparams->fields;
 $from = $sqlparams->from;
 
-$where = '';
+$where = '1=1'; // Default condition to ensure WHERE clause is never empty
 
 $params = [];
 
 if (!empty($starttime)) {
-    $where .= ($where ? ' AND ' : '') . " ar.timecreated  BETWEEN ? AND ?";
+    $where .= " AND ar.timecreated BETWEEN ? AND ?";
     if (empty($endtime)) {
         $endtime = $starttime . ' 23:59:59';
     } else {
@@ -82,7 +82,7 @@ if (!empty($starttime)) {
 
 // Only filter by faculty if a specific faculty is selected
 if (!empty($faculty) && $faculty !== 'ALL') {
-    $where .= ($where ? ' AND ' : '') . " ar.faculty = ?";
+    $where .= " AND ar.faculty = ?";
     $params[] = $faculty;
 }
 

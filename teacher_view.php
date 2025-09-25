@@ -73,12 +73,12 @@ $sqlparams = \local_absence_request\helper::get_report_sql();
 $fields = $sqlparams->fields;
 $from = $sqlparams->from;
 
-$where = '';
+$where = '1=1'; // Default condition to ensure WHERE clause is never empty
 
 $params = [];
 
 if (!empty($starttime)) {
-    $where .= ($where ? ' AND ' : '') . " ar.timecreated  BETWEEN ? AND ?";
+    $where .= " AND ar.timecreated BETWEEN ? AND ?";
     if (empty($endtime)) {
         $endtime = $starttime . ' 23:59:59';
     } else {
@@ -89,9 +89,9 @@ if (!empty($starttime)) {
 }
 
 // Always filter by current user.
-$where .= ($where ? ' AND ' : '') . " art.userid = ?";
+$where .= " AND art.userid = ?";
 
-$params[] = (int)$USER->id;
+$params[] = $USER->id;
 
 $table->set_sql($fields, $from, $where, $params);
 

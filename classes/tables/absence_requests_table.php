@@ -67,12 +67,15 @@ class absence_requests_table extends \table_sql
         $columns[] = 'timecreated';
         $headers[] = get_string('submitted', 'local_absence_request');
 
-        // Add acknowledged column and checkbox column only if enabled
-        if ($acknowledge_enabled) {
+        // Add acknowledged column and checkbox column only if enabled and in teacher view
+        if ($acknowledge_enabled && $teacher_view) {
             // Add checkbox column for bulk selection
             array_unshift($columns, 'checkbox');
             array_unshift($headers, '<input type="checkbox" id="select_all_absences" title="Select All">');
+        }
 
+        // Add acknowledged column only if enabled
+        if ($acknowledge_enabled) {
             $columns[] = 'acknowledged';
             $headers[] = get_string('acknowledged', 'local_absence_request');
         }
@@ -80,8 +83,8 @@ class absence_requests_table extends \table_sql
         $this->define_columns($columns);
         $this->define_headers($headers);
 
-        // Make checkbox column not sortable if acknowledge is enabled
-        if ($acknowledge_enabled) {
+        // Make checkbox column not sortable if acknowledge is enabled and in teacher view
+        if ($acknowledge_enabled && $teacher_view) {
             $this->no_sorting('checkbox');
         }
     }
