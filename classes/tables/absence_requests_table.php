@@ -26,8 +26,9 @@ class absence_requests_table extends \table_sql
      * Defines columns and headers for the table.
      *
      * @param string $uniqueid Unique identifier for the table instance.
+     * @param bool $teacher_view If true, hide the teacher column (default: false).
      */
-    public function __construct($uniqueid)
+    public function __construct($uniqueid, $teacher_view = false)
     {
         parent::__construct($uniqueid);
 
@@ -42,9 +43,7 @@ class absence_requests_table extends \table_sql
             'starttime',
             'endtime',
             'duration',
-            'course_fullname',
-            'teacher_lastname',
-            'timecreated'
+            'course_fullname'
         ];
 
         // Define the base column headers (localized strings).
@@ -55,11 +54,18 @@ class absence_requests_table extends \table_sql
             get_string('absence_start', 'local_absence_request'),
             get_string('absence_end', 'local_absence_request'),
             get_string('duration', 'local_absence_request'),
-            get_string('course', 'local_absence_request'),
-            // These columns display the course director's first and last name. The language string keys remain 'teacher_firstname' and 'teacher_lastname' for compatibility.
-            get_string('teacher', 'local_absence_request'),
-            get_string('submitted', 'local_absence_request')
+            get_string('course', 'local_absence_request')
         ];
+
+        // Add teacher column only if not in teacher view
+        if (!$teacher_view) {
+            $columns[] = 'teacher_lastname';
+            $headers[] = get_string('teacher', 'local_absence_request');
+        }
+
+        // Add timecreated column
+        $columns[] = 'timecreated';
+        $headers[] = get_string('submitted', 'local_absence_request');
 
         // Add acknowledged column only if enabled
         if ($acknowledge_enabled) {

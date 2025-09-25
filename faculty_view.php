@@ -13,7 +13,14 @@ if (!get_config('local_absence_request', 'enabled')) {
     redirect(new moodle_url('/my/'));
 }
 
+
 $context = context_system::instance();
+
+if (!has_capability('local/absence_request:view_faculty_report', $context)) {
+    // User does not have permission to view faculty report, redirect to their own report.
+    redirect(new moodle_url('/my/'));
+}
+
 $faculty = optional_param('faculty', '', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
@@ -38,7 +45,7 @@ $template_data = [
 
 // Table class will be loaded from classes/tables/absence_requests_table.php
 $table = new \local_absence_request\tables\absence_requests_table('absence-requests-table');
-$table->is_downloading($download, 'faculty_absence_report_' . date('Ymd', time()) , 'absence_report');
+$table->is_downloading($download, 'faculty_absence_report_' . date('Ymd', time()), 'absence_report');
 
 if (!$table->is_downloading()) {
     // Only print headers if not asked to download data.
@@ -61,7 +68,7 @@ $where = '';
 $params = [];
 
 if (!empty($starttime)) {
-    $where .= ($where ? ' AND ' : '') . " ar.starttime  BETWEEN ? AND ?";
+    $where .= ($where ? ' AND ' : '') . " ar.timecreated  BETWEEN ? AND ?";
     if (empty($endtime)) {
         $endtime = $starttime . ' 23:59:59';
     } else {

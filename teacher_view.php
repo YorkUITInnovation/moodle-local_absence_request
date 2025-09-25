@@ -35,7 +35,7 @@ $template_data = [
 ];
 
 // Table class will be loaded from classes/tables/absence_requests_table.php
-$table = new \local_absence_request\tables\absence_requests_table('absence-requests-table');
+$table = new \local_absence_request\tables\absence_requests_table('absence-requests-table', true);
 $table->is_downloading($download, 'absence_report_' . date('Ymd', time()) , 'absence_report');
 
 if (!$table->is_downloading()) {
