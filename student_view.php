@@ -27,6 +27,7 @@ if (!get_config('local_absence_request', 'enabled')) {
 $PAGE->set_heading(get_string('my_reported_absences', 'local_absence_request'));
 $PAGE->requires->css('/local/absence_request/styles.css');
 $PAGE->set_context($context);
+$PAGE->set_url(new moodle_url('/local/absence_request/student_view.php', ['courseid' => $courseid]));
 
 // Ensure jQuery and Bootstrap JavaScript are loaded
 $PAGE->requires->jquery();

@@ -19,13 +19,14 @@ if (!get_config('local_absence_request', 'enabled')) {
 $courseid = optional_param('courseid', 0, PARAM_INT);
 $return = optional_param('r', '', PARAM_TEXT);
 $context = context_course::instance($courseid);
+require_login($courseid);
+
 
 $PAGE->set_url(new moodle_url('/local/absence_request/index.php', ['courseid' => $courseid]));
 $PAGE->set_title(get_string('absence_request', 'local_absence_request'));
 $PAGE->set_heading(get_string('absence_request', 'local_absence_request'));
 $PAGE->set_context($context);
 
-require_login($courseid);
 
 $userid = $USER->id;
 $eligible = false;
