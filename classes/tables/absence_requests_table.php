@@ -161,7 +161,8 @@ class absence_requests_table extends \table_sql
     public function col_student_lastname($values)
     {
         $url = new moodle_url('/user/profile.php', ['id' => $values->userid]);
-        return '<a href="' . $url->out() . '">' . $values->student_lastname . ', ' . $values->student_firstname . '</a>';
+        $student_name = $values->student_lastname . ', ' . $values->student_firstname;
+        return '<a href="' . $url->out() . '" target="_blank" rel="noopener noreferrer" aria-label="View profile for ' . htmlspecialchars($student_name, ENT_QUOTES) . ' (opens in new tab)">' . $student_name . '</a>';
     }
 
     /**
