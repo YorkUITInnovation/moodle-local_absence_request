@@ -13,10 +13,7 @@ if (!get_config('local_absence_request', 'enabled')) {
     redirect(new moodle_url('/my/'));
 }
 
-
-
-
-$courseid = optional_param('courseid', 0, PARAM_INT);
+$courseid = optional_param('courseid', 1, PARAM_INT);
 $return = optional_param('r', '', PARAM_TEXT);
 $context = context_course::instance($courseid);
 require_login($courseid);
