@@ -20,6 +20,7 @@ $editingteacher = optional_param('ta', 0, PARAM_INT);
 $courseid = required_param('courseid',  PARAM_INT);
 
 $context = context_system::instance();
+
 // If starttime is empty, set starttime to sunday of the current week
 if (empty($starttime)) {
     $starttime = strtotime('last sunday');
@@ -51,11 +52,15 @@ $table->is_downloading($download, 'absence_report_' . date('Ymd', time()) , 'abs
 $PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
 // Create base URL with all current parameters to preserve them during pagination
 $baseurl = new moodle_url($PAGE->url);
+$baseurl->param('courseid', $courseid);
 if (!empty($starttime)) {
     $baseurl->param('starttime', $starttime);
 }
 if (!empty($endtime)) {
     $baseurl->param('endtime', $endtime);
+}
+if ($editingteacher) {
+    $baseurl->param('ta', $editingteacher);
 }
 
 $table->define_baseurl($baseurl);

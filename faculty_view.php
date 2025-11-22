@@ -13,7 +13,7 @@ if (!get_config('local_absence_request', 'enabled')) {
     redirect(new moodle_url('/my/'));
 }
 
-
+$courseid = 1;
 $context = context_system::instance();
 
 if (!has_capability('local/absence_request:view_faculty_report', $context)) {
