@@ -57,6 +57,7 @@ $string['type_of_circumstance'] = 'Type of Circumstance';
 $string['unforeseen'] = 'Unforeseen or unavoidable incidents beyond the student’s control';
 $string['view_faculty_report'] = 'Faculty Absence Report';
 $string['view_my_reported_absences'] = 'View My Reported Absences';
+$string['view_reported_absences'] = 'View Reported Absences';
 $string['my_reported_absences'] = 'My Reported Absences';
 
 
@@ -78,10 +79,13 @@ $string['enrollment_methods_arms'] = 'ARMS enrollment only';
 $string['passwordsaltmain'] = 'Password Salt for Encryption';
 $string['passwordsaltmain_desc'] = 'A secret password salt used to encrypt acknowledgment URLs in teacher emails. This prevents users from hacking the acknowledgment system by manipulating URL parameters. Leave blank to use the default Moodle password salt.';
 
-// Notifications
+// Capabilities
 $string['absence_request:acknowledge'] = 'Acknowledge Absence Request';
 $string['absence_request:view_faculty_report'] = 'View Faculty Absence Report';
-$string['absence_request:view_teacher_report'] = 'View Absence Report';
+$string['absence_request:view_teacher_report'] = 'Editing Teacher View Absence Report';
+$string['absence_request:view_noneediting_teacher_report'] = 'None-Editing View Absence Report';
+$string['absence_request:view_student_report'] = 'Student View Absence Report';
+// Notifications
 $string['messageprovider:absence_notification'] = 'Absence Notifications';
 $string['student_message_subject'] = 'Absence Reported Successfully';
 $string['teacher_message_subject'] = 'Reported Absence Notification';

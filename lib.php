@@ -88,6 +88,17 @@ function local_absence_request_extend_navigation_course(
         );
     }
 
+    // If none-editing teacher, add a link to the teacher_view.php page.
+    if (has_capability('local/absence_request:view_noneediting_teacher_report', $context)) {
+        $parentnode->add(
+            get_string('view_reported_absences', 'local_absence_request'),
+            new moodle_url('/local/absence_request/teacher_view.php', ['courseid' => $course->id, 'ta' => 1]),
+            navigation_node::TYPE_CUSTOM,
+            null,
+            'local_absence_request_view_faculty_report'
+        );
+    }
+
     $eligibility = helper::is_eligible($USER->id);
     // Add the absence request link to the course navigation.
     if ($eligibility->osgoode) {

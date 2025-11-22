@@ -56,6 +56,7 @@ $string['to_date'] = 'Date de fin';
 $string['type_of_circumstance'] = 'Type de circonstance';
 $string['unforeseen'] = 'Incidents imprévus ou inévitables hors du contrôle de l\'étudiant';
 $string['view_faculty_report'] = 'Rapport d\'absence de la faculté';
+$string['view_reported_absences'] = 'Voir les absences signalées';
 
 // Settings strings
 $string['requests_per_term'] = 'Demandes maximales par terme';

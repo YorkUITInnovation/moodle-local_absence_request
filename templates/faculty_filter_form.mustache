@@ -4,6 +4,10 @@
 }}
 
 <form method="get" action="{{form_action}}" class="mb-3">
+    <input type="hidden" name="courseid" value="{{courseid}}">
+    {{^ta}}
+        <input type="hidden" name="ta" value="1">
+    {{/ta}}
     <div class="row align-items-end">
         {{#showfaculties}}
             <div class="col-md-3">
