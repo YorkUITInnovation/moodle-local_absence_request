@@ -3,7 +3,7 @@
     @template local_absence_request/faculty_filter_form
 }}
 
-<form method="get" action="{{form_action}}" class="mb-3">
+<form method="get" action="{{form_action}}" class="mb-3" id="faculty-filter-form">
     <input type="hidden" name="courseid" value="{{courseid}}">
     {{#ta}}
         <input type="hidden" name="ta" value="1">
@@ -53,12 +53,15 @@
 </form>
 
 <script>
-// Toggle date labels based on checkbox state
+// Toggle date labels based on checkbox state and validate form
 document.addEventListener('DOMContentLoaded', function() {
     const checkbox = document.getElementById('filterbyabsence');
     const hiddenField = document.getElementById('filterbyabsence-hidden');
     const startLabel = document.getElementById('starttime-label');
     const endLabel = document.getElementById('endtime-label');
+    const form = document.getElementById('faculty-filter-form');
+    const startDateInput = document.getElementById('starttime');
+    const endDateInput = document.getElementById('endtime');
 
     // Store the translated strings
     const fromReportedDate = '{{#str}}from_reported_date, local_absence_request{{/str}}';
@@ -77,6 +80,27 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 startLabel.textContent = fromDate + ':';
                 endLabel.textContent = toDate + ':';
+            }
+        });
+    }
+
+    // Validate form before submission
+    if (form && startDateInput && endDateInput) {
+        form.addEventListener('submit', function(e) {
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+
+            // Only validate if both dates are provided
+            if (startDate && endDate) {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+
+                if (end < start) {
+                    e.preventDefault();
+                    alert('Error: The end date cannot be before the start date. Please correct the dates and try again.');
+                    endDateInput.focus();
+                    return false;
+                }
             }
         });
     }
