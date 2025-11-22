@@ -17,6 +17,11 @@ $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHA);
 $ta = optional_param('ta', false, PARAM_BOOL);
+$filterbyabsence = optional_param('filterbyabsence', null, PARAM_INT);
+// Default to 1 (checked) only if parameter was never set (first page load)
+if ($filterbyabsence === null) {
+    $filterbyabsence = 1;
+}
 $courseid = required_param('courseid',  PARAM_INT);
 
 $context = context_system::instance();
@@ -41,6 +46,8 @@ $template_data = [
     'teacher_view' => true,
     'courseid' => $courseid,
     'ta' => $ta,
+    'filterbyabsence' => ($filterbyabsence == 1), // Convert to boolean for conditional display
+    'filterbyabsence_value' => $filterbyabsence,  // Keep integer for hidden field value
     'acknowledge_enabled' => $achnowledged_enabled
 ];
 
@@ -61,6 +68,7 @@ if (!empty($endtime)) {
 if ($ta) {
     $baseurl->param('ta', $ta);
 }
+$baseurl->param('filterbyabsence', $filterbyabsence);
 
 $table->define_baseurl($baseurl);
 
@@ -90,14 +98,28 @@ $where = '1=1'; // Default condition to ensure WHERE clause is never empty
 $params = [];
 
 if (!empty($starttime)) {
-    $where .= " AND ar.timecreated BETWEEN ? AND ?";
-    if (empty($endtime)) {
-        $endtime = $starttime . ' 23:59:59';
+    if ($filterbyabsence) {
+        // Filter by absence date range - check for overlap
+        // Show absences where any part of the absence period overlaps with the selected date range
+        $where .= " AND (ar.starttime <= ? AND ar.endtime >= ?)";
+        if (empty($endtime)) {
+            $endtime = $starttime . ' 23:59:59';
+        } else {
+            $endtime = $endtime . ' 23:59:59';
+        }
+        $params[] = strtotime($endtime);      // End of selected range
+        $params[] = strtotime($starttime);    // Start of selected range
     } else {
-        $endtime = $endtime . ' 23:59:59';
+        // Filter by submission date
+        $where .= " AND ar.timecreated BETWEEN ? AND ?";
+        if (empty($endtime)) {
+            $endtime = $starttime . ' 23:59:59';
+        } else {
+            $endtime = $endtime . ' 23:59:59';
+        }
+        $params[] = strtotime($starttime);
+        $params[] = strtotime($endtime);
     }
-    $params[] = strtotime($starttime);
-    $params[] = strtotime($endtime);
 }
 
 // Editing teacher, search by userid

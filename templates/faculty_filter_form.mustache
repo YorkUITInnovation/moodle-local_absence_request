@@ -23,13 +23,26 @@
         {{/showfaculties}}
         <div class="col-md-3">
             <div class="form-group">
-                <label for="starttime">{{#str}}from_date, local_absence_request{{/str}}:</label>
+                <div class="form-check mb-2">
+                    <input type="hidden" name="filterbyabsence" id="filterbyabsence-hidden" value="{{filterbyabsence_value}}">
+                    <input type="checkbox" id="filterbyabsence" class="form-check-input" {{#filterbyabsence}}checked{{/filterbyabsence}}>
+                    <label class="form-check-label" for="filterbyabsence">
+                        {{#str}}filter_by_absence_date, local_absence_request{{/str}}
+                    </label>
+                </div>
+                <label for="starttime" id="starttime-label">
+                    {{#filterbyabsence}}{{#str}}from_reported_date, local_absence_request{{/str}}{{/filterbyabsence}}
+                    {{^filterbyabsence}}{{#str}}from_date, local_absence_request{{/str}}{{/filterbyabsence}}:
+                </label>
                 <input type="date" name="starttime" id="starttime" value="{{starttime}}" class="form-control">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label for="endtime">{{#str}}to_date, local_absence_request{{/str}}:</label>
+                <label for="endtime" id="endtime-label">
+                    {{#filterbyabsence}}{{#str}}to_reported_date, local_absence_request{{/str}}{{/filterbyabsence}}
+                    {{^filterbyabsence}}{{#str}}to_date, local_absence_request{{/str}}{{/filterbyabsence}}:
+                </label>
                 <input type="date" name="endtime" id="endtime" value="{{endtime}}" class="form-control">
             </div>
         </div>
@@ -38,6 +51,37 @@
         </div>
     </div>
 </form>
+
+<script>
+// Toggle date labels based on checkbox state
+document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('filterbyabsence');
+    const hiddenField = document.getElementById('filterbyabsence-hidden');
+    const startLabel = document.getElementById('starttime-label');
+    const endLabel = document.getElementById('endtime-label');
+
+    // Store the translated strings
+    const fromReportedDate = '{{#str}}from_reported_date, local_absence_request{{/str}}';
+    const toReportedDate = '{{#str}}to_reported_date, local_absence_request{{/str}}';
+    const fromDate = '{{#str}}from_date, local_absence_request{{/str}}';
+    const toDate = '{{#str}}to_date, local_absence_request{{/str}}';
+
+    if (checkbox && hiddenField && startLabel && endLabel) {
+        // Update labels and hidden field when checkbox changes
+        checkbox.addEventListener('change', function() {
+            hiddenField.value = this.checked ? '1' : '0';
+
+            if (this.checked) {
+                startLabel.textContent = fromReportedDate + ':';
+                endLabel.textContent = toReportedDate + ':';
+            } else {
+                startLabel.textContent = fromDate + ':';
+                endLabel.textContent = toDate + ':';
+            }
+        });
+    }
+});
+</script>
 
 {{#teacher_view}}
     {{#acknowledge_enabled}}

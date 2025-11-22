@@ -25,6 +25,11 @@ $faculty = optional_param('faculty', '', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHA);
+$filterbyabsence = optional_param('filterbyabsence', null, PARAM_INT);
+// Default to 1 (checked) only if parameter was never set (first page load)
+if ($filterbyabsence === null) {
+    $filterbyabsence = 1;
+}
 
 // If starttime is empty, set starttime to sunday of the current week
 if (empty($starttime)) {
@@ -42,6 +47,8 @@ $template_data = [
     'endtime' => $endtime,
     'faculties' => helper::get_faculties($faculty),
     'teacher_view' => false,
+    'filterbyabsence' => ($filterbyabsence == 1), // Convert to boolean for conditional display
+    'filterbyabsence_value' => $filterbyabsence,  // Keep integer for hidden field value
     'acknowledge_enabled' => get_config('local_absence_request', 'acknowledge_enabled')
 ];
 
@@ -70,14 +77,28 @@ $where = '1=1'; // Default condition to ensure WHERE clause is never empty
 $params = [];
 
 if (!empty($starttime)) {
-    $where .= " AND ar.timecreated BETWEEN ? AND ?";
-    if (empty($endtime)) {
-        $endtime = $starttime . ' 23:59:59';
+    if ($filterbyabsence) {
+        // Filter by absence date range - check for overlap
+        // Show absences where any part of the absence period overlaps with the selected date range
+        $where .= " AND (ar.starttime <= ? AND ar.endtime >= ?)";
+        if (empty($endtime)) {
+            $endtime = $starttime . ' 23:59:59';
+        } else {
+            $endtime = $endtime . ' 23:59:59';
+        }
+        $params[] = strtotime($endtime);      // End of selected range
+        $params[] = strtotime($starttime);    // Start of selected range
     } else {
-        $endtime = $endtime . ' 23:59:59';
+        // Filter by submission date
+        $where .= " AND ar.timecreated BETWEEN ? AND ?";
+        if (empty($endtime)) {
+            $endtime = $starttime . ' 23:59:59';
+        } else {
+            $endtime = $endtime . ' 23:59:59';
+        }
+        $params[] = strtotime($starttime);
+        $params[] = strtotime($endtime);
     }
-    $params[] = strtotime($starttime);
-    $params[] = strtotime($endtime);
 }
 
 // Only filter by faculty if a specific faculty is selected
@@ -85,6 +106,19 @@ if (!empty($faculty) && $faculty !== 'ALL') {
     $where .= " AND ar.faculty = ?";
     $params[] = $faculty;
 }
+
+// DEBUG: Temporary logging to diagnose date filter issue
+error_log("=== ABSENCE REQUEST DEBUG ===");
+error_log("filterbyabsence: " . $filterbyabsence);
+error_log("starttime (string): " . $starttime);
+error_log("endtime (string): " . $endtime);
+if (!empty($starttime)) {
+    error_log("starttime (timestamp): " . strtotime($starttime));
+    error_log("endtime (timestamp): " . strtotime($endtime . ' 23:59:59'));
+}
+error_log("WHERE clause: " . $where);
+error_log("SQL Params: " . print_r($params, true));
+error_log("=== END DEBUG ===");
 
 $table->set_sql($fields, $from, $where, $params);
 
@@ -99,6 +133,7 @@ if (!empty($starttime)) {
 if (!empty($endtime)) {
     $baseurl->param('endtime', $endtime);
 }
+$baseurl->param('filterbyabsence', $filterbyabsence);
 
 $table->define_baseurl($baseurl);
 
