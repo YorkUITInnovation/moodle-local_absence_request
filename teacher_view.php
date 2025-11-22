@@ -16,7 +16,7 @@ $faculty = optional_param('faculty', '', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHA);
-$editingteacher = optional_param('ta', 0, PARAM_INT);
+$ta = optional_param('ta', false, PARAM_BOOL);
 $courseid = required_param('courseid',  PARAM_INT);
 
 $context = context_system::instance();
@@ -29,10 +29,9 @@ if (empty($starttime)) {
     $endtime = strtotime('next saturday');
     $endtime = date('Y-m-d', $endtime);
 }
-
-$ta = 0;
-if (!$editingteacher) {
-    $ta = 1;
+$achnowledged_enabled = false;
+if ($ta == false && get_config('local_absence_request', 'acknowledge_enabled')) {
+    $achnowledged_enabled = true;
 }
 // Set parameters for mustache template rendering.
 $template_data = [
@@ -42,11 +41,11 @@ $template_data = [
     'teacher_view' => true,
     'courseid' => $courseid,
     'ta' => $ta,
-    'acknowledge_enabled' => get_config('local_absence_request', 'acknowledge_enabled')
+    'acknowledge_enabled' => $achnowledged_enabled
 ];
 
 // Table class will be loaded from classes/tables/absence_requests_table.php
-$table = new \local_absence_request\tables\absence_requests_table('absence-requests-table', true);
+$table = new \local_absence_request\tables\absence_requests_table('absence-requests-table', true, $ta);
 $table->is_downloading($download, 'absence_report_' . date('Ymd', time()) , 'absence_report');
 
 $PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
@@ -59,8 +58,8 @@ if (!empty($starttime)) {
 if (!empty($endtime)) {
     $baseurl->param('endtime', $endtime);
 }
-if ($editingteacher) {
-    $baseurl->param('ta', $editingteacher);
+if ($ta) {
+    $baseurl->param('ta', $ta);
 }
 
 $table->define_baseurl($baseurl);
@@ -102,7 +101,7 @@ if (!empty($starttime)) {
 }
 
 // Editing teacher, search by userid
-if (!$editingteacher) {
+if (!$ta) {
     $where .= " AND art.userid = ?";
     $params[] = $USER->id;
 } else {

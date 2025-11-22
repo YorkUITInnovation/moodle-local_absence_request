@@ -5,7 +5,7 @@
 
 <form method="get" action="{{form_action}}" class="mb-3">
     <input type="hidden" name="courseid" value="{{courseid}}">
-    {{^ta}}
+    {{#ta}}
         <input type="hidden" name="ta" value="1">
     {{/ta}}
     <div class="row align-items-end">
@@ -45,7 +45,9 @@
             <button id="bulk_acknowledge_btn" class="btn btn-primary" type="button">
                 {{#str}}bulk_acknowledge, local_absence_request{{/str}} (<span id="selected_count">0</span>)
             </button>
-            <small class="text-muted ml-2">{{#str}}select_items_to_acknowledge, local_absence_request{{/str}}</small>
+            <small class="text-muted ml-2">{{#str}}
+                select_items_to_acknowledge, local_absence_request{{/str}}</small>
         </div>
     {{/acknowledge_enabled}}
 {{/teacher_view}}
+

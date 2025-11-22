@@ -24,6 +24,8 @@ class absence_requests_table extends \table_sql
     // Track if this is a teacher view (for download column exclusion)
     protected $teacher_view;
 
+    protected $ta;
+
     /**
      * Constructor for the absence_requests_table.
      * Defines columns and headers for the table.
@@ -31,11 +33,12 @@ class absence_requests_table extends \table_sql
      * @param string $uniqueid Unique identifier for the table instance.
      * @param bool $teacher_view If true, hide the teacher column (default: false).
      */
-    public function __construct($uniqueid, $teacher_view = false)
+    public function __construct($uniqueid, $teacher_view = false, $ta = false)
     {
         parent::__construct($uniqueid);
 
         $this->teacher_view = $teacher_view;
+        $this->ta = $ta;
 
         // Check if acknowledge receipt is enabled
         $acknowledge_enabled = get_config('local_absence_request', 'acknowledge_enabled');
@@ -73,7 +76,7 @@ class absence_requests_table extends \table_sql
         $headers[] = get_string('submitted', 'local_absence_request');
 
         // Add acknowledged column and checkbox column only if enabled and in teacher view
-        if ($acknowledge_enabled && $teacher_view) {
+        if ($acknowledge_enabled && $teacher_view && !$ta) {
             // Add checkbox column for bulk selection
             array_unshift($columns, 'checkbox');
             array_unshift($headers, '<input type="checkbox" id="select_all_absences" title="Select All">');
