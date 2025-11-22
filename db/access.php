@@ -18,6 +18,15 @@ $capabilities = array(
             'editingteacher' => CAP_ALLOW,
         )
     ),
+    'local/absence_request:view_noneediting_teacher_report' => array(
+        'riskbitmask' => RISK_SPAM,
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW,
+            'teacher' => CAP_ALLOW,
+        )
+    ),
     'local/absence_request:view_student_report' => array(
         'riskbitmask' => RISK_SPAM,
         'captype' => 'write',

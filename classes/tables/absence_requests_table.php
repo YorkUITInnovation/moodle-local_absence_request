@@ -21,6 +21,9 @@ class absence_requests_table extends \table_sql
     // Faculty filter (if needed for future extension)
     protected $faculty;
 
+    // Track if this is a teacher view (for download column exclusion)
+    protected $teacher_view;
+
     /**
      * Constructor for the absence_requests_table.
      * Defines columns and headers for the table.
@@ -31,6 +34,8 @@ class absence_requests_table extends \table_sql
     public function __construct($uniqueid, $teacher_view = false)
     {
         parent::__construct($uniqueid);
+
+        $this->teacher_view = $teacher_view;
 
         // Check if acknowledge receipt is enabled
         $acknowledge_enabled = get_config('local_absence_request', 'acknowledge_enabled');
@@ -90,47 +95,73 @@ class absence_requests_table extends \table_sql
     }
 
     /**
+     * Override to exclude checkbox column from downloads.
+     *
+     * @return array List of columns to include in download
+     */
+    public function download_columns()
+    {
+        $columns = $this->columns;
+
+        // Remove checkbox column from downloads
+        if (($key = array_search('checkbox', $columns)) !== false) {
+            unset($columns[$key]);
+        }
+
+        return $columns;
+    }
+
+    /**
+     * Override setup to exclude checkbox column when downloading.
+     */
+    public function setup()
+    {
+        // If downloading and checkbox column exists, remove it
+        if ($this->is_downloading()) {
+            $columns = $this->columns;
+            if (($key = array_search('checkbox', $columns)) !== false) {
+                unset($columns[$key]);
+                // Also remove the corresponding header
+                $headers = $this->headers;
+                unset($headers[$key]);
+                // Re-index arrays to remove gaps
+                $columns = array_values($columns);
+                $headers = array_values($headers);
+                // Redefine columns and headers without checkbox
+                $this->columns = $columns;
+                $this->headers = $headers;
+            }
+        }
+
+        parent::setup();
+    }
+
+    /**
      * Override get_sql_sort to always include starttime and endtime in sort order.
      * Also fixes ambiguous column references by using proper table aliases.
      *
      * @return string The ORDER BY clause for the SQL query.
-     */
+     * Override setup to properly initialize the table.
     public function get_sql_sort()
     {
         $sort = parent::get_sql_sort();
 
-        // Fix ambiguous column references by replacing bare column names with aliased versions
-        if (!empty($sort)) {
-            // Map problematic column names to their proper aliases
-            $column_mappings = [
-                'firstname' => 'us.firstname',
-                'lastname' => 'us.lastname',
-                'student_lastname' => 'us.lastname',
-                'student_firstname' => 'us.firstname',
-                'teacher_lastname' => 'ut.lastname',
-                'teacher_firstname' => 'ut.firstname'
-            ];
 
             foreach ($column_mappings as $column => $replacement) {
                 // Replace column names that are not already prefixed with a table alias
                 $sort = preg_replace('/\b' . preg_quote($column) . '\b(?!\s*\.)/', $replacement, $sort);
             }
         }
+     * @param stdClass $row
+     * @return array
 
-        // Always append starttime and endtime to the sort order using proper field references
-        $additional_sort = 'ar.starttime ASC, ar.endtime ASC';
-
-        if (empty($sort)) {
+    public function other_cols($colname, $row)
             // If no sort is specified, use just the additional sort
-            return $additional_sort;
-        } else {
+        if ($colname === 'checkbox') {
             // If there's already a sort, append the additional sort
-            return $sort . ', ' . $additional_sort;
-        }
-    }
+        } else if ($colname === 'duration') {
 
     /**
-     * Override define_baseurl to preserve starttime and endtime parameters in sort URLs.
      *
      * @param moodle_url $url The base URL for the table
      */
@@ -232,12 +263,18 @@ class absence_requests_table extends \table_sql
 
     /**
      * Render the 'acknowledged' column with clickable checkmark or X.
+     * When downloading, return Yes/No text instead of HTML.
      *
      * @param object $values Row data object.
-     * @return string HTML for clickable acknowledged status.
+     * @return string HTML for clickable acknowledged status or Yes/No text.
      */
     public function col_acknowledged($values)
     {
+        // If downloading, return plain text Yes/No
+        if ($this->is_downloading()) {
+            return $values->acknowledged == 1 ? 'Yes' : 'No';
+        }
+
         if ($values->acknowledged == 1) {
             // Green checkmark for acknowledged
             return '<i 
@@ -257,12 +294,18 @@ class absence_requests_table extends \table_sql
 
     /**
      * Render the checkbox column for bulk actions.
+     * When downloading, return empty string to exclude from export.
      *
      * @param object $values Row data object.
-     * @return string HTML for the checkbox input.
+     * @return string HTML for the checkbox input or empty string when downloading.
      */
     public function col_checkbox($values)
     {
+        // Don't include checkbox in downloads
+        if ($this->is_downloading()) {
+            return '';
+        }
+
         // Return a checkbox input for the row, checked if acknowledged
         $checked = $values->acknowledged ? 'checked' : '';
         return '<input type="checkbox" class="absence-checkbox" data-id="' . $values->id . '" ' . $checked . '>';

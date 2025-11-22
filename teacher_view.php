@@ -16,8 +16,11 @@ $faculty = optional_param('faculty', '', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHA);
+$editingteacher = optional_param('ta', 0, PARAM_INT);
+$courseid = required_param('courseid',  PARAM_INT);
 
 $context = context_system::instance();
+
 // If starttime is empty, set starttime to sunday of the current week
 if (empty($starttime)) {
     $starttime = strtotime('last sunday');
@@ -27,12 +30,18 @@ if (empty($starttime)) {
     $endtime = date('Y-m-d', $endtime);
 }
 
+$ta = 0;
+if (!$editingteacher) {
+    $ta = 1;
+}
 // Set parameters for mustache template rendering.
 $template_data = [
     'showfaculties' => false,
     'starttime' => $starttime,
     'endtime' => $endtime,
     'teacher_view' => true,
+    'courseid' => $courseid,
+    'ta' => $ta,
     'acknowledge_enabled' => get_config('local_absence_request', 'acknowledge_enabled')
 ];
 
@@ -43,11 +52,15 @@ $table->is_downloading($download, 'absence_report_' . date('Ymd', time()) , 'abs
 $PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
 // Create base URL with all current parameters to preserve them during pagination
 $baseurl = new moodle_url($PAGE->url);
+$baseurl->param('courseid', $courseid);
 if (!empty($starttime)) {
     $baseurl->param('starttime', $starttime);
 }
 if (!empty($endtime)) {
     $baseurl->param('endtime', $endtime);
+}
+if ($editingteacher) {
+    $baseurl->param('ta', $editingteacher);
 }
 
 $table->define_baseurl($baseurl);
@@ -88,10 +101,15 @@ if (!empty($starttime)) {
     $params[] = strtotime($endtime);
 }
 
-// Always filter by current user.
-$where .= " AND art.userid = ?";
-
-$params[] = $USER->id;
+// Editing teacher, search by userid
+if (!$editingteacher) {
+    $where .= " AND art.userid = ?";
+    $params[] = $USER->id;
+} else {
+    // Non-editing teacher, search by courseid
+    $where .= " AND arc.courseid = ?";
+    $params[] = $courseid;
+}
 
 $table->set_sql($fields, $from, $where, $params);
 
