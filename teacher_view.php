@@ -16,8 +16,16 @@ $faculty = optional_param('faculty', '', PARAM_TEXT);
 $starttime = optional_param('starttime', '', PARAM_TEXT);
 $endtime = optional_param('endtime', '', PARAM_TEXT);
 $download = optional_param('download', '', PARAM_ALPHA);
+$ta = optional_param('ta', false, PARAM_BOOL);
+$filterbyabsence = optional_param('filterbyabsence', null, PARAM_INT);
+// Default to 1 (checked) only if parameter was never set (first page load)
+if ($filterbyabsence === null) {
+    $filterbyabsence = 1;
+}
+$courseid = required_param('courseid',  PARAM_INT);
 
 $context = context_system::instance();
+
 // If starttime is empty, set starttime to sunday of the current week
 if (empty($starttime)) {
     $starttime = strtotime('last sunday');
@@ -26,29 +34,41 @@ if (empty($starttime)) {
     $endtime = strtotime('next saturday');
     $endtime = date('Y-m-d', $endtime);
 }
-
+$achnowledged_enabled = false;
+if ($ta == false && get_config('local_absence_request', 'acknowledge_enabled')) {
+    $achnowledged_enabled = true;
+}
 // Set parameters for mustache template rendering.
 $template_data = [
     'showfaculties' => false,
     'starttime' => $starttime,
     'endtime' => $endtime,
     'teacher_view' => true,
-    'acknowledge_enabled' => get_config('local_absence_request', 'acknowledge_enabled')
+    'courseid' => $courseid,
+    'ta' => $ta,
+    'filterbyabsence' => ($filterbyabsence == 1), // Convert to boolean for conditional display
+    'filterbyabsence_value' => $filterbyabsence,  // Keep integer for hidden field value
+    'acknowledge_enabled' => $achnowledged_enabled
 ];
 
 // Table class will be loaded from classes/tables/absence_requests_table.php
-$table = new \local_absence_request\tables\absence_requests_table('absence-requests-table', true);
+$table = new \local_absence_request\tables\absence_requests_table('absence-requests-table', true, $ta);
 $table->is_downloading($download, 'absence_report_' . date('Ymd', time()) , 'absence_report');
 
 $PAGE->set_url(new moodle_url('/local/absence_request/teacher_view.php'));
 // Create base URL with all current parameters to preserve them during pagination
 $baseurl = new moodle_url($PAGE->url);
+$baseurl->param('courseid', $courseid);
 if (!empty($starttime)) {
     $baseurl->param('starttime', $starttime);
 }
 if (!empty($endtime)) {
     $baseurl->param('endtime', $endtime);
 }
+if ($ta) {
+    $baseurl->param('ta', $ta);
+}
+$baseurl->param('filterbyabsence', $filterbyabsence);
 
 $table->define_baseurl($baseurl);
 
@@ -78,20 +98,39 @@ $where = '1=1'; // Default condition to ensure WHERE clause is never empty
 $params = [];
 
 if (!empty($starttime)) {
-    $where .= " AND ar.timecreated BETWEEN ? AND ?";
-    if (empty($endtime)) {
-        $endtime = $starttime . ' 23:59:59';
+    if ($filterbyabsence) {
+        // Filter by absence date range - check for overlap
+        // Show absences where any part of the absence period overlaps with the selected date range
+        $where .= " AND (ar.starttime <= ? AND ar.endtime >= ?)";
+        if (empty($endtime)) {
+            $endtime = $starttime . ' 23:59:59';
+        } else {
+            $endtime = $endtime . ' 23:59:59';
+        }
+        $params[] = strtotime($endtime);      // End of selected range
+        $params[] = strtotime($starttime);    // Start of selected range
     } else {
-        $endtime = $endtime . ' 23:59:59';
+        // Filter by submission date
+        $where .= " AND ar.timecreated BETWEEN ? AND ?";
+        if (empty($endtime)) {
+            $endtime = $starttime . ' 23:59:59';
+        } else {
+            $endtime = $endtime . ' 23:59:59';
+        }
+        $params[] = strtotime($starttime);
+        $params[] = strtotime($endtime);
     }
-    $params[] = strtotime($starttime);
-    $params[] = strtotime($endtime);
 }
 
-// Always filter by current user.
-$where .= " AND art.userid = ?";
-
-$params[] = $USER->id;
+// Editing teacher, search by userid
+if (!$ta) {
+    $where .= " AND art.userid = ?";
+    $params[] = $USER->id;
+} else {
+    // Non-editing teacher, search by courseid
+    $where .= " AND arc.courseid = ?";
+    $params[] = $courseid;
+}
 
 $table->set_sql($fields, $from, $where, $params);
 

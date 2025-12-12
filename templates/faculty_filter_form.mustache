@@ -3,7 +3,11 @@
     @template local_absence_request/faculty_filter_form
 }}
 
-<form method="get" action="{{form_action}}" class="mb-3">
+<form method="get" action="{{form_action}}" class="mb-3" id="faculty-filter-form">
+    <input type="hidden" name="courseid" value="{{courseid}}">
+    {{#ta}}
+        <input type="hidden" name="ta" value="1">
+    {{/ta}}
     <div class="row align-items-end">
         {{#showfaculties}}
             <div class="col-md-3">
@@ -19,13 +23,26 @@
         {{/showfaculties}}
         <div class="col-md-3">
             <div class="form-group">
-                <label for="starttime">{{#str}}from_date, local_absence_request{{/str}}:</label>
+                <div class="form-check mb-2">
+                    <input type="hidden" name="filterbyabsence" id="filterbyabsence-hidden" value="{{filterbyabsence_value}}">
+                    <input type="checkbox" id="filterbyabsence" class="form-check-input" {{#filterbyabsence}}checked{{/filterbyabsence}}>
+                    <label class="form-check-label" for="filterbyabsence">
+                        {{#str}}filter_by_absence_date, local_absence_request{{/str}}
+                    </label>
+                </div>
+                <label for="starttime" id="starttime-label">
+                    {{#filterbyabsence}}{{#str}}from_reported_date, local_absence_request{{/str}}{{/filterbyabsence}}
+                    {{^filterbyabsence}}{{#str}}from_date, local_absence_request{{/str}}{{/filterbyabsence}}:
+                </label>
                 <input type="date" name="starttime" id="starttime" value="{{starttime}}" class="form-control">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                <label for="endtime">{{#str}}to_date, local_absence_request{{/str}}:</label>
+                <label for="endtime" id="endtime-label">
+                    {{#filterbyabsence}}{{#str}}to_reported_date, local_absence_request{{/str}}{{/filterbyabsence}}
+                    {{^filterbyabsence}}{{#str}}to_date, local_absence_request{{/str}}{{/filterbyabsence}}:
+                </label>
                 <input type="date" name="endtime" id="endtime" value="{{endtime}}" class="form-control">
             </div>
         </div>
@@ -35,13 +52,70 @@
     </div>
 </form>
 
+<script>
+// Toggle date labels based on checkbox state and validate form
+document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.getElementById('filterbyabsence');
+    const hiddenField = document.getElementById('filterbyabsence-hidden');
+    const startLabel = document.getElementById('starttime-label');
+    const endLabel = document.getElementById('endtime-label');
+    const form = document.getElementById('faculty-filter-form');
+    const startDateInput = document.getElementById('starttime');
+    const endDateInput = document.getElementById('endtime');
+
+    // Store the translated strings
+    const fromReportedDate = '{{#str}}from_reported_date, local_absence_request{{/str}}';
+    const toReportedDate = '{{#str}}to_reported_date, local_absence_request{{/str}}';
+    const fromDate = '{{#str}}from_date, local_absence_request{{/str}}';
+    const toDate = '{{#str}}to_date, local_absence_request{{/str}}';
+
+    if (checkbox && hiddenField && startLabel && endLabel) {
+        // Update labels and hidden field when checkbox changes
+        checkbox.addEventListener('change', function() {
+            hiddenField.value = this.checked ? '1' : '0';
+
+            if (this.checked) {
+                startLabel.textContent = fromReportedDate + ':';
+                endLabel.textContent = toReportedDate + ':';
+            } else {
+                startLabel.textContent = fromDate + ':';
+                endLabel.textContent = toDate + ':';
+            }
+        });
+    }
+
+    // Validate form before submission
+    if (form && startDateInput && endDateInput) {
+        form.addEventListener('submit', function(e) {
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+
+            // Only validate if both dates are provided
+            if (startDate && endDate) {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+
+                if (end < start) {
+                    e.preventDefault();
+                    alert('Error: The end date cannot be before the start date. Please correct the dates and try again.');
+                    endDateInput.focus();
+                    return false;
+                }
+            }
+        });
+    }
+});
+</script>
+
 {{#teacher_view}}
     {{#acknowledge_enabled}}
         <div id="bulk-acknowledge-container" class="mb-3" style="display:none;">
             <button id="bulk_acknowledge_btn" class="btn btn-primary" type="button">
                 {{#str}}bulk_acknowledge, local_absence_request{{/str}} (<span id="selected_count">0</span>)
             </button>
-            <small class="text-muted ml-2">{{#str}}select_items_to_acknowledge, local_absence_request{{/str}}</small>
+            <small class="text-muted ml-2">{{#str}}
+                select_items_to_acknowledge, local_absence_request{{/str}}</small>
         </div>
     {{/acknowledge_enabled}}
 {{/teacher_view}}
+

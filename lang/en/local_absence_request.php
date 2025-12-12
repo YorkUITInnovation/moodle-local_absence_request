@@ -26,7 +26,11 @@ $string['error_end_before_start'] = 'The end date cannot be before the start dat
 $string['error_max_7_days'] = 'The absence cannot be longer than 7 days.';
 $string['error_term_period'] = 'The absence must be within the current term period.';
 $string['faculty'] = 'Faculty';
+$string['filter_by_absence_date'] = 'Filter by Absence Date';
 $string['from_date'] = 'From Submission Date';
+$string['from_reported_date'] = 'From Reported Date';
+$string['to_date'] = 'To Submission Date';
+$string['to_reported_date'] = 'To Reported Date';
 $string['max_requests_reached'] = 'You have reached the maximum number of absences for this term.';
 $string['nopermission'] = 'You do not have permission to view this page.';
 $string['nopermissiontoviewpage'] = 'You do not have permission to view this page.';
@@ -52,11 +56,11 @@ $string['submitted'] = 'Submitted';
 $string['task_send_teacher_notifications'] = 'Send teacher notifications for absence requests';
 $string['submit_request'] = 'Report An Absence';
 $string['teacher'] = 'Instructor';
-$string['to_date'] = 'To Submission Date';
 $string['type_of_circumstance'] = 'Type of Circumstance';
 $string['unforeseen'] = 'Unforeseen or unavoidable incidents beyond the student’s control';
 $string['view_faculty_report'] = 'Faculty Absence Report';
 $string['view_my_reported_absences'] = 'View My Reported Absences';
+$string['view_reported_absences'] = 'View Reported Absences';
 $string['my_reported_absences'] = 'My Reported Absences';
 
 
@@ -78,10 +82,13 @@ $string['enrollment_methods_arms'] = 'ARMS enrollment only';
 $string['passwordsaltmain'] = 'Password Salt for Encryption';
 $string['passwordsaltmain_desc'] = 'A secret password salt used to encrypt acknowledgment URLs in teacher emails. This prevents users from hacking the acknowledgment system by manipulating URL parameters. Leave blank to use the default Moodle password salt.';
 
-// Notifications
+// Capabilities
 $string['absence_request:acknowledge'] = 'Acknowledge Absence Request';
 $string['absence_request:view_faculty_report'] = 'View Faculty Absence Report';
-$string['absence_request:view_teacher_report'] = 'View Absence Report';
+$string['absence_request:view_teacher_report'] = 'Editing Teacher View Absence Report';
+$string['absence_request:view_noneediting_teacher_report'] = 'None-Editing View Absence Report';
+$string['absence_request:view_student_report'] = 'Student View Absence Report';
+// Notifications
 $string['messageprovider:absence_notification'] = 'Absence Notifications';
 $string['student_message_subject'] = 'Absence Reported Successfully';
 $string['teacher_message_subject'] = 'Reported Absence Notification';
