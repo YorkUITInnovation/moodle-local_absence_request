@@ -77,19 +77,38 @@ class request_form extends \moodleform {
         // The start and end dates must be within the current academic year and term period.
         $acadyear = helper::get_acad_year();
         $currentperiod = helper::get_current_period();
+
         if (!empty($data['starttime']) && !empty($data['endtime'])) {
             $start = $data['starttime'];
             $end = $data['endtime'];
+            // Must convert starttime and endtime to appropriate academic year
+            $start_month = date('n', $start);
+            switch ($start_month) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                    $start_acadyear = (date('Y', $start) - 1);
+                    break;
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                    $start_acadyear = date('Y', $start);
+                    break;
+            }
+
             // ensure dates are within the current academic year
-            if (date('Y', $start) != $acadyear || date('Y', $end) != $acadyear) {
+            if ($start_acadyear != $acadyear) {
                 $errors['starttime'] = get_string('error_academic_year', 'local_absence_request');
-                $errors['endtime']   = get_string('error_academic_year', 'local_absence_request');
             }
             // ensure dates are within the current term period
-            if (helper::get_term_period($start) != $currentperiod
-                || helper::get_term_period($end) != $currentperiod) {
+            if (helper::get_term_period($start) != $currentperiod) {
                 $errors['starttime'] = get_string('error_term_period', 'local_absence_request');
-                $errors['endtime']   = get_string('error_term_period', 'local_absence_request');
             }
         }
 
