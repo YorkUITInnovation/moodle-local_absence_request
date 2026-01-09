@@ -80,7 +80,11 @@ $string['enrollment_methods_all'] = 'All enrollment methods';
 $string['enrollment_methods_manual'] = 'Manual enrollment only';
 $string['enrollment_methods_arms'] = 'ARMS enrollment only';
 $string['passwordsaltmain'] = 'Password Salt for Encryption';
-$string['passwordsaltmain_desc'] = 'A secret password salt used to encrypt acknowledgment URLs in teacher emails. This prevents users from hacking the acknowledgment system by manipulating URL parameters. Leave blank to use the default Moodle password salt.';
+$string['passwordsaltmain_desc'] = 'A secret password salt used to encrypt acknowledgment URLs in teacher emails. This prevents users from hacking the acknowledgment system by manipulating URL parameters. Leave blank to use the default Moodle password salt';
+$string['warning_message_enable'] = 'Enable Warning Message';
+$string['warning_message_enable_desc'] = 'Enable or disable the warning message feature. When enabled, a warning message will be displayed to users.';
+$string['warning_message'] = 'Warning Message';
+$string['warning_message_desc'] = 'Enter the warning message to display. You can use HTML formatting.';
 
 // Capabilities
 $string['absence_request:acknowledge'] = 'Acknowledge Absence Request';

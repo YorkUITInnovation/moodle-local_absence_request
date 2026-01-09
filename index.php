@@ -52,6 +52,16 @@ $max_requests_exceeded = $eligibility->max_requests_exceeded;
 // Render main page.
 echo $OUTPUT->header();
 
+// Display warning message if enabled
+$warning_enabled = get_config('local_absence_request', 'warning_message_enable');
+if ($warning_enabled) {
+    $warning_message = get_config('local_absence_request', 'warning_message');
+    echo $OUTPUT->render_from_template('local_absence_request/warning_message', [
+        'show_warning' => true,
+        'message' => $warning_message
+    ]);
+}
+
 echo $OUTPUT->render_from_template('local_absence_request/student_view_absences',['courseid' => $courseid]);
 
 if (!$eligible) {

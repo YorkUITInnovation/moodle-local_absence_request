@@ -78,6 +78,10 @@ $string['enrollment_methods_manual'] = 'Inscription manuelle seulement';
 $string['enrollment_methods_arms'] = 'Inscription ARMS seulement';
 $string['passwordsaltmain'] = 'Sel de mot de passe pour le chiffrement';
 $string['passwordsaltmain_desc'] = 'Un sel de mot de passe secret utilisé pour chiffrer les URLs d\'accusé de réception dans les courriels des enseignants. Cela empêche les utilisateurs de pirater le système d\'accusé de réception en manipulant les paramètres d\'URL. Laisser vide pour utiliser le sel de mot de passe Moodle par défaut.';
+$string['warning_message_enable'] = 'Activer le message d\'avertissement';
+$string['warning_message_enable_desc'] = 'Activer ou désactiver la fonctionnalité de message d\'avertissement. Lorsque activé, un message d\'avertissement s\'affichera aux utilisateurs.';
+$string['warning_message'] = 'Message d\'avertissement';
+$string['warning_message_desc'] = 'Entrez le message d\'avertissement à afficher. Vous pouvez utiliser la mise en forme HTML.';
 
 // Notifications
 $string['absence_request:acknowledge'] = 'Accuser réception de la demande d\'absence';

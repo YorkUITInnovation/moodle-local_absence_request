@@ -84,5 +84,37 @@ if ($hassiteconfig) {
         ''
     ));
 
+    $settings->add(new admin_setting_configcheckbox(
+        'local_absence_request/warning_message_enable',
+        get_string('warning_message_enable', 'local_absence_request'),
+        get_string('warning_message_enable_desc', 'local_absence_request'),
+        0
+    ));
+
+    $settings->add(new admin_setting_confightmleditor(
+        'local_absence_request/warning_message',
+        get_string('warning_message', 'local_absence_request'),
+        get_string('warning_message_desc', 'local_absence_request'),
+        '<div class="alert alert-warning" style="padding: 1.2em; border: 1px solid #e6b400; background-color: #fff7d6; border-radius: 6px;">
+    <h2>Notice: Temporary Issue With the Absence Reporting Tool</h2>
+    <p>
+        We are currently experiencing a technical issue with the eClass absence reporting tool. 
+        As a result, the tool is <strong>temporarily unavailable</strong>, and students 
+        <strong>cannot submit absence reports through the system</strong> at this time.
+    </p>
+    <p>
+        Our team has investigated and identified the issue. An update to the eClass server is 
+        planned and will be completed within the next few days.
+    </p>
+    <p>
+        <strong>In the meantime, please contact your instructors directly</strong> to report any absences 
+        or share any related information.
+    </p>
+    <p>Thank you for your patience and understanding.</p>
+</div>'
+    ));
+
+
+
     $ADMIN->add('localplugins', $settings);
 }

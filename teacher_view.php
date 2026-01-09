@@ -84,6 +84,17 @@ if (!$table->is_downloading()) {
     $PAGE->requires->js_call_amd('local_absence_request/acknowledge', 'init');
 
     echo $OUTPUT->header();
+
+    // Display warning message if enabled
+    $warning_enabled = get_config('local_absence_request', 'warning_message_enable');
+    if ($warning_enabled) {
+        $warning_message = get_config('local_absence_request', 'warning_message');
+        echo $OUTPUT->render_from_template('local_absence_request/warning_message', [
+            'show_warning' => true,
+            'message' => $warning_message
+        ]);
+    }
+
     // Render faculty filter form.
     echo $OUTPUT->render_from_template('local_absence_request/faculty_filter_form', $template_data);
 }

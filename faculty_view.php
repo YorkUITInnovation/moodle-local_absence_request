@@ -63,6 +63,17 @@ if (!$table->is_downloading()) {
     $PAGE->set_title(get_string('absence_request', 'local_absence_request'));
     $PAGE->set_heading(get_string('absence_request', 'local_absence_request'));
     echo $OUTPUT->header();
+
+    // Display warning message if enabled
+    $warning_enabled = get_config('local_absence_request', 'warning_message_enable');
+    if ($warning_enabled) {
+        $warning_message = get_config('local_absence_request', 'warning_message');
+        echo $OUTPUT->render_from_template('local_absence_request/warning_message', [
+            'show_warning' => true,
+            'message' => $warning_message
+        ]);
+    }
+
     // Render faculty filter form.
     echo $OUTPUT->render_from_template('local_absence_request/faculty_filter_form', $template_data);
 }
