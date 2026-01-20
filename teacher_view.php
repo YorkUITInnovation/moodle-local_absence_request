@@ -22,7 +22,16 @@ $filterbyabsence = optional_param('filterbyabsence', null, PARAM_INT);
 if ($filterbyabsence === null) {
     $filterbyabsence = 1;
 }
-$courseid = required_param('courseid',  PARAM_INT);
+// Courseid is optional for editing teachers (who see all courses anyway)
+// but required for TAs (who need to filter by a specific course)
+// Default to 1 (site course) if not provided
+$courseid = optional_param('courseid', 1, PARAM_INT);
+
+// TAs must access this page from a course context with a valid courseid
+if ($ta && $courseid == 1) {
+    // If TA is trying to access without a proper courseid, show error
+    print_error('courseidrequired', 'local_absence_request');
+}
 
 $context = context_system::instance();
 

@@ -60,7 +60,7 @@ class notifications
      * Sends a message to the course director when a student submits an absence request for their course.
      *
      * @param int $teacher_user_id The user ID of the teacher.
-     * @param array $courses Array of course data with absence details.
+     * @param int $absence_request_count The count of absence requests.
      * @return bool|int Message send status.
      */
     public static function notify_teacher(int $teacher_user_id, int $absence_request_count)
@@ -73,7 +73,9 @@ class notifications
             return false;
         }
 
-        $url = new \moodle_url('/local/absence_request/teacher_view.php', []);
+        // No courseid needed - teacher_view.php defaults to courseid=1
+        // Editing teachers see all their courses regardless of courseid
+        $url = new \moodle_url('/local/absence_request/teacher_view.php');
 
 
         // Prepare message parameters with absence count
