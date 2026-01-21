@@ -97,9 +97,10 @@ $string['student_full_message'] = 'Bonjour {$a->firstname}, '
     . '</p>'
     . '<p>Tous les accommodements pour le travail de cours manqué doivent être organisés avec vos instructeurs individuels</p>'
     . '<p>Merci !</p>';
-$string['teacher_message'] = 'Bonjour, <p>Vous avez reçu {$a->absence_count} nouvelle(s) absence(s) auto-signalée(s) sous la Politique de '
+$string['teacher_message'] = 'Bonjour, <p>Vous avez reçu {$a->absence_count} nouvelle' . ($a->absence_count != 1 ? 's' : '') . ' absence' . ($a->absence_count != 1 ? 's' : '') . ' auto-signalée' . ($a->absence_count != 1 ? 's' : '') . ' sous la Politique de '
     . '<a href="{$a->policylink}">Considération académique pour le travail de cours manqué</a>.</p>'
     . '<p>Veuillez consulter le <a href="{$a->url}">rapport d\'absence</a> pour voir les détails de toutes les absences signalées et les accuser réception.</p>'
+    . '{$a->acknowledgeurl}'
     . '<p>Merci !</p>';
 
 // Privacy API strings
