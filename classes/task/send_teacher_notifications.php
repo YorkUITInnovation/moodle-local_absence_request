@@ -79,7 +79,11 @@ class send_teacher_notifications extends \core\task\scheduled_task {
                    ' with ' . $teacher->absence_count . ' unique absence request(s).');
 
             // Send notification to teacher with the count of unique absence requests
-            $notification_result = notifications::notify_teacher($teacher->teacher_userid, $teacher->absence_count);
+            // No courseid needed - editing teachers see all their courses
+            $notification_result = notifications::notify_teacher(
+                $teacher->teacher_userid,
+                $teacher->absence_count
+            );
 
             if ($notification_result) {
                 // Mark all teacher records as email sent for this teacher

@@ -56,21 +56,22 @@ class request_form extends \moodleform {
         global $DB, $USER;
         $errors = parent::validation($data, $files);
 
-        // End date must not be more than 7 days after start date.
+        // Normalize dates to midnight to ensure accurate day counting
         if (!empty($data['starttime']) && !empty($data['endtime'])) {
-            $start = $data['starttime'];
-            $end = $data['endtime'];
-            if ($end > $start + 7 * 24 * 60 * 60) {
-                $errors['endtime'] = get_string('error_max_7_days', 'local_absence_request');
-            }
-        }
+            $start_midnight = strtotime('midnight', $data['starttime']);
+            $end_midnight = strtotime('midnight', $data['endtime']);
 
-        // End date cannot be before start date
-        if (!empty($data['starttime']) && !empty($data['endtime'])) {
-            $start = $data['starttime'];
-            $end = $data['endtime'];
-            if ($end < $start) {
+            // End date cannot be before start date
+            if ($end_midnight < $start_midnight) {
                 $errors['endtime'] = get_string('error_end_before_start', 'local_absence_request');
+            }
+
+            // Calculate days using the helper method with normalized timestamps
+            $days = helper::calculate_days($start_midnight, $end_midnight);
+
+            // End date must not be more than 7 days after start date
+            if ($days > 7) {
+                $errors['endtime'] = get_string('error_max_7_days', 'local_absence_request');
             }
         }
 
@@ -79,10 +80,11 @@ class request_form extends \moodleform {
         $currentperiod = helper::get_current_period();
 
         if (!empty($data['starttime']) && !empty($data['endtime'])) {
-            $start = $data['starttime'];
-            $end = $data['endtime'];
+            $start_midnight = strtotime('midnight', $data['starttime']);
+            $end_midnight = strtotime('midnight', $data['endtime']);
+
             // Must convert starttime and endtime to appropriate academic year
-            $start_month = date('n', $start);
+            $start_month = date('n', $start_midnight);
             switch ($start_month) {
                 case 1:
                 case 2:
@@ -92,13 +94,13 @@ class request_form extends \moodleform {
                 case 6:
                 case 7:
                 case 8:
-                    $start_acadyear = (date('Y', $start) - 1);
+                    $start_acadyear = (date('Y', $start_midnight) - 1);
                     break;
                 case 9:
                 case 10:
                 case 11:
                 case 12:
-                    $start_acadyear = date('Y', $start);
+                    $start_acadyear = date('Y', $start_midnight);
                     break;
             }
 
@@ -107,12 +109,12 @@ class request_form extends \moodleform {
                 $errors['starttime'] = get_string('error_academic_year', 'local_absence_request');
             }
             // ensure dates are within the current term period
-            if (helper::get_term_period($start) != $currentperiod) {
+            if (helper::get_term_period($start_midnight) != $currentperiod) {
                 $errors['starttime'] = get_string('error_term_period', 'local_absence_request');
             }
         }
 
-        // Check to see if the user has submitted a request within the curretn start and end dates.
+        // Check to see if the user has submitted a request within the current start and end dates.
         $userid = $USER->id;
         $sql = "SELECT id FROM {local_absence_request} 
                 WHERE userid = ?
@@ -120,8 +122,8 @@ class request_form extends \moodleform {
                 AND endtime <= ?";
         $params = [
             $userid,
-            $data['starttime'],
-            $data['endtime']
+            strtotime('midnight', $data['starttime']),
+            strtotime('midnight', $data['endtime'])
         ];
 
         $requests = $DB->get_records_sql($sql, $params);
