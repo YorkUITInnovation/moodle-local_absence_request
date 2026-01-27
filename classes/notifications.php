@@ -28,6 +28,20 @@ class notifications
         $number_of_days = helper::calculate_days($absence_request->starttime, $absence_request->endtime);
         // Get student from the absence request
         $student = $DB->get_record('user', ['id' => $userid]);
+
+        // Force the student's language for the notification
+        $current_lang = current_language();
+        $student_lang = $student->lang ?? 'en';
+
+        // Only support fr and en languages (with fr_ca mapping to fr)
+        if (strpos($student_lang, 'fr') === 0) {
+            $student_lang = 'fr';
+        } else if ($student_lang !== 'en') {
+            // Default to English for any unsupported language
+            $student_lang = 'en';
+        }
+        force_current_language($student_lang);
+
         $subject = get_string('student_message_subject', 'local_absence_request');
         $message = get_string('student_full_message', 'local_absence_request',
             [
@@ -38,6 +52,9 @@ class notifications
                 'numberofdays' => $number_of_days
             ]
         );
+
+        // Restore the original language
+        force_current_language($current_lang);
 
         // Prepare the message data
         $eventdata = new \core\message\message();
@@ -77,7 +94,6 @@ class notifications
         // Editing teachers see all their courses regardless of courseid
         $url = new \moodle_url('/local/absence_request/teacher_view.php');
 
-
         // Prepare message parameters with absence count
         $message_params = [
             'url' => $url->out(false),
@@ -85,8 +101,24 @@ class notifications
             'absence_count' => $absence_request_count
         ];
 
+        // Force the teacher's language for the notification
+        $current_lang = current_language();
+        $teacher_lang = $teacher->lang ?? 'en';
+
+        // Only support fr and en languages (with fr_ca mapping to fr)
+        if (strpos($teacher_lang, 'fr') === 0) {
+            $teacher_lang = 'fr';
+        } else if ($teacher_lang !== 'en') {
+            // Default to English for any unsupported language
+            $teacher_lang = 'en';
+        }
+        force_current_language($teacher_lang);
+
         $subject = get_string('teacher_message_subject', 'local_absence_request');
         $message = get_string('teacher_message', 'local_absence_request', $message_params);
+
+        // Restore the original language
+        force_current_language($current_lang);
 
         // Prepare the message data
         $eventdata = new \core\message\message();
