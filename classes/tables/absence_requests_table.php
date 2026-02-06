@@ -108,13 +108,20 @@ class absence_requests_table extends \table_sql
     {
         $columns = $this->columns;
 
+        debugging('DOWNLOAD_COLUMNS - Before: ' . count($columns) . ' columns: ' .
+                 implode(', ', $columns), DEBUG_DEVELOPER);
+
         // Remove checkbox column from downloads if it exists
         $key = array_search('checkbox', $columns);
         if ($key !== false) {
+            debugging('DOWNLOAD_COLUMNS - Removing checkbox at index: ' . $key, DEBUG_DEVELOPER);
             unset($columns[$key]);
             // CRITICAL for PHP 7.4: Re-index the array to remove gaps in numeric keys
             $columns = array_values($columns);
         }
+
+        debugging('DOWNLOAD_COLUMNS - After: ' . count($columns) . ' columns: ' .
+                 implode(', ', $columns), DEBUG_DEVELOPER);
 
         return $columns;
     }
@@ -127,8 +134,14 @@ class absence_requests_table extends \table_sql
     {
         // If downloading and checkbox column exists, remove it BEFORE parent setup
         if ($this->is_downloading()) {
+            // DEBUG: Log column state before modification
+            debugging('EXPORT SETUP - Before: ' . count($this->columns) . ' columns: ' .
+                     implode(', ', $this->columns), DEBUG_DEVELOPER);
+
             $key = array_search('checkbox', $this->columns);
             if ($key !== false) {
+                debugging('EXPORT SETUP - Found checkbox at index: ' . $key, DEBUG_DEVELOPER);
+
                 // Remove checkbox from both columns and headers
                 unset($this->columns[$key]);
                 unset($this->headers[$key]);
@@ -137,6 +150,11 @@ class absence_requests_table extends \table_sql
                 // Without this, column data will be misaligned in exports
                 $this->columns = array_values($this->columns);
                 $this->headers = array_values($this->headers);
+
+                debugging('EXPORT SETUP - After: ' . count($this->columns) . ' columns: ' .
+                         implode(', ', $this->columns), DEBUG_DEVELOPER);
+            } else {
+                debugging('EXPORT SETUP - No checkbox column found', DEBUG_DEVELOPER);
             }
         }
 

@@ -143,6 +143,53 @@ if (!$ta) {
 
 $table->set_sql($fields, $from, $where, $params);
 
+// DEBUG: Log export debugging info to Moodle's standard log (viewable from UI)
+if ($table->is_downloading()) {
+    global $DB;
+
+    // Count total records
+    $countsql = "SELECT COUNT(*) FROM {$from} WHERE {$where}";
+    $totalcount = $DB->count_records_sql($countsql, $params);
+
+    // Get sample of first 3 records to verify data
+    $samplesql = "SELECT {$fields} FROM {$from} WHERE {$where}";
+    $sampledata = $DB->get_records_sql($samplesql, $params, 0, 3);
+
+    // Log to Moodle standard log (visible in Site Administration > Reports > Logs)
+    $debuginfo = new stdClass();
+    $debuginfo->exportformat = $download;
+    $debuginfo->userid = $USER->id;
+    $debuginfo->ta_mode = $ta ? 'Yes' : 'No';
+    $debuginfo->courseid = $courseid;
+    $debuginfo->starttime = $starttime;
+    $debuginfo->endtime = $endtime;
+    $debuginfo->totalrecords = $totalcount;
+    $debuginfo->columncount = count($table->columns);
+    $debuginfo->columns = implode(', ', $table->columns);
+
+    // Log each sample record
+    $recordnum = 0;
+    foreach ($sampledata as $record) {
+        $recordnum++;
+        $debuginfo->{"sample{$recordnum}_id"} = $record->id ?? 'NULL';
+        $debuginfo->{"sample{$recordnum}_student"} =
+            ($record->student_firstname ?? 'NULL') . ' ' . ($record->student_lastname ?? 'NULL');
+        $debuginfo->{"sample{$recordnum}_starttime"} = $record->starttime ?? 'NULL';
+    }
+
+    // Write to Moodle log
+    \core\event\course_viewed::create([
+        'context' => $context,
+        'other' => [
+            'export_debug' => json_encode($debuginfo, JSON_PRETTY_PRINT)
+        ]
+    ])->trigger();
+
+    // Also use mtrace for CLI/cron visibility and debugging_message for immediate display
+    debugging('EXPORT DEBUG - Format: ' . $download . ' | Records: ' . $totalcount .
+              ' | Columns: ' . count($table->columns) . ' | User: ' . $USER->id, DEBUG_DEVELOPER);
+}
+
 $table->out(20, true);
 
 if (!$table->is_downloading()) {
