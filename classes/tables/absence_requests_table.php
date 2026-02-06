@@ -99,6 +99,8 @@ class absence_requests_table extends \table_sql
 
     /**
      * Override to exclude checkbox column from downloads.
+     * IMPORTANT: This ensures the checkbox column is excluded and array is properly indexed.
+     * PHP 7.4 requires explicit re-indexing after unset() to prevent column misalignment.
      *
      * @return array List of columns to include in download
      */
@@ -106,10 +108,11 @@ class absence_requests_table extends \table_sql
     {
         $columns = $this->columns;
 
-        // Remove checkbox column from downloads
-        if (($key = array_search('checkbox', $columns)) !== false) {
+        // Remove checkbox column from downloads if it exists
+        $key = array_search('checkbox', $columns);
+        if ($key !== false) {
             unset($columns[$key]);
-            // IMPORTANT: Re-index the array to prevent column misalignment
+            // CRITICAL for PHP 7.4: Re-index the array to remove gaps in numeric keys
             $columns = array_values($columns);
         }
 
@@ -118,23 +121,22 @@ class absence_requests_table extends \table_sql
 
     /**
      * Override setup to exclude checkbox column when downloading.
+     * CRITICAL: Must be called before parent::setup() to ensure proper column handling in PHP 7.4
      */
     public function setup()
     {
-        // If downloading and checkbox column exists, remove it
+        // If downloading and checkbox column exists, remove it BEFORE parent setup
         if ($this->is_downloading()) {
-            $columns = $this->columns;
-            if (($key = array_search('checkbox', $columns)) !== false) {
-                unset($columns[$key]);
-                // Also remove the corresponding header
-                $headers = $this->headers;
-                unset($headers[$key]);
-                // Re-index arrays to remove gaps
-                $columns = array_values($columns);
-                $headers = array_values($headers);
-                // Redefine columns and headers without checkbox
-                $this->columns = $columns;
-                $this->headers = $headers;
+            $key = array_search('checkbox', $this->columns);
+            if ($key !== false) {
+                // Remove checkbox from both columns and headers
+                unset($this->columns[$key]);
+                unset($this->headers[$key]);
+
+                // CRITICAL for PHP 7.4: Re-index arrays to remove gaps in numeric keys
+                // Without this, column data will be misaligned in exports
+                $this->columns = array_values($this->columns);
+                $this->headers = array_values($this->headers);
             }
         }
 
