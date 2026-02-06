@@ -106,22 +106,31 @@ class absence_requests_table extends \table_sql
      */
     public function download_columns()
     {
+        global $USER;
         $columns = $this->columns;
 
-        debugging('DOWNLOAD_COLUMNS - Before: ' . count($columns) . ' columns: ' .
-                 implode(', ', $columns), DEBUG_DEVELOPER);
+        $debug_before = count($columns) . ' columns: ' . implode(', ', array_keys($columns));
 
         // Remove checkbox column from downloads if it exists
-        $key = array_search('checkbox', $columns);
-        if ($key !== false) {
-            debugging('DOWNLOAD_COLUMNS - Removing checkbox at index: ' . $key, DEBUG_DEVELOPER);
-            unset($columns[$key]);
-            // CRITICAL for PHP 7.4: Re-index the array to remove gaps in numeric keys
-            $columns = array_values($columns);
+        // Note: $this->columns is an associative array with column names as keys
+        if (isset($columns['checkbox'])) {
+            $debug_action = 'Removing checkbox column';
+            unset($columns['checkbox']);
+        } else {
+            $debug_action = 'No checkbox to remove';
         }
 
-        debugging('DOWNLOAD_COLUMNS - After: ' . count($columns) . ' columns: ' .
-                 implode(', ', $columns), DEBUG_DEVELOPER);
+        $debug_after = count($columns) . ' columns: ' . implode(', ', array_keys($columns));
+
+        // Store debug info in config for retrieval
+        $debuginfo = [
+            'method' => 'download_columns',
+            'before' => $debug_before,
+            'action' => $debug_action,
+            'after' => $debug_after,
+            'timestamp' => time()
+        ];
+        set_config('last_export_download_cols_user_' . $USER->id, json_encode($debuginfo), 'local_absence_request');
 
         return $columns;
     }
@@ -132,30 +141,50 @@ class absence_requests_table extends \table_sql
      */
     public function setup()
     {
+        global $USER;
+
         // If downloading and checkbox column exists, remove it BEFORE parent setup
         if ($this->is_downloading()) {
+            $debug_steps = [];
+
             // DEBUG: Log column state before modification
-            debugging('EXPORT SETUP - Before: ' . count($this->columns) . ' columns: ' .
-                     implode(', ', $this->columns), DEBUG_DEVELOPER);
+            $debug_steps[] = 'Before: ' . count($this->columns) . ' columns: ' . implode(', ', array_keys($this->columns));
+            $debug_steps[] = 'Headers count: ' . count($this->headers);
 
-            $key = array_search('checkbox', $this->columns);
-            if ($key !== false) {
-                debugging('EXPORT SETUP - Found checkbox at index: ' . $key, DEBUG_DEVELOPER);
+            // After define_columns(), $this->columns is an associative array with column names as keys
+            if (isset($this->columns['checkbox'])) {
+                $debug_steps[] = 'Found checkbox column, removing it';
 
-                // Remove checkbox from both columns and headers
-                unset($this->columns[$key]);
-                unset($this->headers[$key]);
+                // Find the index position of checkbox to remove the corresponding header
+                $column_keys = array_keys($this->columns);
+                $checkbox_position = array_search('checkbox', $column_keys);
 
-                // CRITICAL for PHP 7.4: Re-index arrays to remove gaps in numeric keys
-                // Without this, column data will be misaligned in exports
-                $this->columns = array_values($this->columns);
-                $this->headers = array_values($this->headers);
+                $debug_steps[] = 'Checkbox position: ' . $checkbox_position;
 
-                debugging('EXPORT SETUP - After: ' . count($this->columns) . ' columns: ' .
-                         implode(', ', $this->columns), DEBUG_DEVELOPER);
+                // Remove checkbox from columns (associative array)
+                unset($this->columns['checkbox']);
+
+                // Remove the header at the same position (indexed array)
+                if ($checkbox_position !== false && isset($this->headers[$checkbox_position])) {
+                    unset($this->headers[$checkbox_position]);
+                    // Re-index headers array to remove gaps
+                    $this->headers = array_values($this->headers);
+                    $debug_steps[] = 'Removed header at position ' . $checkbox_position;
+                }
+
+                $debug_steps[] = 'After: ' . count($this->columns) . ' columns: ' . implode(', ', array_keys($this->columns));
+                $debug_steps[] = 'Headers count after: ' . count($this->headers);
             } else {
-                debugging('EXPORT SETUP - No checkbox column found', DEBUG_DEVELOPER);
+                $debug_steps[] = 'No checkbox column found';
             }
+
+            // Store debug info in config for retrieval
+            $debuginfo = [
+                'method' => 'setup',
+                'steps' => $debug_steps,
+                'timestamp' => time()
+            ];
+            set_config('last_export_setup_user_' . $USER->id, json_encode($debuginfo, JSON_PRETTY_PRINT), 'local_absence_request');
         }
 
         parent::setup();

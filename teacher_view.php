@@ -143,7 +143,7 @@ if (!$ta) {
 
 $table->set_sql($fields, $from, $where, $params);
 
-// DEBUG: Log export debugging info (viewable when debugging is enabled)
+// DEBUG: Log export debugging info to Moodle's standard log
 if ($table->is_downloading()) {
     global $DB;
 
@@ -155,28 +155,36 @@ if ($table->is_downloading()) {
     $samplesql = "SELECT {$fields} FROM {$from} WHERE {$where}";
     $sampledata = $DB->get_records_sql($samplesql, $params, 0, 3);
 
-    // Log debug information
-    debugging('=== EXPORT DEBUG START ===', DEBUG_DEVELOPER);
-    debugging('Export Format: ' . $download, DEBUG_DEVELOPER);
-    debugging('User ID: ' . $USER->id, DEBUG_DEVELOPER);
-    debugging('TA Mode: ' . ($ta ? 'Yes' : 'No'), DEBUG_DEVELOPER);
-    debugging('Course ID: ' . $courseid, DEBUG_DEVELOPER);
-    debugging('Date Range: ' . $starttime . ' to ' . $endtime, DEBUG_DEVELOPER);
-    debugging('Filter by Absence: ' . ($filterbyabsence ? 'Yes' : 'No'), DEBUG_DEVELOPER);
-    debugging('Total Records: ' . $totalcount, DEBUG_DEVELOPER);
-    debugging('Column Count: ' . count($table->columns), DEBUG_DEVELOPER);
-    debugging('Columns: ' . implode(', ', $table->columns), DEBUG_DEVELOPER);
+    // Build debug message
+    $debuginfo = [
+        'export_format' => $download,
+        'user_id' => $USER->id,
+        'ta_mode' => ($ta ? 'Yes' : 'No'),
+        'course_id' => $courseid,
+        'date_range' => $starttime . ' to ' . $endtime,
+        'filter_by_absence' => ($filterbyabsence ? 'Yes' : 'No'),
+        'total_records' => $totalcount,
+        'column_count' => count($table->columns),
+        'columns' => implode(', ', is_array($table->columns) ? array_keys($table->columns) : []),
+        'timestamp' => time()
+    ];
 
-    // Log sample records
+    // Add sample records
     $recordnum = 0;
     foreach ($sampledata as $record) {
         $recordnum++;
-        debugging('Sample ' . $recordnum . ' - ID: ' . ($record->id ?? 'NULL') .
+        $debuginfo['sample_' . $recordnum] = 'ID: ' . ($record->id ?? 'NULL') .
                   ', Student: ' . ($record->student_firstname ?? 'NULL') . ' ' .
                   ($record->student_lastname ?? 'NULL') .
-                  ', Start: ' . ($record->starttime ?? 'NULL'), DEBUG_DEVELOPER);
+                  ', Start: ' . ($record->starttime ?? 'NULL');
     }
-    debugging('=== EXPORT DEBUG END ===', DEBUG_DEVELOPER);
+
+    // Store in config for retrieval (will appear in mdl_config_log if logging is enabled)
+    $debugjson = json_encode($debuginfo, JSON_PRETTY_PRINT);
+    set_config('last_export_debug_user_' . $USER->id, $debugjson, 'local_absence_request');
+
+    // Also write to error_log as backup
+    error_log('ABSENCE EXPORT DEBUG: ' . $debugjson);
 }
 
 $table->out(20, true);
