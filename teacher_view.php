@@ -143,7 +143,7 @@ if (!$ta) {
 
 $table->set_sql($fields, $from, $where, $params);
 
-// DEBUG: Log export debugging info to Moodle's standard log (viewable from UI)
+// DEBUG: Log export debugging info (viewable when debugging is enabled)
 if ($table->is_downloading()) {
     global $DB;
 
@@ -155,39 +155,28 @@ if ($table->is_downloading()) {
     $samplesql = "SELECT {$fields} FROM {$from} WHERE {$where}";
     $sampledata = $DB->get_records_sql($samplesql, $params, 0, 3);
 
-    // Log to Moodle standard log (visible in Site Administration > Reports > Logs)
-    $debuginfo = new stdClass();
-    $debuginfo->exportformat = $download;
-    $debuginfo->userid = $USER->id;
-    $debuginfo->ta_mode = $ta ? 'Yes' : 'No';
-    $debuginfo->courseid = $courseid;
-    $debuginfo->starttime = $starttime;
-    $debuginfo->endtime = $endtime;
-    $debuginfo->totalrecords = $totalcount;
-    $debuginfo->columncount = count($table->columns);
-    $debuginfo->columns = implode(', ', $table->columns);
+    // Log debug information
+    debugging('=== EXPORT DEBUG START ===', DEBUG_DEVELOPER);
+    debugging('Export Format: ' . $download, DEBUG_DEVELOPER);
+    debugging('User ID: ' . $USER->id, DEBUG_DEVELOPER);
+    debugging('TA Mode: ' . ($ta ? 'Yes' : 'No'), DEBUG_DEVELOPER);
+    debugging('Course ID: ' . $courseid, DEBUG_DEVELOPER);
+    debugging('Date Range: ' . $starttime . ' to ' . $endtime, DEBUG_DEVELOPER);
+    debugging('Filter by Absence: ' . ($filterbyabsence ? 'Yes' : 'No'), DEBUG_DEVELOPER);
+    debugging('Total Records: ' . $totalcount, DEBUG_DEVELOPER);
+    debugging('Column Count: ' . count($table->columns), DEBUG_DEVELOPER);
+    debugging('Columns: ' . implode(', ', $table->columns), DEBUG_DEVELOPER);
 
-    // Log each sample record
+    // Log sample records
     $recordnum = 0;
     foreach ($sampledata as $record) {
         $recordnum++;
-        $debuginfo->{"sample{$recordnum}_id"} = $record->id ?? 'NULL';
-        $debuginfo->{"sample{$recordnum}_student"} =
-            ($record->student_firstname ?? 'NULL') . ' ' . ($record->student_lastname ?? 'NULL');
-        $debuginfo->{"sample{$recordnum}_starttime"} = $record->starttime ?? 'NULL';
+        debugging('Sample ' . $recordnum . ' - ID: ' . ($record->id ?? 'NULL') .
+                  ', Student: ' . ($record->student_firstname ?? 'NULL') . ' ' .
+                  ($record->student_lastname ?? 'NULL') .
+                  ', Start: ' . ($record->starttime ?? 'NULL'), DEBUG_DEVELOPER);
     }
-
-    // Write to Moodle log
-    \core\event\course_viewed::create([
-        'context' => $context,
-        'other' => [
-            'export_debug' => json_encode($debuginfo, JSON_PRETTY_PRINT)
-        ]
-    ])->trigger();
-
-    // Also use mtrace for CLI/cron visibility and debugging_message for immediate display
-    debugging('EXPORT DEBUG - Format: ' . $download . ' | Records: ' . $totalcount .
-              ' | Columns: ' . count($table->columns) . ' | User: ' . $USER->id, DEBUG_DEVELOPER);
+    debugging('=== EXPORT DEBUG END ===', DEBUG_DEVELOPER);
 }
 
 $table->out(20, true);
