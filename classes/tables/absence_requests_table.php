@@ -99,67 +99,40 @@ class absence_requests_table extends \table_sql
 
     /**
      * Override to exclude checkbox column from downloads.
-     * IMPORTANT: This ensures the checkbox column is excluded and array is properly indexed.
-     * PHP 7.4 requires explicit re-indexing after unset() to prevent column misalignment.
+     * IMPORTANT: This ensures the checkbox column is excluded.
+     * PHP 7.4 requires proper handling of associative arrays after define_columns().
      *
      * @return array List of columns to include in download
      */
     public function download_columns()
     {
-        global $USER;
         $columns = $this->columns;
-
-        $debug_before = count($columns) . ' columns: ' . implode(', ', array_keys($columns));
 
         // Remove checkbox column from downloads if it exists
         // Note: $this->columns is an associative array with column names as keys
         if (isset($columns['checkbox'])) {
-            $debug_action = 'Removing checkbox column';
             unset($columns['checkbox']);
-        } else {
-            $debug_action = 'No checkbox to remove';
         }
-
-        $debug_after = count($columns) . ' columns: ' . implode(', ', array_keys($columns));
-
-        // Store debug info in config for retrieval
-        $debuginfo = [
-            'method' => 'download_columns',
-            'before' => $debug_before,
-            'action' => $debug_action,
-            'after' => $debug_after,
-            'timestamp' => time()
-        ];
-        set_config('last_export_download_cols_user_' . $USER->id, json_encode($debuginfo), 'local_absence_request');
 
         return $columns;
     }
 
     /**
      * Override setup to exclude checkbox column when downloading.
-     * CRITICAL: Must be called before parent::setup() to ensure proper column handling in PHP 7.4
+     * CRITICAL: Must be called before parent::setup() to ensure proper column handling in PHP 7.4.
+     *
+     * When downloading, the checkbox column and its corresponding header must be removed
+     * to prevent column/header misalignment in the exported file.
      */
     public function setup()
     {
-        global $USER;
-
         // If downloading and checkbox column exists, remove it BEFORE parent setup
         if ($this->is_downloading()) {
-            $debug_steps = [];
-
-            // DEBUG: Log column state before modification
-            $debug_steps[] = 'Before: ' . count($this->columns) . ' columns: ' . implode(', ', array_keys($this->columns));
-            $debug_steps[] = 'Headers count: ' . count($this->headers);
-
             // After define_columns(), $this->columns is an associative array with column names as keys
             if (isset($this->columns['checkbox'])) {
-                $debug_steps[] = 'Found checkbox column, removing it';
-
                 // Find the index position of checkbox to remove the corresponding header
                 $column_keys = array_keys($this->columns);
                 $checkbox_position = array_search('checkbox', $column_keys);
-
-                $debug_steps[] = 'Checkbox position: ' . $checkbox_position;
 
                 // Remove checkbox from columns (associative array)
                 unset($this->columns['checkbox']);
@@ -169,22 +142,8 @@ class absence_requests_table extends \table_sql
                     unset($this->headers[$checkbox_position]);
                     // Re-index headers array to remove gaps
                     $this->headers = array_values($this->headers);
-                    $debug_steps[] = 'Removed header at position ' . $checkbox_position;
                 }
-
-                $debug_steps[] = 'After: ' . count($this->columns) . ' columns: ' . implode(', ', array_keys($this->columns));
-                $debug_steps[] = 'Headers count after: ' . count($this->headers);
-            } else {
-                $debug_steps[] = 'No checkbox column found';
             }
-
-            // Store debug info in config for retrieval
-            $debuginfo = [
-                'method' => 'setup',
-                'steps' => $debug_steps,
-                'timestamp' => time()
-            ];
-            set_config('last_export_setup_user_' . $USER->id, json_encode($debuginfo, JSON_PRETTY_PRINT), 'local_absence_request');
         }
 
         parent::setup();
