@@ -143,6 +143,7 @@ if (!$ta) {
 
 $table->set_sql($fields, $from, $where, $params);
 
+
 $table->out(20, true);
 
 if (!$table->is_downloading()) {
