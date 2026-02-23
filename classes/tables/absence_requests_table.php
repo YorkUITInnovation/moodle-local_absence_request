@@ -99,6 +99,8 @@ class absence_requests_table extends \table_sql
 
     /**
      * Override to exclude checkbox column from downloads.
+     * IMPORTANT: This ensures the checkbox column is excluded.
+     * PHP 7.4 requires proper handling of associative arrays after define_columns().
      *
      * @return array List of columns to include in download
      */
@@ -106,9 +108,10 @@ class absence_requests_table extends \table_sql
     {
         $columns = $this->columns;
 
-        // Remove checkbox column from downloads
-        if (($key = array_search('checkbox', $columns)) !== false) {
-            unset($columns[$key]);
+        // Remove checkbox column from downloads if it exists
+        // Note: $this->columns is an associative array with column names as keys
+        if (isset($columns['checkbox'])) {
+            unset($columns['checkbox']);
         }
 
         return $columns;
@@ -116,23 +119,30 @@ class absence_requests_table extends \table_sql
 
     /**
      * Override setup to exclude checkbox column when downloading.
+     * CRITICAL: Must be called before parent::setup() to ensure proper column handling in PHP 7.4.
+     *
+     * When downloading, the checkbox column and its corresponding header must be removed
+     * to prevent column/header misalignment in the exported file.
      */
     public function setup()
     {
-        // If downloading and checkbox column exists, remove it
+        // If downloading and checkbox column exists, remove it BEFORE parent setup
         if ($this->is_downloading()) {
-            $columns = $this->columns;
-            if (($key = array_search('checkbox', $columns)) !== false) {
-                unset($columns[$key]);
-                // Also remove the corresponding header
-                $headers = $this->headers;
-                unset($headers[$key]);
-                // Re-index arrays to remove gaps
-                $columns = array_values($columns);
-                $headers = array_values($headers);
-                // Redefine columns and headers without checkbox
-                $this->columns = $columns;
-                $this->headers = $headers;
+            // After define_columns(), $this->columns is an associative array with column names as keys
+            if (isset($this->columns['checkbox'])) {
+                // Find the index position of checkbox to remove the corresponding header
+                $column_keys = array_keys($this->columns);
+                $checkbox_position = array_search('checkbox', $column_keys);
+
+                // Remove checkbox from columns (associative array)
+                unset($this->columns['checkbox']);
+
+                // Remove the header at the same position (indexed array)
+                if ($checkbox_position !== false && isset($this->headers[$checkbox_position])) {
+                    unset($this->headers[$checkbox_position]);
+                    // Re-index headers array to remove gaps
+                    $this->headers = array_values($this->headers);
+                }
             }
         }
 
@@ -144,27 +154,45 @@ class absence_requests_table extends \table_sql
      * Also fixes ambiguous column references by using proper table aliases.
      *
      * @return string The ORDER BY clause for the SQL query.
-     * Override setup to properly initialize the table.
+     */
     public function get_sql_sort()
     {
         $sort = parent::get_sql_sort();
 
+        // Always include starttime and endtime in sort order for consistency
+        $additional_sort = 'ar.starttime ASC, ar.endtime ASC';
 
-            foreach ($column_mappings as $column => $replacement) {
-                // Replace column names that are not already prefixed with a table alias
-                $sort = preg_replace('/\b' . preg_quote($column) . '\b(?!\s*\.)/', $replacement, $sort);
-            }
-        }
-     * @param stdClass $row
-     * @return array
-
-    public function other_cols($colname, $row)
-            // If no sort is specified, use just the additional sort
-        if ($colname === 'checkbox') {
+        if (!empty($sort)) {
             // If there's already a sort, append the additional sort
-        } else if ($colname === 'duration') {
+            return $sort . ', ' . $additional_sort;
+        }
+
+        // If no sort is specified, use just the additional sort
+        return $additional_sort;
+    }
 
     /**
+     * Override other_cols to handle columns without explicit col_* methods.
+     * This is called by table_sql for columns that don't have a specific col_columnname() method.
+     *
+     * @param string $colname Column name
+     * @param stdClass $row Row data object
+     * @return string Column value
+     */
+    public function other_cols($colname, $row)
+    {
+        // For columns that don't have col_* methods, return the raw field value
+        // The col_* methods are automatically called by table_sql for columns that have them
+        if (isset($row->$colname)) {
+            return $row->$colname;
+        }
+
+        // If the column doesn't exist in the row data, return empty string
+        return '';
+    }
+
+    /**
+     * Define the base URL for the table with filters persisted.
      *
      * @param moodle_url $url The base URL for the table
      */
@@ -190,12 +218,23 @@ class absence_requests_table extends \table_sql
     }
 
     /**
-     * Set link for student profile
+     * Set link for student profile.
+     * When downloading, return plain text name without HTML.
+     *
+     * @param object $values Row data object.
+     * @return string Student name (with link for web view, plain text for download).
      */
     public function col_student_lastname($values)
     {
-        $url = new moodle_url('/user/profile.php', ['id' => $values->userid]);
         $student_name = $values->student_lastname . ', ' . $values->student_firstname;
+
+        // If downloading, return plain text
+        if ($this->is_downloading()) {
+            return $student_name;
+        }
+
+        // Otherwise return HTML link
+        $url = new moodle_url('/user/profile.php', ['id' => $values->userid]);
         return '<a href="' . $url->out() . '" target="_blank" rel="noopener noreferrer" aria-label="View profile for ' . htmlspecialchars($student_name, ENT_QUOTES) . ' (opens in new tab)">' . $student_name . '</a>';
     }
 

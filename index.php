@@ -145,8 +145,9 @@ if ($form->is_cancelled()) {
     $record->userid = $userid;
     $record->faculty = $faculty;
     $record->circumstance = $data->circumstance;
-    $record->starttime = $data->starttime;
-    $record->endtime = $data->endtime;
+    // Normalize dates to midnight to ensure accurate day counting
+    $record->starttime = strtotime('midnight', $data->starttime);
+    $record->endtime = strtotime('midnight', $data->endtime);
     $record->acadyear = helper::get_acad_year();
     $record->termperiod = helper::get_current_period();
     $record->timecreated = time();

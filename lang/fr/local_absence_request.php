@@ -34,6 +34,7 @@ $string['to_reported_date'] = 'Date de fin signalée';
 $string['max_requests_reached'] = 'Vous avez atteint le nombre maximum d\'absences pour ce terme.';
 $string['nopermission'] = 'Vous n\'avez pas la permission de voir cette page.';
 $string['nopermissiontoviewpage'] = 'Vous n\'avez pas la permission de voir cette page.';
+$string['courseidrequired'] = 'L\'identifiant du cours est requis pour afficher cette page.';
 $string['not_eligible'] = 'Vous n\'êtes pas éligible pour signaler une absence.';
 $string['not_enrolled_in_courses'] = 'Vous n\'êtes inscrit à aucun cours pour ce terme. Vous ne pouvez signaler des absences que pour les cours auxquels vous êtes inscrit.';
 $string['notify_instructor_body'] = 'Un étudiant a signalé une absence. Voir le rapport : {$a}';
@@ -100,10 +101,9 @@ $string['student_full_message'] = 'Bonjour {$a->firstname}, '
     . '</p>'
     . '<p>Tous les accommodements pour le travail de cours manqué doivent être organisés avec vos instructeurs individuels</p>'
     . '<p>Merci !</p>';
-$string['teacher_message'] = 'Bonjour, <p>Vous avez reçu {$a->absence_count} nouvelle' . ($a->absence_count != 1 ? 's' : '') . ' absence' . ($a->absence_count != 1 ? 's' : '') . ' auto-signalée' . ($a->absence_count != 1 ? 's' : '') . ' sous la Politique de '
+$string['teacher_message'] = 'Bonjour, <p>Vous avez reçu {$a->absence_count} nouvelle(s) absence(s) auto-signalée(s) sous la Politique de '
     . '<a href="{$a->policylink}">Considération académique pour le travail de cours manqué</a>.</p>'
     . '<p>Veuillez consulter le <a href="{$a->url}">rapport d\'absence</a> pour voir les détails de toutes les absences signalées et les accuser réception.</p>'
-    . '{$a->acknowledgeurl}'
     . '<p>Merci !</p>';
 
 // Privacy API strings
