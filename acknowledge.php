@@ -6,8 +6,8 @@
  * It validates the user and updates the acknowledged status.
  */
 
-require_once('../../config.php');
-require_once('classes/helper.php');
+require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/classes/helper.php');
 
 use local_absence_request\helper;
 

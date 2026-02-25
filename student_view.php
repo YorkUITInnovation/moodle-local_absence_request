@@ -6,8 +6,8 @@
  * organized by term (Fall, Winter, Summer) for the current academic year.
  */
 
-require_once('../../config.php');
-require_once('classes/helper.php');
+require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/classes/helper.php');
 
 use local_absence_request\helper;
 
