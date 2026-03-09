@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_absence_request';
 $plugin->version = 2026022500;
-$plugin->requires = 2025041400; // Moodle 5.1.0
+$plugin->requires = 2025100600; // Moodle 5.1.0
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = 'v1.3.0';
