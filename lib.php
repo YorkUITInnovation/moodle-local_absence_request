@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/../../../config.php');
 
 // Add link to the absence request plugin in the primary navigation
 defined('MOODLE_INTERNAL') || die();

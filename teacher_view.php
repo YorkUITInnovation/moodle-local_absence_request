@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/local/absence_request/classes/tables/absence_requests_table.php');
 
 global $OUTPUT, $PAGE, $USER;

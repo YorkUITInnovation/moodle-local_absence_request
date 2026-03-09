@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../../config.php');
+require_once(__DIR__ . '/../../../config.php');
 include_once('lib.php');
 
 use local_absence_request\helper;
