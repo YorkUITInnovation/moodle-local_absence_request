@@ -77,22 +77,25 @@ function local_absence_request_extend_navigation_course(
         return;
     }
 
-    // Get the users role in this course. If editingteacher, add a link to the teacher_view.php page.
-    if (has_capability('local/absence_request:view_teacher_report', $context)) {
-        $parentnode->add(
-            get_string('view_faculty_report', 'local_absence_request'),
-            new moodle_url('/local/absence_request/teacher_view.php', ['courseid' => $course->id]),
-            navigation_node::TYPE_CUSTOM,
-            null,
-            'local_absence_request_view_faculty_report'
-        );
-    }
+    // Get the users role in this course.
+    $hasteachercap = has_capability('local/absence_request:view_teacher_report', $context);
+    $hastacap = has_capability('local/absence_request:view_noneediting_teacher_report', $context);
 
-    // If none-editing teacher, add a link to the teacher_view.php page.
-    if (has_capability('local/absence_request:view_noneediting_teacher_report', $context)) {
+    // If the user has teacher or non-editing teacher capability, add the report link.
+    if ($hasteachercap || $hastacap) {
+        $params = ['courseid' => $course->id];
+        $label = get_string('view_faculty_report', 'local_absence_request');
+
+        // If the user is only a non-editing teacher (TA), show the TA report view.
+        if (!$hasteachercap && $hastacap) {
+            $params['ta'] = 1;
+            $label = get_string('view_reported_absences', 'local_absence_request');
+        }
+
+        // Add the report link to the course navigation.
         $parentnode->add(
-            get_string('view_reported_absences', 'local_absence_request'),
-            new moodle_url('/local/absence_request/teacher_view.php', ['courseid' => $course->id, 'ta' => 1]),
+            $label,
+            new moodle_url('/local/absence_request/teacher_view.php', $params),
             navigation_node::TYPE_CUSTOM,
             null,
             'local_absence_request_view_faculty_report'
