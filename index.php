@@ -80,23 +80,6 @@ if (!$eligible) {
     exit;
 }
 
-// Check if user has already made 2 requests this term.
-$termstart = strtotime('first day of January this year'); // Adjust as needed for your academic term logic.
-$termend = strtotime('last day of December this year');
-$numrequests = $DB->count_records_select('local_absence_request', 'userid = ? AND timecreated >= ? AND timecreated <= ?', [
-    $userid, $termstart, $termend
-]);
-
-
-if ($numrequests >= get_config('local_absence_request','requests_per_term')) {
-    echo $OUTPUT->render_from_template('local_absence_request/not_eligible', [
-        'message' => get_string('max_requests_reached', 'local_absence_request'),
-        'url' => $returnurl->out(false)
-    ]);
-    echo $OUTPUT->footer();
-    exit;
-}
-
 $mycourses = enrol_get_users_courses($userid, false);
 // Make sure we only have the courses for this academic year
 $mycourses = helper::get_courses_in_acadyear($mycourses);
