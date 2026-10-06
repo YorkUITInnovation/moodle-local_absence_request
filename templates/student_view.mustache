@@ -23,13 +23,13 @@
                                 <div class="card-header" id="heading-request-{{id}}">
                                     <h5 class="mb-0">
                                         <button class="btn btn-link collapsed request-accordion-btn" type="button"
-                                                data-toggle="collapse"
-                                                data-target="#collapse-request-{{id}}"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapse-request-{{id}}"
                                                 aria-expanded="false"
                                                 aria-controls="collapse-request-{{id}}">
-                                            <i class="fa fa-chevron-right accordion-icon mr-2"></i>
+                                            <i class="fa fa-chevron-right accordion-icon me-2"></i>
                                             <strong>{{#str}}reported_absence, local_absence_request{{/str}} #{{sequence_number}}</strong>
-                                            <div class="request-summary accessible-muted ml-2">
+                                            <div class="request-summary accessible-muted ms-2">
                                                 {{circumstance}} • {{startdate}} to {{enddate}} • {{duration}} {{#str}}days{{/str}}
                                             </div>
                                         </button>
@@ -38,7 +38,7 @@
                                 <div id="collapse-request-{{id}}"
                                      class="collapse"
                                      aria-labelledby="heading-request-{{id}}"
-                                     data-parent="#accordion-term-{{period}}">
+                                     data-bs-parent="#accordion-term-{{period}}">
                                     <div class="card-body">
                                         <div class="absence-request-details mb-3">
                                             <div class="row">
@@ -72,13 +72,13 @@
                                                         <div class="card-header" id="heading-{{request_id}}-{{clean_id}}">
                                                             <h6 class="mb-0">
                                                                 <button class="btn btn-link collapsed course-accordion-btn" type="button"
-                                                                        data-toggle="collapse"
-                                                                        data-target="#collapse-{{request_id}}-{{clean_id}}"
+                                                                        data-bs-toggle="collapse"
+                                                                        data-bs-target="#collapse-{{request_id}}-{{clean_id}}"
                                                                         aria-expanded="false"
                                                                         aria-controls="collapse-{{request_id}}-{{clean_id}}">
-                                                                    <i class="fa fa-chevron-right accordion-icon mr-2"></i>
+                                                                    <i class="fa fa-chevron-right accordion-icon me-2"></i>
                                                                     <strong>{{fullname}}</strong>
-                                                                    <div class="course-info accessible-muted ml-2">
+                                                                    <div class="course-info accessible-muted ms-2">
                                                                         {{shortname}} {{#idnumber}}({{idnumber}}){{/idnumber}}
                                                                     </div>
                                                                 </button>
@@ -87,7 +87,7 @@
                                                         <div id="collapse-{{request_id}}-{{clean_id}}"
                                                              class="collapse"
                                                              aria-labelledby="heading-{{request_id}}-{{clean_id}}"
-                                                             data-parent="#accordion-request-{{request_id}}">
+                                                             data-bs-parent="#accordion-request-{{request_id}}">
                                                             <div class="card-body">
                                                                 <h6 class="mb-3">{{#str}}notified_instructors, local_absence_request{{/str}}:</h6>
                                                                 {{#teachers}}
@@ -96,8 +96,8 @@
                                                                             <div>
                                                                                 <strong>{{firstname}} {{lastname}}</strong>
                                                                             </div>
-                                                                            <div class="text-right">
-                                                                                <span class="badge {{#acknowledged}}badge-success{{/acknowledged}}{{^acknowledged}}badge-warning{{/acknowledged}}">
+                                                                            <div class="text-end">
+                                                                                <span class="badge {{#acknowledged}}text-bg-success{{/acknowledged}}{{^acknowledged}}text-bg-warning{{/acknowledged}}">
                                                                                     {{#acknowledged}}{{#str}}acknowledged, local_absence_request{{/str}}{{/acknowledged}}
                                                                                     {{^acknowledged}}{{#str}}pending_acknowledgment, local_absence_request{{/str}}{{/acknowledged}}
                                                                                 </span>
@@ -146,7 +146,7 @@
         <a href="{{config.wwwroot}}/local/absence_request/index.php?courseid={{courseid}}" class="btn btn-secondary">
             <i class="fa fa-plus"></i> {{#str}}report_new_absence, local_absence_request{{/str}}
         </a>
-        <a href="{{config.wwwroot}}/my/" class="btn btn-outline-secondary ml-2">
+        <a href="{{config.wwwroot}}/my/" class="btn btn-outline-secondary ms-2">
             <i class="fa fa-home"></i> {{#str}}back_to_dashboard, local_absence_request{{/str}}
         </a>
     </div>
@@ -168,16 +168,6 @@
 
     .teacher-info {
         font-size: 0.9em;
-    }
-
-    .badge-success {
-        background-color: #28a745;
-        color: #ffffff;
-    }
-
-    .badge-warning {
-        background-color: #ffc107;
-        color: #212529;
     }
 
     .request-accordion-btn {

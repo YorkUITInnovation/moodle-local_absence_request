@@ -11,7 +11,7 @@
     <div class="row align-items-end">
         {{#showfaculties}}
             <div class="col-md-3">
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="faculty">{{#str}}faculty, local_absence_request{{/str}}:</label>
                     <select name="faculty" id="faculty" class="form-control">
                         {{#faculties}}
@@ -22,7 +22,7 @@
             </div>
         {{/showfaculties}}
         <div class="col-md-3">
-            <div class="form-group">
+            <div class="mb-3">
                 <div class="form-check mb-2">
                     <input type="hidden" name="filterbyabsence" id="filterbyabsence-hidden" value="{{filterbyabsence_value}}">
                     <input type="checkbox" id="filterbyabsence" class="form-check-input" {{#filterbyabsence}}checked{{/filterbyabsence}}>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="form-group">
+            <div class="mb-3">
                 <label for="endtime" id="endtime-label">
                     {{#filterbyabsence}}{{#str}}to_reported_date, local_absence_request{{/str}}{{/filterbyabsence}}
                     {{^filterbyabsence}}{{#str}}to_date, local_absence_request{{/str}}{{/filterbyabsence}}:
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <button id="bulk_acknowledge_btn" class="btn btn-primary" type="button">
                 {{#str}}bulk_acknowledge, local_absence_request{{/str}} (<span id="selected_count">0</span>)
             </button>
-            <small class="text-muted ml-2">{{#str}}
+            <small class="text-muted ms-2">{{#str}}
                 select_items_to_acknowledge, local_absence_request{{/str}}</small>
         </div>
     {{/acknowledge_enabled}}
