@@ -30,7 +30,7 @@ $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/local/absence_request/student_view.php', ['courseid' => $courseid]));
 
 // Bootstrap 5 collapse has no init(); loading it registers its data-bs-* handlers.
-$PAGE->requires->js_amd_inline("require(['theme_boost/bootstrap/collapse'], function() {});");
+$PAGE->requires->js_call_amd('theme_boost/bootstrap/collapse');
 
 // Get current academic year and student ID
 $academic_year = helper::get_acad_year();
