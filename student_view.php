@@ -29,9 +29,8 @@ $PAGE->requires->css('/local/absence_request/styles.css');
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/local/absence_request/student_view.php', ['courseid' => $courseid]));
 
-// Ensure jQuery and Bootstrap JavaScript are loaded
-$PAGE->requires->jquery();
-$PAGE->requires->js_call_amd('theme_boost/bootstrap/collapse', 'init');
+// Bootstrap 5 collapse has no init(); loading it registers its data-bs-* handlers.
+$PAGE->requires->js_call_amd('theme_boost/bootstrap/collapse');
 
 // Get current academic year and student ID
 $academic_year = helper::get_acad_year();
